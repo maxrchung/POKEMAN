@@ -1,6 +1,7 @@
 import threading
 import pickle
 import _thread
+from Client import *
 from collections import deque
 from socket import *
 
@@ -43,9 +44,14 @@ class ServerManager:
             print('Checking for messages')
             # We want to limit strain on the server, so put a limit
             # on the total number of allowed connected users
-            while len(self.clients) <= 8:
+            if len(self.clients) <= 8:
                 conn, addr = self.socket.accept()
-                self.clients.append(conn)
+                print("self.socket.accept()", (conn, addr))
+                client = Client(conn, addr)
+                self.clients.append(client)
+                message = 'Hello world!'
+                packet = pickle.dumps(message)
+                client.socket.send(packet)
 
     def checkForMessages(self):
         pass

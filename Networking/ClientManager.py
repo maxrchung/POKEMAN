@@ -39,10 +39,10 @@ class ClientManager:
             pickledData = self.socket.recv(4096)
             data = pickle.loads(pickledData)
 
-            self.messageQueue.append((data, addr))
             # Remember to lock so that we don't run into conflict accessing it
             self.messageLock.acquire()
 
+            print(data)
             # Receives a message and puts it into the message queue
             self.messageQueue.append(data)
 
