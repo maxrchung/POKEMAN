@@ -26,7 +26,7 @@ class pokeman(object):
         self.gender = gender
         self.setmoves()
         self.moves=[]
-        self.stats[]
+        self.stats=[]
     def setmoves(self):
         a=Random.randint(0,3)
         b=Random.randint(0,3)
@@ -48,4 +48,41 @@ class pokeman(object):
         if type == 0:
             a=Random.randint(15)
             self.stats.append(statBase[3]+a)
+            self.stats.append(statBase[2]+a)
+            self.stats.append(statBase[4]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[0]+a)
+            self.stats.append(statBase[2]+a)
+        if type == 1:
+            a=Random.randint(15)
+            self.stats.append(statBase[0]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[3]+a)
+            self.stats.append(statBase[3]+a)
+            self.stats.append(statBase[4]+a)
+            self.stats.append(statBase[1]+a)
+        if type == 2:
+            a=Random.randint(15)
+            self.stats.append(statBase[2]+a)
+            self.stats.append(statBase[0]+a)
+            self.stats.append(statBase[5]+a)
+            self.stats.append(statBase[2]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[2]+a)
+        if type == 3:
+            a=Random.randint(15)
+            self.stats.append(statBase[5]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[3]+a)
+            self.stats.append(statBase[3]+a)
+        if type == 4:
+            a=Random.randint(15)
+            self.stats.append(statBase[3]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[4]+a)
+            self.stats.append(statBase[1]+a)
+            self.stats.append(statBase[3]+a)
+            self.stats.append(statBase[1]+a)
             
