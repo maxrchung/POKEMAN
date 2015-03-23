@@ -6,7 +6,7 @@ from socket import *
 
 TCP_IP = '192.168.42.106'
 
-class ClientManager:
+class NetworkManager:
 
     def __init__(self):
         # Tells whether the server should running
@@ -42,13 +42,13 @@ class ClientManager:
             # Remember to lock so that we don't run into conflict accessing it
             self.messageLock.acquire()
 
-            print(data)
+            print("Received", data)
             # Receives a message and puts it into the message queue
             self.messageQueue.append(data)
 
             self.messageLock.release()
 
-clientManager = ClientManager()
+networkManager = networkManager()
 
 while True:
     pass
