@@ -37,7 +37,7 @@ class Game:
                 self.draft = data[1] # Temporary placeholder
 
             elif command == "Battle":
-                self.gameState = "Battle"
+                self.state = "Battle"
                 print()
                 print("Switched to Battle")
                 '''
