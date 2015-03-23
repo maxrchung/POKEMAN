@@ -6,7 +6,7 @@ class Battle:
         self.client2 = client2
         # self.gameState = GameState()
 
-    def update():
+    def update(self):
         # Update gameState here
         # self.gameState.update()
         pass

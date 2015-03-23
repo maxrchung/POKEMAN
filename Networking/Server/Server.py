@@ -1,5 +1,6 @@
 from NetworkManager import *
 from collections import deque
+from Battle import *
 
 class Server:
     def __init__(self):
@@ -73,7 +74,7 @@ class Server:
 
             # After the battles are updated, send the gamestate out if
             # one person did not win/lose
-            gameState = []
+            gameState = ['asdf']
             content = ["Battle", gameState]
             battle.client1.sendPacket(content)
             battle.client2.sendPacket(content)
