@@ -1,45 +1,63 @@
 import pygame, sys
-    
+import Battle_Buttons
 from pygame.locals import *
 pygame.init()
 
-
-GREEN = ( 0, 255, 0)
+GREEN = ( 0, 255, 0)
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 BLACK = (0,0,0)
-
-
-
-myfont = pygame.font.Font("PKMN RBYGSC.ttf", 25)
-overlay = pygame.image.load("Main_Overlay.png")
-overlayRect = overlay.get_rect()
-
-
 padx = 20
 pady = 20
-screenwidth = 800
-screenheight = 600
 
-currentHealth = 100
-totalHealth = 100
-        
-display = pygame.display.set_mode((screenwidth, screenheight), 0, 32)
-display.fill(WHITE)
+class Battle_Window:
+    #Window that draws the battle as it takes place
 
-display.blit(overlay, overlayRect)
-poke1 = myfont.render("BULBASAUR", 1, BLACK)
-display.blit(poke1, (530, 260))
-pygame.draw.rect(display, GREEN, (111, 60, 239, 8))
-poke2 = myfont.render("CHARMANDER", 1, BLACK)
-display.blit(poke2, (padx + 80, pady))
-pygame.draw.rect(display, GREEN, (531, 297, 239, 8))
+    def __init__(self):
+
+        self.myfont = pygame.font.Font("PKMN RBYGSC.ttf", 25) #creates a font from the pokemon ttf file
+        self.overlay = pygame.image.load("Main_Overlay.png") # loads the overlay with the health bars, and menu UI
+        self.overlayRect = self.overlay.get_rect() #gets the dimensions 800x600 in a tuple(int,int)
+
+        #window dimensions
+        self.screenwidth = 800
+        self.screenheight = 600
+
+        #variables for the player's health bar
+        self.p1currentHealth = 100
+        self.p1totalHealth = 100
+
+        #variables for the enemy's health bar
+        self.p2currentHealth = 100
+        self.p2totalHealth = 100
+
+        #creates the pygame window
+        self.display = pygame.display.set_mode((self.screenwidth, self.screenheight), 0, 32)
+        self.display.fill(WHITE)
 
 
-while True:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-    pygame.display.update()
+        #draws the initial window
+        self.draw()
+
+
+    def draw(self):
+        self.display.blit(self.overlay, self.overlayRect)
+        self.poke1 = self.myfont.render("BULBASAUR", 1, BLACK)
+        self.display.blit(self.poke1, (530, 260))
+        pygame.draw.rect(self.display, GREEN, (111, 60, 239, 8))
+        self.poke2 = self.myfont.render("CHARMANDER", 1, BLACK)
+        self.display.blit(self.poke2, (padx + 80, pady))
+        pygame.draw.rect(self.display, GREEN, (531, 297, 239, 8))
+
+
+
+    def run(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+            pygame.display.update()
+
+
