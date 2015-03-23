@@ -1,9 +1,22 @@
 from NetworkManager import *
+import pygame
+from EventManager import *
 
 class Game:
     def __init__(self):
+        pygame.init()
+        pygame.font.init()
+        self.font16 = pygame.font.Font("PKMN RBYGSC.ttf", 16)
+        self.font32 = pygame.font.Font("PKMN RBYGSC.ttf", 32)
+
+        # Processes events (essentially all inputs)
+        self.eventManager = EventManager(self)
+
+        pygame.display.set_caption("POKEMANS")
+        self.screen = pygame.display.set_mode((800, 600))
+
         self.running = True
-        self.state = "Login"
+        self.state = "Draft"
         self.networkManager = NetworkManager(self)
         self.draft = [] # The pokemans in the draft
         self.pokemans = [] # The pokemans selected
@@ -14,6 +27,8 @@ class Game:
         self.draw()
 
     def update(self):
+        self.eventManager.run()
+
         # Handles processing of messages
         self.networkManager.messageLock.acquire()
         while len(self.networkManager.messageQueue) > 0:
@@ -50,7 +65,6 @@ class Game:
 
             TextInput.run()
             onEnter... sendPacket
-            '''
             # Temporary placeholder
             name = input("Enter a name: ")
             content = ["Login", name]
@@ -58,6 +72,7 @@ class Game:
             self.state = "Draft" # Switch to draft state after
             print()
             print("Switched to Draft")
+            '''
             
         elif self.state == "Draft":
             '''
@@ -109,3 +124,9 @@ class Game:
         '''
         pass
         
+    # This is ran in main after the game.running is set to false
+    def disconnect(self):
+        # For now, I'm not gonna worry about it, but we'll need to worry about
+        # Sending disconnect packet
+        # Disconnecting sockets
+        pass
