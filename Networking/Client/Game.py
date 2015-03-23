@@ -9,13 +9,6 @@ class Game:
         self.pokemans = [] # The pokemans selected
         self.gameState = [] # gameState in battle
 
-        '''
-        Initialize the GameLogic that'll handle the different parts
-        Will probably want to pass in self so that it can reference the overall game's variables
-
-        clientLogic = new clientLogic(self)
-        '''
-
     def run(self):
         self.update()
         self.draw()

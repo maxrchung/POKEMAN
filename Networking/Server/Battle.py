@@ -16,11 +16,11 @@ class Battle:
         # Update gameState here
         # self.gameState.update()
         self.updateTimer += self.updateClock.tick()
-        if self.updateTimer > 16:
+        if self.updateTimer > 50:
             self.updateTimer = 0
             # After the battles are updated, send the gamestate out if
             # one person did not win/lose
             gameState = ['asdf']
             content = ["Battle", gameState]
-            battle.client1.sendPacket(content)
-            battle.client2.sendPacket(content)
+            self.client1.sendPacket(content)
+            self.client2.sendPacket(content)

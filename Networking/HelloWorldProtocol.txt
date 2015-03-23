@@ -15,27 +15,25 @@ CLIENT STATES
 		The server then sends the gamestate back to both players
 
 CLIENT NETWORKING
-        [Alive]
+        ["Alive"]
 		The client continually tells the server that he is alive
 		If the server stops getting Alive responses, then the player is disconnected
 
-        [Login, user]
+        ["Login", user]
        		Sends the server his username
 
-	[Draft, index]
+	["Draft", index]
 		Tells the server which selection he chooses
 
-	[Battle, command]
+	["Battle", command]
 		Tells the server a command
 
 SERVER NETWORKING
-        [Draft, [card1, card2, card3]]
+        ["Draft", [card1, card2, card3]]
        	        Gives the client 3 Pokemans for each draft
 
-	[Battle, GameState]
+	["Battle", GameState]
 		Updates the battle between the two players
 		GameState tells players whether they win/lose
-		If a player is told they lose, they go into draft
+		If a player is told they lose, they go into 
 		If a player is told they won, they go into queue
-
-

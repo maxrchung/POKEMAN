@@ -30,7 +30,7 @@ class Client:
         while self.networkManager.server.running:
             pickledData = self.socket.recv(4096)
             data = pickle.loads(pickledData)
-
+            
             # Remember to lock so that we don't run into conflict accessing it
             self.messageLock.acquire()
 
