@@ -1,0 +1,20 @@
+rhyme,rapper,low,special,Hit:100%
+blaze,rapper,super special def buff,lowers defense
+Drive By,rapper,high,physical, Hit:40%
+Flaunt,Rapper,buff special defense and defense
+consume,nerd,gain health
+cosplay,nerd,defense buff
+hack,nerd,med,special,Hit:95%
+troll,nerd, high,special,Hit:80%
+lick,delinquent child,low, physical,Hit:100%
+hide, delinquent child, invincible for a turn
+rest,delinquent children, regain health
+tantrum delinquent children, high, special,Hit:70%
+smuggle,gangster,buffs the next dude (this is way too hard to code)
+steal,gangster,???
+mug,gangster,med,physical,Hit:90%
+shank,gangster,high, physical,Hit:80%
+vandalize,hobo,med,physical,Hit:90%
+urinate,hobo,low,physical,Hit:80%
+defecate,hobo,charge up,very high,,Hit:100%
+endure,hobo,Buff defense
