@@ -1,6 +1,7 @@
 from NetworkManager import *
 import pygame
 from EventManager import *
+from pokeman import pokeman
 
 class Game:
     def __init__(self):
@@ -8,6 +9,11 @@ class Game:
         pygame.font.init()
         self.font16 = pygame.font.Font("PKMN RBYGSC.ttf", 16)
         self.font32 = pygame.font.Font("PKMN RBYGSC.ttf", 32)
+        
+        self.gangster = pygame.image.load('criminal.png')
+        self.child = pygame.image.load('delinq.png')
+        self.hobo = pygame.image.load('hobo.png')
+        self.nerd = pygame.image.load('nerd.png')
 
         # Processes events (essentially all inputs)
         self.eventManager = EventManager(self)
@@ -17,46 +23,60 @@ class Game:
 
         self.running = True
         self.state = "Draft"
-        self.networkManager = NetworkManager(self)
-        self.draft = [] # The pokemans in the draft
+#         self.networkManager = NetworkManager(self)
+        self.draft = [pokeman(1,0),pokeman(2,0),pokeman(3,0)] # The pokemans in the draft
         self.pokemans = [] # The pokemans selected
         self.gameState = [] # gameState in battle
 
     def run(self):
         self.update()
         self.draw()
+    
+    def stattype(self,num):
+        if num == 0:
+            return 'Atk'
+        elif num == 1:
+            return 'Def'
+        elif num == 2:
+            return 'Satk'
+        elif num == 3:
+            return 'Sdef'
+        elif num == 4:
+            return 'Spd'
+        elif num == 5:
+            return 'Hp'
 
     def update(self):
         self.eventManager.run()
 
         # Handles processing of messages
-        self.networkManager.messageLock.acquire()
-        while len(self.networkManager.messageQueue) > 0:
-            data = self.networkManager.messageQueue.popleft()
-            print("Received:", data)
-            command = data[0]
-
-            # The server drafts 3 cards for the client
-            # Process these into the drafting phase
-            if command == "Draft" and self.state == "Draft":
-                '''
-                Put into some draft data structure
-                '''
-                self.draft = data[1] # Temporary placeholder
-
-            elif command == "Battle":
-                self.state = "Battle"
-                print()
-                print("Switched to Battle")
-                '''
-                Replace the GameState object of the client with
-                the received gameState in data[1]
-
-                The GameState should be in the state managements
-                '''
-                self.gameState = data[1]
-                
-        self.networkManager.messageLock.release()
+#         self.networkManager.messageLock.acquire()
+#         while len(self.networkManager.messageQueue) > 0:
+#             data = self.networkManager.messageQueue.popleft()
+#             print("Received:", data)
+#             command = data[0]
+# 
+#             # The server drafts 3 cards for the client
+#             # Process these into the drafting phase
+#             if command == "Draft" and self.state == "Draft":
+#                 '''
+#                 Put into some draft data structure
+#                 '''
+#                 self.draft = data[1] # Temporary placeholder
+# 
+#             elif command == "Battle":
+#                 self.state = "Battle"
+#                 print()
+#                 print("Switched to Battle")
+#                 '''
+#                 Replace the GameState object of the client with
+#                 the received gameState in data[1]
+# 
+#                 The GameState should be in the state managements
+#                 '''
+#                 self.gameState = data[1]
+#                 
+#         self.networkManager.messageLock.release()
             
         if self.state == "Login":
             '''
@@ -82,22 +102,23 @@ class Game:
             self.pokemans.append(draft[index])
             onSelection... sendPacket
             '''
+            pass
             # Temporary placeholder
-            if len(self.draft) > 0:
-                print("self.draft:", self.draft)
-                index = input("Choose a pokeman: ")
-                self.pokemans.append(self.draft[int(index)])
-                content = ["Draft", index]
-                self.networkManager.sendPacket(content)
-
-                self.draft = [] # Reset the draft
-
-                # If we have drafted 3 pokemon, then jump to queue mode
-                if len(self.pokemans) >= 3:
-                    print(self.pokemans)
-                    self.state = "Queue"
-                    print()
-                    print("Switched to Queue")
+#             if len(self.draft) > 0:
+#                 print("self.draft:", self.draft)
+#                 index = input("Choose a pokeman: ")
+#                 self.pokemans.append(self.draft[int(index)])
+#                 content = ["Draft", index]
+#                 self.networkManager.sendPacket(content)
+# 
+#                 self.draft = [] # Reset the draft
+# 
+#                 # If we have drafted 3 pokemon, then jump to queue mode
+#                 if len(self.pokemans) >= 3:
+#                     print(self.pokemans)
+#                     self.state = "Queue"
+#                     print()
+#                     print("Switched to Queue")
 
         elif self.state == "Queue":
             # For now, we don't do anything, but we could update a waiting
@@ -122,7 +143,25 @@ class Game:
         etc.
 
         '''
-        pass
+        if self.state == "Draft":
+            for i in range(3):
+                selection = None
+                if self.draft[i].type == 0:
+                    selection = 'rapper'
+                elif self.draft[i].type == 1:
+                    selection = self.nerd
+                elif self.draft[i].type == 2:
+                    selection = self.child
+                elif self.draft[i].type == 3:
+                    selection = self.gangster
+                elif self.draft[i].type == 4:
+                    selection = self.hobo
+                self.screen.blit(selection,(50+ 250*i,100))
+                for s in range(6):
+                    self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(255,255,255)),(75+ 250*i,250+20*s))
+                
+        
+        pygame.display.flip()
         
     # This is ran in main after the game.running is set to false
     def disconnect(self):
