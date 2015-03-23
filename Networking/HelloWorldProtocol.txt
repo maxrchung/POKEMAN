@@ -1,0 +1,47 @@
+CLIENT STATES
+        Login
+		Client enters username to the server
+		The server will keep track of the username
+
+	Draft
+		Client begins drafting his Pokemans
+
+	Queue
+		Client joins the queue and waits for a match	
+
+	Battle
+		Client enters battle mode against an opponent
+		Sends the server commands, which the server then processes
+		The server then sends the gamestate back to both players
+
+CLIENT NETWORKING
+        [Alive]
+		The client continually tells the server that he is alive
+		If the server stops getting Alive responses, then the player is disconnected
+
+        [Login, user]
+       		Sends the server his username
+
+        [Draft]
+		Tells the server to initiate the draft
+		The server will send back the first 3 Pokemans as a response
+
+	[Draft, index]
+		Tells the server which selection he chooses
+
+	[Join]
+		Tells a server he joins a queue
+
+	[Battle, command]
+		Tells the server a command
+
+SERVER NETWORKING
+        [Draft, [card1, card2, card3]]
+       	        Gives the client 3 Pokemans for each draft
+
+	[Battle, GameState]
+		Updates the battle between the two players
+		The GameState will contain knowledge of who won/lost/fled
+
+
+	       	     
