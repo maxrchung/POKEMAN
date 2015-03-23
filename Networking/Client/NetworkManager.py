@@ -35,6 +35,7 @@ class NetworkManager:
     def checkForMessages(self):
         while self.game.running:
             pickledData = self.socket.recv(4096)
+            print(pickledData)
             data = pickle.loads(pickledData)
 
             # Remember to lock so that we don't run into conflict accessing it

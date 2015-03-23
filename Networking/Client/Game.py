@@ -47,8 +47,6 @@ class Game:
                 The GameState should be in the state managements
                 '''
                 self.gameState = data[1]
-                pass
-
                 
         self.networkManager.messageLock.release()
             
