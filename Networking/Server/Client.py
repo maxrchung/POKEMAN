@@ -11,6 +11,13 @@ class Client:
         self.socket = socket
         self.addr = addr
         self.name = ""
+        self.win = False
+        self.lose = False
+
+        # Drafted 3 pokemans of client, gets replaced over 3 drafts
+        self.draft = []
+        # Selected 3 pokemans
+        self.pokemans = []
 
         self.messageQueue = deque()
         self.messageLock = threading.Lock()
@@ -32,3 +39,7 @@ class Client:
             self.messageQueue.append(data)
 
             self.messageLock.release()
+
+    def sendPacket(self, content):
+        packet = pickle.dumps(content)
+        self.socket.send(bytes(packet))

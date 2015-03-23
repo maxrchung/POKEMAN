@@ -22,15 +22,8 @@ CLIENT NETWORKING
         [Login, user]
        		Sends the server his username
 
-        [Draft]
-		Tells the server to initiate the draft
-		The server will send back the first 3 Pokemans as a response
-
 	[Draft, index]
 		Tells the server which selection he chooses
-
-	[Join]
-		Tells a server he joins a queue
 
 	[Battle, command]
 		Tells the server a command
@@ -41,7 +34,8 @@ SERVER NETWORKING
 
 	[Battle, GameState]
 		Updates the battle between the two players
-		The GameState will contain knowledge of who won/lost/fled
+		GameState tells players whether they win/lose
+		If a player is told they lose, they go into draft
+		If a player is told they won, they go into queue
 
 
-	       	     

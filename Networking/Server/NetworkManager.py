@@ -52,3 +52,4 @@ class NetworkManager:
                 self.connectionLock.acquire()
                 self.clients.append(client)
                 self.connectionLock.release()
+        
