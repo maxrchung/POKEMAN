@@ -8,10 +8,8 @@ moves = []
 
 class move():
     def __init__(self,line):
-        self.parse(line)
-    def parse(self,line):
         self.buff = False
-        moveline = open(line).readline().split(',')
+        moveline = line.split(',')
         if moveline[0] == 'rapper':
             self.classN = 0
         elif moveline[0] == 'nerd':
@@ -46,4 +44,4 @@ class move():
 with open("moves.txt", "r") as ifile:
     for line in ifile:
         moves.append(move(line))
-        if not
+        
