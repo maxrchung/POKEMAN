@@ -6,7 +6,8 @@ from collections import deque
 from socket import *
 
 class Client:
-    def __init__(self, socket, addr):
+    def __init__(self, socket, addr, networkManager):
+        self.networkManager = networkManager
         self.socket = socket
         self.addr = addr
         self.name = ""
@@ -19,7 +20,7 @@ class Client:
 
     # Receives packets(messages) and puts them into queue
     def checkForMessages(self):
-        while self.running:
+        while self.networkManager.server.running:
             pickledData = self.socket.recv(4096)
             data = pickle.loads(pickledData)
 

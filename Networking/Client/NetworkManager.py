@@ -3,15 +3,14 @@ import pickle
 import _thread
 from collections import deque
 from socket import *
+from Game import *
 
 TCP_IP = '192.168.42.106'
 
 class NetworkManager:
 
-    def __init__(self):
-        # Tells whether the server should running
-        # Should always be true, but it's good to include this here for clarity
-        self.running = True
+    def __init__(self, game):
+        self.game = game
 
         self.socket = socket(AF_INET, SOCK_STREAM) #TCP
 
@@ -35,20 +34,18 @@ class NetworkManager:
 
     # Receives packets(messages) and puts them into queue
     def checkForMessages(self):
-        while self.running:
+        while self.game.running:
             pickledData = self.socket.recv(4096)
             data = pickle.loads(pickledData)
 
             # Remember to lock so that we don't run into conflict accessing it
             self.messageLock.acquire()
-
             print("Received", data)
             # Receives a message and puts it into the message queue
             self.messageQueue.append(data)
-
             self.messageLock.release()
 
-networkManager = networkManager()
-
-while True:
-    pass
+    def sendPacket(self, content):
+        packet = pickle.dumps(content)
+        self.socket.send(bytes(packet))
+        

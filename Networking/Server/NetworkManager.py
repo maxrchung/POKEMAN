@@ -10,7 +10,7 @@ class NetworkManager:
     def __init__(self, server):
         # Tells whether the server should running
         # Should always be true, but it's good to include this here for clarity
-        self.server = Server
+        self.server = server
 
         # Keeps track of the clients
         self.clients = []
@@ -47,7 +47,7 @@ class NetworkManager:
             if len(self.clients) <= 16:
                 socket, addr = self.socket.accept()
                 print("self.socket.accept()", (socket, addr))
-                client = Client(socket, addr)
+                client = Client(socket, addr, self)
 
                 self.connectionLock.acquire()
                 self.clients.append(client)
