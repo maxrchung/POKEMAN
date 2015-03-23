@@ -14,6 +14,7 @@ class Game:
         self.child = pygame.image.load('delinq.png')
         self.hobo = pygame.image.load('hobo.png')
         self.nerd = pygame.image.load('nerd.png')
+        self.select = pygame.image.load('select.png')
 
         # Processes events (essentially all inputs)
         self.eventManager = EventManager(self)
@@ -27,6 +28,8 @@ class Game:
         self.draft = [pokeman(1,0),pokeman(2,0),pokeman(3,0)] # The pokemans in the draft
         self.pokemans = [] # The pokemans selected
         self.gameState = [] # gameState in battle
+        
+        self.sel = 0
 
     def run(self):
         self.update()
@@ -45,6 +48,18 @@ class Game:
             return 'Spd'
         elif num == 5:
             return 'Hp'
+    
+    def drawpokeman(self,num):
+        if num == 0:
+            return 'rapper'
+        elif num == 1:
+            return self.nerd
+        elif num == 2:
+            return self.child
+        elif num == 3:
+            return self.gangster
+        elif num == 4:
+            return self.hobo
 
     def update(self):
         self.eventManager.run()
@@ -104,21 +119,32 @@ class Game:
             '''
             pass
             # Temporary placeholder
-#             if len(self.draft) > 0:
-#                 print("self.draft:", self.draft)
-#                 index = input("Choose a pokeman: ")
-#                 self.pokemans.append(self.draft[int(index)])
-#                 content = ["Draft", index]
-#                 self.networkManager.sendPacket(content)
-# 
-#                 self.draft = [] # Reset the draft
-# 
-#                 # If we have drafted 3 pokemon, then jump to queue mode
-#                 if len(self.pokemans) >= 3:
-#                     print(self.pokemans)
-#                     self.state = "Queue"
-#                     print()
-#                     print("Switched to Queue")
+            if len(self.draft) > 0:
+                print("self.draft:", self.draft)
+                if self.eventManager.enter == True:
+                    self.pokemans.append(self.draft[int(self.sel)])
+                    content = ["Draft", self.sel]
+#                        self.networkManager.sendPacket(content)
+                    self.draft = [] # Reset the draft
+                if self.sel == 0:
+                    if self.eventManager.right == True:
+                        self.sel = 1
+                elif self.sel == 1:
+                    if self.eventManager.right == True:
+                        self.sel = 2
+                    if self.eventManager.left == True:
+                        self.sel = 0
+                elif self.sel == 2:
+                    if self.eventManager.left == True:
+                        self.sel = 1
+
+ 
+                # If we have drafted 3 pokemon, then jump to queue mode
+                if len(self.pokemans) >= 3:
+                    print(self.pokemans)
+                    self.state = "Queue"
+                    print()
+                    print("Switched to Queue")
 
         elif self.state == "Queue":
             # For now, we don't do anything, but we could update a waiting
@@ -133,6 +159,7 @@ class Game:
             pass
 
     def draw(self):
+        pygame.draw.rect(self.screen,(0,0,0),pygame.Rect(0,0,800,600))
         '''
         Handle all the drawing here
 
@@ -144,22 +171,16 @@ class Game:
 
         '''
         if self.state == "Draft":
-            for i in range(3):
-                selection = None
-                if self.draft[i].type == 0:
-                    selection = 'rapper'
-                elif self.draft[i].type == 1:
-                    selection = self.nerd
-                elif self.draft[i].type == 2:
-                    selection = self.child
-                elif self.draft[i].type == 3:
-                    selection = self.gangster
-                elif self.draft[i].type == 4:
-                    selection = self.hobo
-                self.screen.blit(selection,(50+ 250*i,100))
-                for s in range(6):
-                    self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(255,255,255)),(75+ 250*i,250+20*s))
-                
+            self.screen.blit(self.font32.render('Draft',1,(255,255,255)),(350,50))
+            if self.draft != []:
+                for i in range(3):
+                    self.screen.blit(self.drawpokeman(self.draft[i].type),(100+ 250*i,100))
+                    for s in range(6):
+                        self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(255,255,255)),(125+ 250*i,250+20*s))
+                    for s in range(4):
+                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].type),1,(255,255,255)),(125+ 250*i,400+20*s))
+            self.screen.blit(self.select,(164 + 250*self.sel,75))            
+            
         
         pygame.display.flip()
         
