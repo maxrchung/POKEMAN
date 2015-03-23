@@ -31,7 +31,12 @@ class Server:
                     For now, I'm just using placeholder ints 0, 1, and 2
                     client.draft = draftPokemans()
                     '''
-                    
+
+                    client.draft = [] # clear draft
+                    for i in range(3):#new draft
+                        r=random.randint(0,4)#random class
+                        g=random.randint(0,1)#random gender
+                        client.draft.append(pokeman(r,g))
 
                     content = ["Draft", client.draft]
                     client.sendPacket(content)
@@ -48,7 +53,7 @@ class Server:
                     # to eliminate length problems!
                     if len(client.pokemans) < 3:
                         client.draft = [] # clear draft
-                        for i in range(2):#new draft
+                        for i in range(3):#new draft
                             r=random.randint(4)#random class
                             g=random.randint(1)#random gender
                             client.draft.append(pokeman(r,g))
