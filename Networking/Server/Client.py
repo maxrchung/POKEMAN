@@ -34,7 +34,6 @@ class Client:
             # Remember to lock so that we don't run into conflict accessing it
             self.messageLock.acquire()
 
-            print("Received: ", data)
             # Receives a message and puts it into the message queue
             self.messageQueue.append(data)
 

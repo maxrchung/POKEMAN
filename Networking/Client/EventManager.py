@@ -28,7 +28,6 @@ class EventManager:
             if event.type == pygame.KEYDOWN:
                 if event.key==pygame.K_LEFT:
                     self.left = True
-                    print('left')
                 elif event.key==pygame.K_UP:
                     self.up = True
                 elif event.key==pygame.K_RIGHT:

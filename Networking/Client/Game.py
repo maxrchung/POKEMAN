@@ -1,6 +1,7 @@
 from NetworkManager import *
 import pygame
 from EventManager import *
+from TextInput import *
 
 class Game:
     def __init__(self):
@@ -12,11 +13,14 @@ class Game:
         # Processes events (essentially all inputs)
         self.eventManager = EventManager(self)
 
+        # Brings up a TextInput that'll be used to enter in text
+        self.textInput = TextInput(self)
+
         pygame.display.set_caption("POKEMANS")
         self.screen = pygame.display.set_mode((800, 600))
 
         self.running = True
-        self.state = "Draft"
+        self.state = "Login"
         self.networkManager = NetworkManager(self)
         self.draft = [] # The pokemans in the draft
         self.pokemans = [] # The pokemans selected
@@ -59,6 +63,7 @@ class Game:
         self.networkManager.messageLock.release()
             
         if self.state == "Login":
+            self.textInput.update()
             '''
             Need to put the TextInput in here to enter the name
             For now, I have an input to temporarily take the place of it
@@ -69,9 +74,7 @@ class Game:
             name = input("Enter a name: ")
             content = ["Login", name]
             self.networkManager.sendPacket(content)
-            self.state = "Draft" # Switch to draft state after
-            print()
-            print("Switched to Draft")
+
             '''
             
         elif self.state == "Draft":
@@ -112,6 +115,11 @@ class Game:
             pass
 
     def draw(self):
+        self.screen.fill((255,255,255))
+
+        if self.state == "Login":
+            self.textInput.draw()
+
         '''
         Handle all the drawing here
 
@@ -122,7 +130,7 @@ class Game:
         etc.
 
         '''
-        pass
+        pygame.display.flip() #updates self.screen
         
     # This is ran in main after the game.running is set to false
     def disconnect(self):
