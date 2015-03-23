@@ -36,10 +36,10 @@ class pokeman(object):
         self.moveset.append(moves[self.type*4+a])
         self.moveset.append(moves[self.type*4+b])
         a=random.randint(0,19)
-        while(a/4==self.type):
+        while(int(a/4)==self.type):
             a=random.randint(0,19) 
         b=random.randint(0,19)
-        while(a==b and b/4==self.type):
+        while(a==b or int(b/4)==self.type):
             b=random.randint(0,19)
         self.moveset.append(moves[a])
         self.moveset.append(moves[b])
