@@ -4,7 +4,9 @@ Created on Mar 22, 2015
 @author: Alex
 '''
 moves = []
-class move(object):
+
+
+class move():
     def __init__(self,line):
         self.parse(line)
     def parse(self,line):
@@ -41,4 +43,7 @@ class move(object):
             self.buffstat = moveline[4]
             
         
-        
+with open("moves.txt", "r") as ifile:
+    for line in ifile:
+        moves.append(move(line))
+        if not
