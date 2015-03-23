@@ -1,0 +1,59 @@
+Pokemans:
+Types: 
+	Rappers 
+	Delinquent child
+	Nerds
+	Criminals
+	Homeless
+Stats: 100 max
+Each pokeman has a 15 stat range
+	Atk
+	Def
+	Satk
+	Sdef
+	Spd
+	Hp
+	
+	Total minmum: 300 
+Vvhigh: 85
+Vhigh:80
+High:70
+Med:60
+Low:50
+Vlow:40
+Rapper:
+	Atk:High
+	Def:Med
+	Satk:Vhigh
+	Sdef:Low
+	Spd:Vlow
+	Hp:Med
+Delinquent child:
+	Atk:Vlow
+	Def:Low
+	Satk:High
+	Sdef:High
+	Spd:Vhigh
+	Hp:Low
+Nerds:
+	Atk:Med
+	Def:Vlow
+	Satk:Vvhigh
+	Sdef:Med
+	Spd:Low
+	Hp:Med
+Criminals:
+	Atk:Vhigh
+	Def:Low
+	Satk:Low
+	Sdef:Low
+	Spd:High
+	Hp:High
+Homeless:
+	Atk:High
+	Def:Low
+	Satk:Vhigh
+	Sdef:Vlow
+	Spd:High
+	Hp:Low
+Fuck everything
