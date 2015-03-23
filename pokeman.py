@@ -84,4 +84,4 @@ class pokeman(object):
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[1]+a)
-            
+        self.current=0+self.stats[5]
