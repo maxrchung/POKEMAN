@@ -84,7 +84,6 @@ class Game:
                 '''
                 self.state = "Draft"
                 self.draft = data[1] # Temporary placeholder
-                print(self.draft)
 
             elif command == "Battle":
                 self.state = "Battle"
@@ -106,11 +105,11 @@ class Game:
         elif self.state == "Draft":
             # Temporary placeholder
             if len(self.draft) > 0:
-                print("self.draft:", self.draft)
+#                 print("self.draft:", self.draft)
                 if self.eventManager.enter == True:
                     self.pokemans.append(self.draft[int(self.sel)])
                     content = ["Draft", self.sel]
-#                        self.networkManager.sendPacket(content)
+                    self.networkManager.sendPacket(content)
                     self.draft = [] # Reset the draft
                 if self.sel == 0:
                     if self.eventManager.right == True:
@@ -129,6 +128,7 @@ class Game:
                 if len(self.pokemans) >= 3:
                     print(self.pokemans)
                     self.state = "Queue"
+                    print(self.pokemans)
                     print()
                     print("Switched to Queue")
 
