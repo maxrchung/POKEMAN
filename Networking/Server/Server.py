@@ -1,7 +1,6 @@
 from NetworkManager import *
 from collections import deque
 from Battle import *
-from pygame.time.Clock import *
 
 class Server:
     def __init__(self):
