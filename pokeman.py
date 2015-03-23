@@ -34,17 +34,17 @@ class pokeman(object):
         self.moves.append(moves[self.type*4+a])
         self.moves.append(moves[self.type*4+b])
         a=random.randint(0,19)
-        while(a/4==type):
+        while(a/4==self.type):
             a=random.randint(0,19) 
         b=random.randint(0,19)
-        while(a==b and b/4==type):
+        while(a==b and b/4==self.type):
             b=random.randint(0,19)
         self.moves.append(moves[a])
         self.moves.append(moves[b])
         
     def setStats(self):
         global statBase
-        if type == 0:
+        if self.type == 0:
             a=random.randint(15)
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[2]+a)
@@ -52,7 +52,7 @@ class pokeman(object):
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[0]+a)
             self.stats.append(statBase[2]+a)
-        if type == 1:
+        if self.type == 1:
             a=random.randint(15)
             self.stats.append(statBase[0]+a)
             self.stats.append(statBase[1]+a)
@@ -60,7 +60,7 @@ class pokeman(object):
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[4]+a)
             self.stats.append(statBase[1]+a)
-        if type == 2:
+        if self.type == 2:
             a=random.randint(15)
             self.stats.append(statBase[2]+a)
             self.stats.append(statBase[0]+a)
@@ -68,7 +68,7 @@ class pokeman(object):
             self.stats.append(statBase[2]+a)
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[2]+a)
-        if type == 3:
+        if self.type == 3:
             a=random.randint(15)
             self.stats.append(statBase[5]+a)
             self.stats.append(statBase[1]+a)
@@ -76,7 +76,7 @@ class pokeman(object):
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[3]+a)
-        if type == 4:
+        if self.type == 4:
             a=random.randint(15)
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[1]+a)
