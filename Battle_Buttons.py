@@ -4,9 +4,12 @@ class Battle_Buttons:
 
     #Buttons for Battle 
     def __init__(self):
-        self.menuButtons = {"Fight" : Basic_Buttons(ID = 'Fight'), "Switch": Basic_Buttons(ID = 'Switch'), "Forfeit" : Basic_Buttons(ID = 'forfeit'))
+        self.menuButtons = [Basic_Buttons(ID = 'Fight'), Basic_Buttons(ID = 'Switch'), Basic_Buttons(ID = 'forfeit')]
+        self.pokeButtons = []
+        self.moveButtons = []
+        self.currentButton = 0 
+        self.menustate = 0 #0: menu, 1: attack, 2: switch, 3: forfeit
         
-
     
     def eventHandler(self):
         self._clock = pygame.time.Clock()
@@ -43,22 +46,108 @@ class Battle_Buttons:
                         self.keys[5] = False
 
 
-            if self.keys[0]:
+            if self.menustate == 0 && self.currentButton == 0:
+                # hovering moves
 
-            elif self.keys[1]:
+                if self.keys[1]: #down button
+                    self.currentButton = 2
+                elif self.keys[3]: #right button
+                    self.currentButton = 1
+                elif self.keys[4]: #enter button
+                    self.menustate = 1
+                    self.currentState = 0 
+                
 
-            elif self.keys[2]:
+            elif self.menustate == 0 && self.currentButton == 1:
+                # hovering switch
+                if self.keys[1]: #down button
+                    self.currentButton = 2
+                elif self.keys[2]: #left button
+                    self.currentButton = 0
+                elif self.keys[4]: #enter button
+                    self.menustate = 2
+                    self.currentButton = 0
+                
+            elif self.menustate == 0 && self.currentButton == 2:
+                # hovering forfeit
+                if self.keys[0]: #up button
+                    self.currentButton = 0
+                elif self.keys[2]: #left button
+                    self.currentButton = 1
+                elif self.keys[3]: #right button
+                    self.currentButton = 0
+                elif self.keys[4]: #enter button
+                    self.menustate = 2
+                    self.currentButton = 0
 
-            elif self.keys[3]:
+            elif self.menustate == 1 && self.currentButton == 0:
+                # hovering move 1
+                if self.keys[1]: #down button
+                    self.currentButton = 2
+                elif self.keys[3]: #right button
+                    self.currentButton = 1
+                elif self.keys[4]: #enter button
 
-            elif self.keys[4]:
+            elif self.menustate == 1 && self.currentButton == 1:
+                # hovering move 2
+                if self.keys[1]: #down button
+                    self.currentButton = 2
+                elif self.keys[2]: #left button
+                    self.currentButton = 0
+                
+            elif self.menustate == 1 && self.currentButton == 2:
+                #hovering move 3
+                if self.keys[0]: #up button
+                    self.currentButton = 0
+                elif self.keys[2]: #left button
+                    self.currentButton = 1
+                elif self.keys[3]: #right button
+                    self.currentButton = 3
 
-            elif self.keys[5]:
+            elif self.menustate == 1 && self.currentButton == 3:
+                #hovering move 4
+                if self.keys[0]: #up button
+                    self.currentButton = 1
+                elif self.keys[2]: #left button
+                    self.currentButton = 2
 
+            elif self.menustate == 2 && self.currentButton == 0:
+                #hovering poke 1
+                if self.keys[3]: #right button
+                    self.currentButton = 1
+
+            elif self.menustate == 2 && self.currentButton == 1:
+                #hovering poke 2
+                if self.keys[2]: #left button
+                    self.currentButton = 0
+                elif self.keys[3]: #right button
+                    self.currentButton = 2
+
+            elif self.menustate == 2 && self.currentButton == 2:
+                #hovering poke 3
+                if self.keys[2]: #left button
+                    self.currentButton = 1
+                    
+            elif self.menustate == 3 && self.currentButton == 0:
+                #hovering yes
+                if self.keys[3]: #right button
+                    self.currentButton = 1
+
+            elif self.menustate == 3 && self.currentButton == 1:
+                #hovering no
+                if self.keys[2]: #left button
+                    self.currentButton = 0
+
+
+            if self.menustate == 1 || self.menustate == 2 || self.menustate == 3:
+                if self.keys[5]: #escape button
+                    self.menustate = 0
+                    self.currentButton = 0
+                   
                     
         self.number_count += self._clock.tick()
     
 
-
-    def move_cursor(self, direction):
-        #
+    def executeButton(self, theButton):
+        
+        
