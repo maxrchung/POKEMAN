@@ -55,7 +55,7 @@ class Game:
     
     def drawpokeman(self,num):
         if num == 0:
-            return 'rapper'
+            return self.nerd
         elif num == 1:
             return self.nerd
         elif num == 2:
@@ -84,6 +84,7 @@ class Game:
                 '''
                 self.state = "Draft"
                 self.draft = data[1] # Temporary placeholder
+                print(self.draft)
 
             elif command == "Battle":
                 self.state = "Battle"
@@ -110,7 +111,7 @@ class Game:
                     self.pokemans.append(self.draft[int(self.sel)])
                     content = ["Draft", self.sel]
 #                        self.networkManager.sendPacket(content)
-                self.draft = [] # Reset the draft
+                    self.draft = [] # Reset the draft
                 if self.sel == 0:
                     if self.eventManager.right == True:
                         self.sel = 1
@@ -149,14 +150,14 @@ class Game:
         if self.state == "Login":
             self.textInput.draw()
         if self.state == "Draft":
-            self.screen.blit(self.font32.render('Draft',1,(255,255,255)),(350,50))
+            self.screen.blit(self.font32.render('Draft',1,(0,0,0)),(350,50))
             if self.draft != []:
                 for i in range(3):
                     self.screen.blit(self.drawpokeman(self.draft[i].type),(100+ 250*i,100))
                     for s in range(6):
-                        self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(255,255,255)),(125+ 250*i,250+20*s))
+                        self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(0,0,0)),(125+ 250*i,250+20*s))
                     for s in range(4):
-                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].type),1,(255,255,255)),(125+ 250*i,400+20*s))
+                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName),1,(0,0,0)),(125+ 250*i,400+20*s))
             self.screen.blit(self.select,(164 + 250*self.sel,75))            
 
         pygame.display.flip()
