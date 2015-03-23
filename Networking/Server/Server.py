@@ -1,6 +1,7 @@
 from NetworkManager import *
 from collections import deque
 from Battle import *
+from pygame.time.Clock import *
 
 class Server:
     def __init__(self):
@@ -71,10 +72,3 @@ class Server:
             Battle will contain the GameState that will be updated
             '''
             battle.update()
-
-            # After the battles are updated, send the gamestate out if
-            # one person did not win/lose
-            gameState = ['asdf']
-            content = ["Battle", gameState]
-            battle.client1.sendPacket(content)
-            battle.client2.sendPacket(content)
