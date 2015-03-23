@@ -21,8 +21,8 @@ class generator(object):
     def selector(self): 
         self.draft = []
         for i in range(2):
-            r=random.randint(4)
-            g=random.randint(1)
-            self.draft.append(pokeman(r,g))
+            r=random.randint(0,4)
+#             g=random.randint(1)
+            self.draft.append(pokeman(r,0))
             
             
