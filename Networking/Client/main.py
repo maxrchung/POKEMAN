@@ -4,3 +4,6 @@ game = Game()
 
 while game.running:
     game.run()
+    
+    
+    
