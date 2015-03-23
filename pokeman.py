@@ -3,9 +3,8 @@ Created on Mar 22, 2015
 
 @author: Alex
 '''
-import mechanics
-from _random import Random
-from random import randint
+from mechanics import moves
+import random
 class pokeman(object):
     '''
     classdocs
@@ -28,25 +27,25 @@ class pokeman(object):
         self.moves=[]
         self.stats=[]
     def setmoves(self):
-        a=Random.randint(0,3)
-        b=Random.randint(0,3)
+        a=random.randint(0,3)
+        b=random.randint(0,3)
         while(a==b):
-            b=Random.randint(0,3)
-        self.moves.append(mechanics.moves[self.type*4+a])
-        self.moves.append(mechanics.moves[self.type*4+b])
-        a=Random.randint(0,19)
+            b=random.randint(0,3)
+        self.moves.append(moves[self.type*4+a])
+        self.moves.append(moves[self.type*4+b])
+        a=random.randint(0,19)
         while(a/4==type):
-            a=Random.randint(0,19) 
-        b=Random.randint(0,19)
+            a=random.randint(0,19) 
+        b=random.randint(0,19)
         while(a==b and b/4==type):
-            b=Random.randint(0,19)
-        self.moves.append(mechanics.moves[a])
-        self.moves.append(mechanics.moves[b])
+            b=random.randint(0,19)
+        self.moves.append(moves[a])
+        self.moves.append(moves[b])
         
     def setStats(self):
         global statBase
         if type == 0:
-            a=Random.randint(15)
+            a=random.randint(15)
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[2]+a)
             self.stats.append(statBase[4]+a)
@@ -54,7 +53,7 @@ class pokeman(object):
             self.stats.append(statBase[0]+a)
             self.stats.append(statBase[2]+a)
         if type == 1:
-            a=Random.randint(15)
+            a=random.randint(15)
             self.stats.append(statBase[0]+a)
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[3]+a)
@@ -62,7 +61,7 @@ class pokeman(object):
             self.stats.append(statBase[4]+a)
             self.stats.append(statBase[1]+a)
         if type == 2:
-            a=Random.randint(15)
+            a=random.randint(15)
             self.stats.append(statBase[2]+a)
             self.stats.append(statBase[0]+a)
             self.stats.append(statBase[5]+a)
@@ -70,7 +69,7 @@ class pokeman(object):
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[2]+a)
         if type == 3:
-            a=Random.randint(15)
+            a=random.randint(15)
             self.stats.append(statBase[5]+a)
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[1]+a)
@@ -78,7 +77,7 @@ class pokeman(object):
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[3]+a)
         if type == 4:
-            a=Random.randint(15)
+            a=random.randint(15)
             self.stats.append(statBase[3]+a)
             self.stats.append(statBase[1]+a)
             self.stats.append(statBase[4]+a)
