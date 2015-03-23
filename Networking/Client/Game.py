@@ -78,10 +78,11 @@ class Game:
 
             # The server drafts 3 cards for the client
             # Process these into the drafting phase
-            if command == "Draft" and self.state == "Draft":
+            if command == "Draft" :
                 '''
                 Put into some draft data structure
                 '''
+                self.state = "Draft"
                 self.draft = data[1] # Temporary placeholder
 
             elif command == "Battle":
