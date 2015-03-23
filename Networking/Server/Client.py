@@ -13,7 +13,7 @@ class Client:
         self.name = ""
         self.win = False
         self.lose = False
-
+        self.active = 0
         # Drafted 3 pokemans of client, gets replaced over 3 drafts
         self.draft = []
         # Selected 3 pokemans

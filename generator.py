@@ -19,10 +19,10 @@ class generator(object):
             return
         self.selector()
     def selector(self): 
-        self.choices = []
+        self.draft = []
         for i in range(2):
             r=random.randint(4)
             g=random.randint(1)
-            self.choices.append(pokeman(r,g))
+            self.draft.append(pokeman(r,g))
             
             

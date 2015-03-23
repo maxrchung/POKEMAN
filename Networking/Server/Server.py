@@ -1,6 +1,8 @@
 from NetworkManager import *
 from collections import deque
 from Battle import *
+import random
+from pokeman import pokeman
 
 class Server:
     def __init__(self):
@@ -29,7 +31,7 @@ class Server:
                     For now, I'm just using placeholder ints 0, 1, and 2
                     client.draft = draftPokemans()
                     '''
-                    client.draft = [0, 1, 2] # Temporary placeholder
+                    
 
                     content = ["Draft", client.draft]
                     client.sendPacket(content)
@@ -45,11 +47,11 @@ class Server:
                     # Remember that we need to reset the pokemans list to []
                     # to eliminate length problems!
                     if len(client.pokemans) < 3:
-                        '''
-                        client.draft = draftPokemans()
-                        '''
-                        client.draft = [0, 1, 2] # Temporary placeholder
-
+                        client.draft = [] # clear draft
+                        for i in range(2):#new draft
+                            r=random.randint(4)#random class
+                            g=random.randint(1)#random gender
+                            client.draft.append(pokeman(r,g))
                         content = ["Draft", client.draft]
                         client.sendPacket(content)
 

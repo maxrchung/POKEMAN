@@ -20,7 +20,9 @@ class Battle:
             self.updateTimer = 0
             # After the battles are updated, send the gamestate out if
             # one person did not win/lose
-            gameState = ['asdf']
-            content = ["Battle", gameState]
-            self.client1.sendPacket(content)
-            self.client2.sendPacket(content)
+            pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
+            pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]
+            content1 = ["Battle", pState1]
+            content2 = ["Battle", pState2]
+            self.client1.sendPacket(content1)
+            self.client2.sendPacket(content2)

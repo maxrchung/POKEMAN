@@ -1,4 +1,5 @@
 import mechanics
+import pokeman
 class gamestate():
 	def __init__(self, player1, player2):
 		self.playerOne = player1.pokemans
@@ -57,13 +58,13 @@ class gamestate():
 					#ded
 
 	def damage(self,attker,defender,ability):
-		if(attker.type==ability.classN):
+		if(attker.type==ability.type):
 			stab=1.5
 		else:
 			stab=1
 		if(ability.type==0):
-			return ability.power*attker.stats[0]/defender.stats[1]*stab*mechanics.effective(defender.type,ability.classN)
+			return ability.power*attker.stats[0]/defender.stats[1]*stab*mechanics.effectiveness(defender.type,ability.type)
 		else:
-			return ability.power*attker.stats[2]/defender.stats[3]*stab*mechanics.effective(defender.type,ability.classN)
+			return ability.power*attker.stats[2]/defender.stats[3]*stab*mechanics.effectiveness(defender.type,ability.type)
 
 		
