@@ -28,13 +28,13 @@ class Game:
 
         self.running = True
         self.state = "Login"
-        self.networkManager = NetworkManager(self)
+        
         self.draft = [pokeman(1,0),pokeman(2,0),pokeman(3,0)] # The pokemans in the draft
         self.pokemans = [] # The pokemans selected
         self.gameState = [] # gameState in battle
 
         self.sel = 0
-
+        self.networkManager = NetworkManager(self)
     def run(self):
         self.update()
         self.draw()
