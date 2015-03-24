@@ -148,10 +148,12 @@ class Battle_Window:
             pygame.draw.rect(self.display, GREEN, (111, 60, 239*(self.p2healthPercentage / 100), 8))
 
         #draws the health number below the health bar
-        self.healthtextRender = self.myfont.render(self.p1healthtext, 1, BLACK)
+        self.healthtextRender = self.myfont.render(self.p1healthtext, 0, BLACK)
         self.display.blit(self.healthtextRender, (550, 320))
-
-
+        if self.game.wait == True:
+            text = self.myfont.rander("Waiting for opponent",0,BLACK)
+            self.display.blit(text,(100,600))
+            return
         #draws the menu buttons
         self.display.blit(self.fightButton, (520, 502))
         self.display.blit(self.switchButton, (657, 502))
@@ -253,6 +255,9 @@ class Battle_Window:
         elif self.receivedEnemyPoke.type == 4: #homeless
             self.display.blit(self.p2homelessimg, self.p2coord)
     def update(self):
+        if(self.game.wait==True):
+            self.draw()
+            return
         content = ["Battle"]
                         #state changes
         if self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 0:

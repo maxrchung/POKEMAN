@@ -1,5 +1,5 @@
 import pygame
-from mechanics import *
+from mechanics import effectiveness
 
 class Battle:
     def __init__(self, client1, client2):
@@ -102,6 +102,6 @@ class Battle:
         else:
             stab=1
         if(ability.type==0):
-            return ability.power*attker.stats[0]/defender.stats[1]*stab*mechanics.effectiveness(defender.type,ability.type)
+            return ability.power*attker.stats[0]/defender.stats[1]*stab*effectiveness(defender.type,ability.type)
         else:
-            return ability.power*attker.stats[2]/defender.stats[3]*stab*mechanics.effectiveness(defender.type,ability.type)
+            return ability.power*attker.stats[2]/defender.stats[3]*stab*effectiveness(defender.type,ability.type)
