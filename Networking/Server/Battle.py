@@ -50,11 +50,17 @@ class Battle:
     def turn(self, commandOne, indexOne, commandTwo, indexTwo):
         if commandOne == 2:
             self.client1.lose=True
+            self.client1.sendPacket(["Result","Loss"])
+            self.client1.pokemans = []
             self.client2.win=True
+            self.client2.sendPacket(["Result","Win"])
             return
         if commandTwo == 2:
             self.client2.lose=True
+            self.client2.sendPacket(["Result","Loss"])
+            self.client2.pokemans = []
             self.client1.win =True
+            self.client1.sendPacket(["Result","Win"])
             return
         if commandOne == 1 or commandTwo == 1: 
             if commandOne == 1: #swap1
@@ -108,7 +114,11 @@ class Battle:
                     if x != -1:
                         self.client2.active = x
                     else:
-                        self.client2.lose = True
+                        self.client2.lose=True
+                        self.client2.sendPacket(["Result","Loss"])
+                        self.client2.pokemans = []
+                        self.client1.win =True
+                        self.client1.sendPacket(["Result","Win"])
                     #ded
             else:
                 self.pokeOne.current-=self.damage(self.pokeTwo,self.pokeOne,ability)
@@ -119,7 +129,11 @@ class Battle:
                     if x != -1:
                         self.client2.active = x
                     else:
-                        self.client2.lose = True
+                        self.client1.lose=True
+                        self.client1.sendPacket(["Result","Loss"])
+                        self.client1.pokemans = []
+                        self.client2.win =True
+                        self.client2.sendPacket(["Result","Win"])
                     #ded
 
     def damage(self,attker,defender,ability):

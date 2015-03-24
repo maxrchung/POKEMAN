@@ -35,7 +35,7 @@ class Game:
 
         pygame.display.set_caption("POKEMANS")
         self.screen = pygame.display.set_mode((800, 600))
-
+        self.streak = 0
         self.running = True
         self.state = "Pre-Login"
         
@@ -129,6 +129,13 @@ class Game:
                 print("Switched to Battle")
             elif command == "BattleWait":
                 self.wait = True
+            elif command == "Result":
+                if data[1] == "Win":
+                    self.streak+=1
+                    self.state = "Queue"
+                if data[1] == "Lose":
+                    self.streak = 0
+                    self.state = "Draft"
                 
         self.networkManager.messageLock.release()
         
