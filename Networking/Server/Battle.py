@@ -26,9 +26,10 @@ class Battle:
             self.updateTimer = 0
             # After the battles are updated, send the gamestate out if
             # one person did not win/lose
-            print(self.client1.ready)
-            print(self.client2.ready)
+            print(str(self.client1.ready))
+            print(str(self.client2.ready))
             if(self.client1.ready and self.client2.ready):#if they have both sent commands
+                print(self.client1.waitingCommand, self.client2.waitingCommand)
                 self.turn(self.client1.waitingCommand[0],self.client1.waitingCommand[1],self.client2.waitingCommand[0],self.client2.waitingCommand[1])
                 print("Just sent a command")
                 pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
@@ -53,28 +54,28 @@ class Battle:
             self.client2.lose=True
             self.client1.win =True
             return
-        if commandOne == 0 or commandTwo == 0: 
-            if commandOne == 0: #swap1
-                self.pokeOne = self.playerOne[indexOne]
-            if commandTwo == 0: #swap2
-                self.pokeTwo = self.playerTwo[indexTwo]
-        if commandOne == 1 and commandTwo == 1:
+        if commandOne == 1 or commandTwo == 1: 
+            if commandOne == 1: #swap1
+                self.client1.active = indexOne
+            if commandTwo == 1: #swap2
+                self.client2.active = indexTwo
+        if commandOne == 0 and commandTwo == 0:
             if self.pokeOne.stats[4] >= self.pokeTwo.stats[4]:
                 #issue command 1
-                self.command(1,self.pokeOne.moves[indexOne])
+                self.command(1,self.pokeOne.moveset[indexOne])
                 #issue command 2
-                self.command(2,self.pokeTwo.moves[indexTwo])
+                self.command(2,self.pokeTwo.moveset[indexTwo])
             else:
                 # command 2
-                self.command(2,self.pokeTwo.moves[indexTwo])
+                self.command(2,self.pokeTwo.moveset[indexTwo])
                 # command 1
-                self.command(1,self.pokeOne.moves[indexOne])
-        elif commandOne == 1:
+                self.command(1,self.pokeOne.moveset[indexOne])
+        elif commandOne == 0:
             # command 1
-            self.command(1,self.pokeOne.moves[indexOne])
-        elif commandTwo == 1:
+            self.command(1,self.pokeOne.moveset[indexOne])
+        elif commandTwo == 0:
             # command 2
-            self.command(2,self.pokeTwo.moves[indexTwo])
+            self.command(2,self.pokeTwo.moveset[indexTwo])
     '''
     0 is move
     1 is swap
@@ -96,12 +97,12 @@ class Battle:
                         self.pokeTwo.current+=20
         else:
             if(player == 1):
-                self.pokeTwo.curent-=self.damage(self.pokeOne,self.pokeTwo,ability)
+                self.pokeTwo.current-=self.damage(self.pokeOne,self.pokeTwo,ability)
                 if self.pokeTwo.current<0:
                     self.pokeTwo.current=0
                     #ded
             else:
-                self.pokeOne.curent-=self.damage(self.pokeTwo,self.pokeOne,ability)
+                self.pokeOne.current-=self.damage(self.pokeTwo,self.pokeOne,ability)
                 if self.pokeOne.current<0:
                     self.pokeOne.current=0
                     #ded

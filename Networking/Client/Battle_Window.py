@@ -258,6 +258,9 @@ class Battle_Window:
         if(self.game.wait==True):
             self.draw()
             return
+        self.receivedPokeList = self.game.pokemans#(40, 225)
+        self.receivedPokeIndex = self.game.activePoke
+        self.receivedEnemyPoke = self.game.oppPoke #(535, 65)
         content = ["Battle"]
                         #state changes
         if self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 0:

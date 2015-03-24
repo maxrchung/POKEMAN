@@ -77,8 +77,8 @@ class Server:
                         client.draft = [] # Resets draft
                         self.waitingQueue.append(client)
                 elif command == "Battle":
-                    self.ready=True
-                    self.waitingCommand = [data[1],data[2]]
+                    client.ready=True
+                    client.waitingCommand = [data[1],data[2]]
                     content = ["BattleWait"]
                     client.sendPacket(content)
 
