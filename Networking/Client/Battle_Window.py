@@ -128,9 +128,6 @@ class Battle_Window:
 
         #conditionals to check the color of the hp bars
 
-        assert 0 <= self.p1healthPercentage <= 100, "Player 1 health is not in correct bounds: %r" % self.p1healthPercentage
-        assert 0 <= self.p2healthPercentage <= 100, "Player 2 Health is not in Correct Bounds: %r" % self.p2healthPercentage
-
         #filling in the health bars        
         if (self.p1healthPercentage <= 15):          #<----Health is below 15%
             pygame.draw.rect(self.display, RED, (531, 297, 239*(self.p1healthPercentage / 100), 8)) #player 1 Health Bar
