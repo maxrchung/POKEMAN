@@ -50,7 +50,6 @@ class Game:
         self.timer1 = 0
         self.flash1 = False
         self.networkManager = NetworkManager(self)
-        self.battle_window = Battle_Window(self)
         
 
     
@@ -124,6 +123,7 @@ class Game:
             elif command == "BattleStart":
                 self.activePoke = 0
                 self.oppPoke = data[1]
+                self.battle_window = Battle_Window(self)
                 
         self.networkManager.messageLock.release()
         
