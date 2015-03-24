@@ -15,10 +15,15 @@ class Game:
         self.font128 = pygame.font.Font("PKMN RBYGSC.ttf", 128)
         self.font256 = pygame.font.Font("PKMN RBYGSC.ttf", 256)
         self.gangster = pygame.image.load('criminal.png')
+        self.gangsterw = self.gangster.get_rect().width
         self.child = pygame.image.load('delinq.png')
+        self.childw = self.child.get_rect().width
         self.hobo = pygame.image.load('hobo.png')
+        self.hobow = self.hobo.get_rect().width
         self.nerd = pygame.image.load('nerd.png')
+        self.nerdw = self.nerd.get_rect().width
         self.select = pygame.image.load('select.png')
+        self.selectw = self.select.get_rect().width
 
         # Processes events (essentially all inputs)
         self.eventManager = EventManager(self)
@@ -265,7 +270,7 @@ class Game:
             self.screen.blit(self.font32.render('DRAFT',1,(0,0,0)),(350,32))
             if self.draft != []:
                 for i in range(3):
-                    self.screen.blit(self.drawpokeman(self.draft[i].type),(100+ 250*i,100))
+                    self.screen.blit(self.drawpokeman(self.draft[i].type),(200+ 200*i-self.nerdw*0.5 ,100))
                     for s in range(6):
                         self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(0,0,0)),(125+ 250*i,250+20*s))
                     for s in range(4):
