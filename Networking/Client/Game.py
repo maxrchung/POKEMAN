@@ -179,7 +179,7 @@ class Game:
             self.pokemans=self.gameState[0]
             self.activePoke= self.gameState[1]
             self.oppPoke = self.gameState[2]
-            self.battle_state.update()
+            self.battle_window.update()
             '''
             Update the GameState here
             gameState.update()
