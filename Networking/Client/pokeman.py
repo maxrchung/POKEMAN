@@ -16,6 +16,10 @@ class pokeman(object):
     Low:50
     Vlow:40
     '''
+    nameList = ['JALAPENO','MCCHUCK','FLUSHWORTHY','MAMARINO','SUDOKU','MANE','LUCCA','GUCCI','1337','DILDOE',
+                'MAX WAX CHUG DA GWAD CHUNG','MAX','WAX','CHUG','DA','GWAD','CHUNG','DURA KNIGHT','MAXIMILLION',
+                'PEGASUS','PIKACHUNG','DANGER','TRIAD','DOLAN','GOOBY','TOMOTHY','D00K','FIGSWORTH','KAPPA',
+                'NEDWORTH','WINSTON','OBAMA','VINCE','JETT','CHEETO','GINGER']
     statBase =[40,50,60,70,80,85]
     def __init__(self, type,gender):
         '''
@@ -27,7 +31,14 @@ class pokeman(object):
         self.stats=[]
         self.setmoves()
         self.setStats()
+        self.setname()
+    
+    def __str__(self):
+        return self.name
         
+    def setname(self):
+        self.name = self.nameList[random.randint(0,len(pokeman.nameList))]
+    
     def setmoves(self):
         a=random.randint(0,3)
         b=random.randint(0,3)
@@ -112,3 +123,4 @@ class pokeman(object):
             a=random.randint(0,15)
             self.stats.append(statBase[1]+a)
         self.current=0+self.stats[5]
+        
