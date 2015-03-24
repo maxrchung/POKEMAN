@@ -151,7 +151,7 @@ class Battle_Window:
         self.healthtextRender = self.myfont.render(self.p1healthtext, 0, BLACK)
         self.display.blit(self.healthtextRender, (550, 320))
         if self.game.wait == True:
-            text = self.myfont.rander("Waiting for opponent",0,BLACK)
+            text = self.myfont.render("Waiting for opponent",0,BLACK)
             self.display.blit(text,(100,600))
             return
         #draws the menu buttons
