@@ -111,6 +111,7 @@ class Game:
                 self.draft = data[1] # Temporary placeholder
 
             elif command == "Battle":
+                self.state = "Battle"
                 '''
                 Replace the GameState object of the client with
                 the received gameState in data[1]
@@ -123,7 +124,6 @@ class Game:
                 self.activePoke = 0
                 self.oppPoke = data[1]
                 self.battle_window = Battle_Window(self)
-                self.state = "Battle"
                 print()
                 print("Switched to Battle")
             elif command == "BattleWait":
