@@ -1,12 +1,8 @@
 import pygame
 from pygame.locals import *
+from Color_Globals import *
 
 pygame.font.init()
-BLACK     = (  0,   0,   0)
-WHITE     = (255, 255, 255)
-DARKGRAY  = ( 64,  64,  64)
-GRAY      = (128, 128, 128)
-LIGHTGRAY = (212, 208, 200)
 
 
 class Basic_Buttons:
@@ -26,8 +22,8 @@ class Basic_Buttons:
             self.rect = pygame.Rect(rect)
 
         #Button text/font
-        self.caption = ID
-        self.font = pygame.font.Font('PKMN RBYGSC.tff', 14)
+        self.caption = self.ID
+        self.font = pygame.font.Font('PKMN RBYGSC.ttf', 14)
         
         #Button foreground/background color
         self.bgcolor = bgcolor
@@ -80,17 +76,17 @@ class Basic_Buttons:
         #draw caption text for all buttons
         captionSurf = self.font.render(self.caption, True, self.fgcolor, self.bgcolor)
         captionRect = captionSurf.get_rect()
-        captionRect.center = int(w/2), int(h/2)
+        captionRect.center = int(_w/2), int(_h/2)
         self.surfaceNormal.blit(captionSurf, captionRect)
 
         #draw border for button
-        pygame.draw.rect(self.surfaceNormal, BLACK, pygame.Rect((0, 0, w, h)), 1) # Black border around everything
-        pygame.draw.line(self.surfaceNormal, WHITE, (1, 1), (w-2, 1))
-        pygame.draw.line(self.surfaceNormal, WHITE, (1, 1), (1, h-2))
-        pygame.draw.line(self.surfaceNormal, DARKGRAY, (1, h-1), (w-1, h-1))
-        pygame.draw.line(self.surfaceNormal, DARKGRAY, (w-1, 1), (w-1, h-1))
-        pygame.draw.line(self.surfaceNormal, GRAY, (2, h-2), (w-2, h-2))
-        pygame.draw.line(self.surfaceNormal, GRAY, (w-2, 2), (w-2, h-2))
+        pygame.draw.rect(self.surfaceNormal, BLACK, pygame.Rect((0, 0, _w, _h)), 1) # Black border around everything
+        pygame.draw.line(self.surfaceNormal, WHITE, (1, 1), (_w-2, 1))
+        pygame.draw.line(self.surfaceNormal, WHITE, (1, 1), (1, _h-2))
+        pygame.draw.line(self.surfaceNormal, DARKGRAY, (1, _h-1), (_w-1, _h-1))
+        pygame.draw.line(self.surfaceNormal, DARKGRAY, (_w-1, 1), (_w-1, _h-1))
+        pygame.draw.line(self.surfaceNormal, GRAY, (2, _h-2), (_w-2, _h-2))
+        pygame.draw.line(self.surfaceNormal, GRAY, (_w-2, 2), (_w-2, _h-2))
 
                              
     def getCaption(self): return caption
