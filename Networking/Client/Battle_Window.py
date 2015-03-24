@@ -85,10 +85,10 @@ class Battle_Window:
 
 
         #initialize the Move Buttons
-        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
-        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
-        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
-        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
+        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0], 1, BLACK)
+        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1], 1, BLACK)
+        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2], 1, BLACK)
+        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3], 1, BLACK)
 
         #initialize the Switch Buttons
         self.switch1 = self.myfont.render(self.receivedPokeList[0].name.upper(), 1, BLACK)
@@ -265,6 +265,7 @@ class Battle_Window:
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(1)
                 self.theButtons.setCurrentbutton(0)
+                self.moveVisible = True
                         
 
         elif self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 1:
@@ -276,7 +277,8 @@ class Battle_Window:
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(2)
                 self.theButtons.setCurrentbutton(0)
-                        
+                self.pokeVisible = True
+                
         elif self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 2:
                         # hovering forfeit
             if self.game.eventManager.up: #up button
@@ -288,6 +290,7 @@ class Battle_Window:
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(2)
                 self.theButtons.setCurrentbutton(0)
+                self.forfeitVisible = True
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 0:
                         # hovering move 1
@@ -303,7 +306,7 @@ class Battle_Window:
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 1:
                         # hovering move 2
             if self.game.eventManager.down: #down button
-                self.theButtons.setCurrentbutton(2)
+                self.theButtons.setCurrentbutton(3)
             elif self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.enter:#sends moves[1]
