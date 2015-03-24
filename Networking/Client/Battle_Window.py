@@ -257,6 +257,11 @@ class Battle_Window:
         self.receivedPokeIndex = self.game.activePoke
         self.receivedEnemyPoke = self.game.oppPoke #(535, 65)
         
+        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
+        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
+        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
+        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
+
         #variables for the player's health bar
         self.p1healthMax = self.game.pokemans[self.game.activePoke].stats[5]
         self.p1currentHealth = self.game.pokemans[self.game.activePoke].current

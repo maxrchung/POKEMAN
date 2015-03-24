@@ -21,6 +21,8 @@ class Battle:
     def update(self):
         # Update gameState here
         # self.gameState.update()
+        self.pokeOne = self.playerOne[self.client1.active]
+        self.pokeTwo = self.playerTwo[self.client2.active]
         self.updateTimer += self.updateClock.tick()
         if self.updateTimer > 50:
             self.updateTimer = 0
@@ -57,8 +59,10 @@ class Battle:
         if commandOne == 1 or commandTwo == 1: 
             if commandOne == 1: #swap1
                 self.client1.active = indexOne
+                self.pokeOne = self.playerOne[indexOne]
             if commandTwo == 1: #swap2
                 self.client2.active = indexTwo
+                self.pokeTwo = self.playerTwo[indexTwo]
         if commandOne == 0 and commandTwo == 0:
             if self.pokeOne.stats[4] >= self.pokeTwo.stats[4]:
                 #issue command 1
@@ -100,11 +104,22 @@ class Battle:
                 self.pokeTwo.current-=self.damage(self.pokeOne,self.pokeTwo,ability)
                 if self.pokeTwo.current<0:
                     self.pokeTwo.current=0
+                    x = self.nextActive(self.playerTwo)
+                    if x != -1:
+                        self.client2.active = x
+                    else:
+                        self.client2.lose = True
                     #ded
             else:
                 self.pokeOne.current-=self.damage(self.pokeTwo,self.pokeOne,ability)
                 if self.pokeOne.current<0:
                     self.pokeOne.current=0
+                    self.client1.active = self.nextActive(self.playerOne)
+                    x = self.nextActive(self.playerTwo)
+                    if x != -1:
+                        self.client2.active = x
+                    else:
+                        self.client2.lose = True
                     #ded
 
     def damage(self,attker,defender,ability):
@@ -117,3 +132,9 @@ class Battle:
             return ability.power*attker.stats[0]/defender.stats[1]*stab*effectiveness(ability,defender)
         else:
             return ability.power*attker.stats[2]/defender.stats[3]*stab*effectiveness(ability,defender)
+    def nextActive(self,pokeList):
+        for i in range (3):
+            if pokeList[i].current !=0:
+                return i
+        return -1    
+        
