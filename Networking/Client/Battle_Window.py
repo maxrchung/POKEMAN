@@ -55,15 +55,13 @@ class Battle_Window:
 
         #variables for the player's health bar
         self.p1healthPercentage = 100
-        self.p1totalHealth = 100
-        self.p1currentHealth = 325
-        self.p1healthMax = 325
+        self.p1healthMax = game.pokemans[game.activepoke].stats[5]
+        self.p1currentHealth = game.pokemans[game.activepoke].current
 
         #variables for the enemy's health bar
         self.p2healthPercentage = 100
-        self.p2totalHealth = 100
-        self.p2currentHealth = 325
-        self.p2healthMax = 325
+        self.p2healthMax = game.oppPoke.stats[5]
+        self.p2currentHealth = game.oppPoke.current
 
 
         #creates the pygame window
@@ -261,6 +259,16 @@ class Battle_Window:
         self.receivedPokeList = self.game.pokemans#(40, 225)
         self.receivedPokeIndex = self.game.activePoke
         self.receivedEnemyPoke = self.game.oppPoke #(535, 65)
+        
+        #variables for the player's health bar
+        self.p1healthMax = self.game.pokemans[self.game.activepoke].stats[5]
+        self.p1currentHealth = self.game.pokemans[self.game.activepoke].current
+        self.p1healthPercentage = 100*self.p1healthMax/self.p1currentHealth
+
+        #variables for the enemy's health bar
+        self.p2healthMax = self.game.oppPoke.stats[5]
+        self.p2currentHealth = self.game.oppPoke.current
+        self.p2healthPercentage = 100*self.p2healthMax/self.p2currentHealth
         content = ["Battle"]
                         #state changes
         if self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 0:
