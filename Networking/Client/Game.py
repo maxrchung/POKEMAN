@@ -33,6 +33,10 @@ class Game:
         self.pokemans = [] # The pokemans selected
         self.gameState = [] # gameState in battle
 
+        # Sends an alive packet periodically to the server to tell that a player is still online
+        self.aliveClock = pygame.time.Clock()
+        self.aliveTimer = 0 # Timer to keep track of the clock
+
         self.sel = 0
         self.networkManager = NetworkManager(self)
     def run(self):
@@ -66,9 +70,14 @@ class Game:
             return self.hobo
 
     def update(self):
+        self.aliveTimer += self.aliveClock.tick()
+        if self.aliveTimer > 5000:
+            self.aliveTimer = 0
+            content = ["Alive"]
+            self.networkManager.sendPacket(content)
+
         self.eventManager.run()
 
-        # Handles processing of messages
         # Handles processing of messages
         self.networkManager.messageLock.acquire()
         while len(self.networkManager.messageQueue) > 0:
@@ -164,7 +173,4 @@ class Game:
         
     # This is ran in main after the game.running is set to false
     def disconnect(self):
-        # For now, I'm not gonna worry about it, but we'll need to worry about
-        # Sending disconnect packet
-        # Disconnecting sockets
-        pass
+        self.networkManager.disconnect()

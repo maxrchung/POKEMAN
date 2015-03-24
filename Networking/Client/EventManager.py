@@ -40,4 +40,4 @@ class EventManager:
                     self.enter = True
             if event.type == pygame.QUIT:
                 # change the value to False, to exit the main loop
-                self.game.running = False
+                self.game.disconnect()

@@ -19,6 +19,9 @@ CLIENT NETWORKING
 		The client continually tells the server that he is alive
 		If the server stops getting Alive responses, then the player is disconnected
 
+	["Disconnect"]
+		Tells the server that the client has disconnected
+
         ["Login", user]
        		Sends the server his username
 

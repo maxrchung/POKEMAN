@@ -6,7 +6,7 @@ from socket import *
 from Game import *
 
 # Change this value if you want another computer to host server
-TCP_IP = '192.168.42.94'
+TCP_IP = '192.168.42.106'
 
 class NetworkManager:
     def __init__(self, game):
@@ -35,17 +35,27 @@ class NetworkManager:
     # Receives packets(messages) and puts them into queue
     def checkForMessages(self):
         while self.game.running:
-            pickledData = self.socket.recv(4096)
-            print(pickledData)
-            data = pickle.loads(pickledData)
+            try:
+                pickledData = self.socket.recv(4096)
+                print(pickledData)
+                data = pickle.loads(pickledData)
+            
+                # Remember to lock so that we don't run into conflict accessing it
+                self.messageLock.acquire()
+                # Receives a message and puts it into the message queue
+                self.messageQueue.append(data)
+                self.messageLock.release()
+            except:
+                pass
 
-            # Remember to lock so that we don't run into conflict accessing it
-            self.messageLock.acquire()
-            # Receives a message and puts it into the message queue
-            self.messageQueue.append(data)
-            self.messageLock.release()
-
+    def disconnect(self):
+        content = ['Disconnect']
+        self.sendPacket(content)
+        self.socket.shutdown(SHUT_RDWR)
+        self.socket.close()
+        self.game.running = False
+        self.messageThread.join()
+        
     def sendPacket(self, content):
         packet = pickle.dumps(content)
         self.socket.send(bytes(packet))
-        

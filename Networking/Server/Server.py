@@ -15,16 +15,28 @@ class Server:
         self.update()
 
     def update(self):
+        toRemove = []
+        
         # Processes messages received on the server
         self.networkManager.connectionLock.acquire()
         for client in self.networkManager.clients:
+            client.aliveTimer += client.aliveClock.tick()
+            if client.aliveTimer > 10000: # If more than 10 seconds have passed since the last update, remove the client
+                print(client.aliveTimer)
+                toRemove.append(client)
+
             client.messageLock.acquire()
             while len(client.messageQueue) > 0:
                 data = client.messageQueue.popleft()
-                print("Received:", data)
                 command = data[0]
 
-                if command == "Login":
+                if command == "Alive":
+                    client.aliveTimer = 0
+
+                elif command == "Disconnect":
+                    toRemove.append(client)
+
+                elif command == "Login":
                     client.name = data[1]
                     '''
                     Generate 3 Pokemon to send to the client
@@ -66,6 +78,24 @@ class Server:
                         self.waitingQueue.append(client)
 
             client.messageLock.release()
+
+        for client in toRemove:
+            print('Removed:', client.addr)
+            client.disconnect()
+            try:
+                self.waitingQueue.remove(client)
+            except:
+                pass
+            
+            try:
+                self.networkManager.clients.remove(client)
+            except:
+                pass
+
+            for battle in battles:
+                if client == battle.client1 or client == battle.client2:
+                    pass
+
         self.networkManager.connectionLock.release()
 
         while len(self.waitingQueue) >= 2:

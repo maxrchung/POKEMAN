@@ -60,6 +60,7 @@ class TextInput:
                 self.state = "Draft" # Switch to draft state after
                 print()
                 print("Switched to Draft")
+                self.input = ''
             else:
                 if len(self.input) < 10:
                     self.input += self.letters[self.index]
