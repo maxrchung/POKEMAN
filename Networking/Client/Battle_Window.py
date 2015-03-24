@@ -45,6 +45,7 @@ class Battle_Window:
         
     
         self.myfont = pygame.font.Font("PKMN RBYGSC.ttf", 25) #creates a font from the pokemon ttf file
+        self.smallfont = pygame.font.Font("PKMN RBYGSC.ttf", 16)
         self.overlay = pygame.image.load("Main_Overlay.png") # loads the overlay with the health bars, and menu UI
         self.overlayRect = self.overlay.get_rect() #gets the dimensions 800x600 in a tuple(int,int)
 
@@ -70,8 +71,8 @@ class Battle_Window:
         self.display.fill(WHITE)
 
         #pokemon names
-        self.poke1Name = "Bulbasaur".upper()
-        self.poke2Name = "Charmander".upper()
+        self.poke1Name = self.receivedPokeList[self.receivedPokeIndex].name.upper()
+        self.poke2Name = self.receivedEnemyPoke.name.upper()
 
         #initialize the Battle Buttons
         self.theButtons = Battle_Buttons()
@@ -84,24 +85,24 @@ class Battle_Window:
 
 
         #initialize the Move Buttons
-        self.move1 = self.myfont.render(self.theButtons.getMove(0).upper(), 1, BLACK)
-        self.move2 = self.myfont.render(self.theButtons.getMove(1).upper(), 1, BLACK)
-        self.move3 = self.myfont.render(self.theButtons.getMove(2).upper(), 1, BLACK)
-        self.move4 = self.myfont.render(self.theButtons.getMove(3).upper(), 1, BLACK)
+        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
+        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
+        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
+        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
 
         #initialize the Switch Buttons
-        self.switch1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
-        self.switch2 = self.myfont.render(self.theButtons.getPoke(1).upper(), 1, BLACK)
-        self.switch3 = self.myfont.render(self.theButtons.getPoke(2).upper(), 1, BLACK)
+        self.switch1 = self.smallfont.render(self.receivedPokeList[0].name.upper(), 1, BLACK)
+        self.switch2 = self.smallfont.render(self.receivedPokeList[1].name.upper(), 1, BLACK)
+        self.switch3 = self.smallfont.render(self.receivedPokeList[2].name.upper(), 1, BLACK)
 
         #initialize the forfeit Buttons
-        self.forfeit1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
-        self.forfeit2 = self.myfont.render(self.theButtons.getPoke(1).upper(), 1, BLACK)
+        self.forfeit1 = self.myfont.render("YES", 1, BLACK)
+        self.forfeit2 = self.myfont.render("NO", 1, BLACK)
 
 
         #visible bools for inner windows
         self.moveVisible = False
-        self.pokeVisible = False
+        self.switchVisible = False
         self.switchVisible = False
         self.forfeitVisible = False
 
@@ -220,10 +221,10 @@ class Battle_Window:
             self.display.blit(self.move3, (123, 536))
             self.display.blit(self.move4, (246, 536))
         #if the gamestate is in switch
-        elif self.pokeVisible == True:
-            self.display.blit(self.poke1, (99, 516))
-            self.display.blit(self.poke2, (198, 516))
-            self.display.blit(self.poke3, (287, 516))
+        elif self.switchVisible == True:
+            self.display.blit(self.switch1, (99, 516))
+            self.display.blit(self.switch2, (198, 516))
+            self.display.blit(self.switch3, (287, 516))
         #if the gamestate is in quit
         elif self.forfeitVisible == True:
             self.display.blit(self.forfeit1, (165, 516))
@@ -264,6 +265,7 @@ class Battle_Window:
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(1)
                 self.theButtons.setCurrentbutton(0)
+                self.moveVisible = True
                         
 
         elif self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 1:
@@ -275,7 +277,8 @@ class Battle_Window:
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(2)
                 self.theButtons.setCurrentbutton(0)
-                        
+                self.switchVisible = True
+                
         elif self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 2:
                         # hovering forfeit
             if self.game.eventManager.up: #up button
@@ -287,6 +290,7 @@ class Battle_Window:
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(2)
                 self.theButtons.setCurrentbutton(0)
+                self.forfeitVisible = True
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 0:
                         # hovering move 1
@@ -302,7 +306,7 @@ class Battle_Window:
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 1:
                         # hovering move 2
             if self.game.eventManager.down: #down button
-                self.theButtons.setCurrentbutton(2)
+                self.theButtons.setCurrentbutton(3)
             elif self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.enter:#sends moves[1]
@@ -385,12 +389,14 @@ class Battle_Window:
 
 
         if self.theButtons.getMenustate() == 1 or self.theButtons.getMenustate() == 2 or self.theButtons.getMenustate() == 3:
-            if self.game.eventManager.escape: #escape button
+            if self.game.eventManager.cancel: #escape button
                 self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
 
 
-        self.draw()
         
     def run(self):
         while True:

@@ -123,6 +123,7 @@ class Game:
             elif command == "BattleStart":
                 self.activePoke = 0
                 self.oppPoke = data[1]
+                self.battle_window = Battle_Window(self)
                 
         self.networkManager.messageLock.release()
         
@@ -178,6 +179,7 @@ class Game:
             self.pokemans=self.gameState[0]
             self.activePoke= self.gameState[1]
             self.oppPoke = self.gameState[2]
+            self.battle_window.update()
             '''
             Update the GameState here
             gameState.update()
@@ -267,15 +269,37 @@ class Game:
         if self.state == "Login":
             self.textInput.draw()
         if self.state == "Draft":
+            
+            pokestring = ''
+            for p in self.pokemans:
+                pokestring += (str(p)) + ' the ' + p.typeName + ', '
+            pokestring = pokestring[0:-2]
+            self.screen.blit(self.font16.render('Roster:' + pokestring,1,(0,0,0)),(400 - self.font16.render('Roster:' + pokestring,1,(0,0,0)).get_rect().width*0.5,550))
+            
             self.screen.blit(self.font32.render('DRAFT',1,(0,0,0)),(350,32))
             if self.draft != []:
                 for i in range(3):
-                    self.screen.blit(self.drawpokeman(self.draft[i].type),(200+ 200*i-self.nerdw*0.5 ,100))
+                    self.screen.blit(self.drawpokeman(self.draft[i].type),(150+ 250*i-self.nerdw*0.5 ,100))
+                    self.screen.blit(self.font16.render(self.draft[i].name,1,(0,0,0)),(150+ 250*i-self.font16.render(self.draft[i].name,1,(0,0,0)).get_rect().width*0.5,250))
                     for s in range(6):
-                        self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(0,0,0)),(125+ 250*i,250+20*s))
+                        self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(0,0,0)),(150+ 250*i - 50,300+20*s))
                     for s in range(4):
-                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName).upper(),1,(0,0,0)),(125+ 250*i,400+20*s))
-            self.screen.blit(self.select,(164 + 250*self.sel,75))            
+                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName).upper(),1,(0,0,0)),(150+ 250*i - 55,450+20*s))
+            self.screen.blit(self.select,(150 + 250*self.sel-self.selectw*0.5,75))
+        
+        if self.state == "Queue":
+            self.screen.blit(self.font32.render('YOUR ROSTER:',1,(0,0,0)),(240,16))
+            self.screen.blit(self.font16.render('(CURRENTLY IN QUEUE)',1,(0,0,0)),(280,64))
+            for i in range(3):
+                self.screen.blit(self.drawpokeman(self.pokemans[i].type),(150+ 250*i-self.nerdw*0.5 ,100))
+                self.screen.blit(self.font16.render(self.pokemans[i].name,1,(0,0,0)),(150+ 250*i-self.font16.render(self.pokemans[i].name,1,(0,0,0)).get_rect().width*0.5,250))
+                for s in range(6):
+                    self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.pokemans[i].stats[s]),1,(0,0,0)),(150+ 250*i - 50,300+20*s))
+                for s in range(4):
+                    self.screen.blit(self.font16.render(str(self.pokemans[i].moveset[s].moveName).upper(),1,(0,0,0)),(150+ 250*i - 55,450+20*s))
+        
+        if self.state == "Battle":
+            self.battle_window.draw()
 
         pygame.display.flip()
         

@@ -18,8 +18,14 @@ class pokeman(object):
     '''
     nameList = ['JALAPENO','MCCHUCK','FLUSHWORTHY','MAMARINO','SUDOKU','MANE','LUCCA','GUCCI','1337','DILDOE',
                 'MAX WAX CHUG DA GWAD CHUNG','MAX','WAX','CHUG','DA','GWAD','CHUNG','DURA KNIGHT','MAXIMILLION',
-                'PEGASUS','PIKACHUNG','DANGER','TRIAD','DOLAN','GOOBY','TOMOTHY','D00K','FIGSWORTH','KAPPA',
-                'NEDWORTH','WINSTON','OBAMA','VINCE','JETT','CHEETO','GINGER']
+                'PEGASUS','PIKACHUNG','DANGER','TRIAD','DOLAN','GOOBY','TOMOTHY','D00K','FIGSWORTH','KIPPA',
+                'NEDWORTH','WINSTON','OBAMA','VINCE','JETT','CHEETO','GINGER','69ER','GREEN MACHINE','JUICE',
+                'CORN SYRUP','BOBBOTHY','DEREKT','BIBLETHUMP','FRANKERZ','KEEPO','KREYGASM','RALPHERZ','KILLA',
+                'OGNA','TESMA','CHIP','MCGEE','GLOCK','SOY','NUTS','BUTTERS','SHAMWOW','GRELLY','MOIST','VIN',
+                'PJSALT','FRAPPA','KAPPY','PASTA','CHANP','GUST','SCRUB','SCRUBLET','FRACTO','TIMZER','CENA','DWAG',
+                'KAUFMANN','H','BACH','KINGERY','BOWEN','DOWNS','AVERY','JORGE','HAMILTON','NIMMO','BUTCHER','ROWWING',
+                'SWAPT','DARUDE','DRYUS','HOTPOTGG','SPHINCTER','THROB','PLATOLET','MACCACHROONI','BIERSCH',
+                'WONKTER','DOOSBY','HYU','DOGER','GIET','BLUEBY','TEMPNAME']
     statBase =[40,50,60,70,80,85]
     def __init__(self, type,gender):
         '''
@@ -29,6 +35,7 @@ class pokeman(object):
         self.gender = gender
         self.moveset=[]
         self.stats=[]
+        self.typeName = ''
         self.setmoves()
         self.setStats()
         self.setname()
@@ -58,6 +65,7 @@ class pokeman(object):
     def setStats(self):
         statBase = pokeman.statBase
         if self.type == 0:
+            self.typeName = 'RAPPER'
             a=random.randint(0,15)
             self.stats.append(statBase[3]+a)
             a=random.randint(0,15)
@@ -71,6 +79,7 @@ class pokeman(object):
             a=random.randint(0,15)
             self.stats.append(statBase[2]+a)
         if self.type == 1:
+            self.typeName = 'DELINQUENT'
             a=random.randint(0,15)
             self.stats.append(statBase[0]+a)
             a=random.randint(0,15)
@@ -84,6 +93,7 @@ class pokeman(object):
             a=random.randint(0,15)
             self.stats.append(statBase[1]+a)
         if self.type == 2:
+            self.typeName = 'NERD'
             a=random.randint(0,15)
             self.stats.append(statBase[2]+a)
             a=random.randint(0,15)
@@ -97,6 +107,7 @@ class pokeman(object):
             a=random.randint(0,15)
             self.stats.append(statBase[2]+a)
         if self.type == 3:
+            self.typeName = 'GANGSTER'
             a=random.randint(0,15)
             self.stats.append(statBase[5]+a)
             a=random.randint(0,15)
@@ -110,6 +121,7 @@ class pokeman(object):
             a=random.randint(0,15)
             self.stats.append(statBase[3]+a)
         if self.type == 4:
+            self.typeName = 'HOBO'
             a=random.randint(0,15)
             self.stats.append(statBase[3]+a)
             a=random.randint(0,15)
