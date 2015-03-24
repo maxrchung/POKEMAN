@@ -261,8 +261,8 @@ class Battle_Window:
         self.receivedEnemyPoke = self.game.oppPoke #(535, 65)
         
         #variables for the player's health bar
-        self.p1healthMax = self.game.pokemans[self.game.activepoke].stats[5]
-        self.p1currentHealth = self.game.pokemans[self.game.activepoke].current
+        self.p1healthMax = self.game.pokemans[self.game.activePoke].stats[5]
+        self.p1currentHealth = self.game.pokemans[self.game.activePoke].current
         self.p1healthPercentage = 100*self.p1healthMax/self.p1currentHealth
 
         #variables for the enemy's health bar
