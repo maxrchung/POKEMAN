@@ -19,7 +19,8 @@ class Client:
         self.draft = []
         # Selected 3 pokemans
         self.pokemans = []
-
+        self.ready = False
+        self.waitingCommand = []
         # For continuing to check for messages or not
         self.running = True
 

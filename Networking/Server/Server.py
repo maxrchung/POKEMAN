@@ -76,6 +76,9 @@ class Server:
                     else:
                         client.draft = [] # Resets draft
                         self.waitingQueue.append(client)
+                elif command == "Battle":
+                    self.ready=True
+                    self.waitingCommand = [data[1],data[2]]
 
             client.messageLock.release()
 
@@ -92,7 +95,7 @@ class Server:
             except:
                 pass
 
-            for battle in battles:
+            for battle in self.battles:
                 if client == battle.client1 or client == battle.client2:
                     pass
 
@@ -104,6 +107,7 @@ class Server:
             self.battles.append(Battle(client1, client2))
 
         for battle in self.battles:
+            
             '''
             Battle will contain the GameState that will be updated
             '''
