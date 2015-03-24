@@ -21,7 +21,7 @@ class Battle_Window:
         self.game = game
 
         #pokemon received from the server
-        self.receievedPokeList = game.pokemans#(40, 225)
+        self.receivedPokeList = game.pokemans#(40, 225)
         self.receivedPokeIndex = game.activePoke
         self.receivedEnemyPoke = game.oppPoke #(535, 65)
         
