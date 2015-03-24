@@ -9,7 +9,7 @@ moves = []
 class move():
     def __init__(self,line):
         self.buff = False
-        moveline = line.split(',')
+        moveline = line.rstrip().split(',')
         if moveline[0] == 'rapper':
             self.type = 0
         elif moveline[0] == 'nerd':
@@ -78,4 +78,4 @@ def effectiveness (move, pokeman):
 with open("moves.txt", "r") as ifile:
     for line in ifile:
         moves.append(move(line))
-        
+                
