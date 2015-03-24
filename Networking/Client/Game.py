@@ -112,6 +112,7 @@ class Game:
 
             elif command == "Battle":
                 self.state = "Battle"
+                self.wait = False
                 '''
                 Replace the GameState object of the client with
                 the received gameState in data[1]

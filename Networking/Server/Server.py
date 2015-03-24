@@ -112,7 +112,6 @@ class Server:
             content = ["BattleStart", client1.pokemans[0]]
             client2.sendPacket(content)
         for battle in self.battles:
-            
             '''
             Battle will contain the GameState that will be updated
             '''

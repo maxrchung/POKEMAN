@@ -150,6 +150,27 @@ class Battle_Window:
         #draws the health number below the health bar
         self.healthtextRender = self.myfont.render(self.p1healthtext, 0, BLACK)
         self.display.blit(self.healthtextRender, (550, 320))
+        if self.receivedPokeList[self.receivedPokeIndex].type == 0:  #rapper
+            self.display.blit(self.p1rapperimg, self.p1coord)
+        elif self.receivedPokeList[self.receivedPokeIndex].type == 1: #delinquent child
+            self.display.blit(self.p1delinqimg, self.p1coord)
+        elif self.receivedPokeList[self.receivedPokeIndex].type == 2: #Nerds
+            self.display.blit(self.p1nerdimg, self.p1coord)
+        elif self.receivedPokeList[self.receivedPokeIndex].type == 3: #Criminals
+            self.display.blit(self.p1criminalimg, self.p1coord)
+        elif self.receivedPokeList[self.receivedPokeIndex].type == 4: #Homeless
+            self.display.blit(self.p1homelessimg, self.p1coord)
+        #draw the pokemon for the enemy
+        if self.receivedEnemyPoke.type == 0: #rapper
+            self.display.blit(self.p2rapperimg, self.p2coord)
+        elif self.receivedEnemyPoke.type == 1: #delinquent child
+            self.display.blit(self.p2delinqimg, self.p2coord)
+        elif self.receivedEnemyPoke.type == 2: #nerd
+            self.display.blit(self.p2nerdimg, self.p2coord)
+        elif self.receivedEnemyPoke.type == 3: #criminal
+            self.display.blit(self.p2criminalimg, self.p2coord)
+        elif self.receivedEnemyPoke.type == 4: #homeless
+            self.display.blit(self.p2homelessimg, self.p2coord)
         if self.game.wait == True:
             text = self.myfont.render("Waiting for opponent",0,BLACK)
             self.display.blit(text,(100,600))
@@ -233,27 +254,6 @@ class Battle_Window:
             self.display.blit(self.forfeit2, (330, 516))
 
         #draw the pokemon for the player
-        if self.receivedPokeList[self.receivedPokeIndex].type == 0:  #rapper
-            self.display.blit(self.p1rapperimg, self.p1coord)
-        elif self.receivedPokeList[self.receivedPokeIndex].type == 1: #delinquent child
-            self.display.blit(self.p1delinqimg, self.p1coord)
-        elif self.receivedPokeList[self.receivedPokeIndex].type == 2: #Nerds
-            self.display.blit(self.p1nerdimg, self.p1coord)
-        elif self.receivedPokeList[self.receivedPokeIndex].type == 3: #Criminals
-            self.display.blit(self.p1criminalimg, self.p1coord)
-        elif self.receivedPokeList[self.receivedPokeIndex].type == 4: #Homeless
-            self.display.blit(self.p1homelessimg, self.p1coord)
-        #draw the pokemon for the enemy
-        if self.receivedEnemyPoke.type == 0: #rapper
-            self.display.blit(self.p2rapperimg, self.p2coord)
-        elif self.receivedEnemyPoke.type == 1: #delinquent child
-            self.display.blit(self.p2delinqimg, self.p2coord)
-        elif self.receivedEnemyPoke.type == 2: #nerd
-            self.display.blit(self.p2nerdimg, self.p2coord)
-        elif self.receivedEnemyPoke.type == 3: #criminal
-            self.display.blit(self.p2criminalimg, self.p2coord)
-        elif self.receivedEnemyPoke.type == 4: #homeless
-            self.display.blit(self.p2homelessimg, self.p2coord)
     def update(self):
         if(self.game.wait==True):
             self.draw()
