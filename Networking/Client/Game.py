@@ -3,6 +3,7 @@ import pygame
 from EventManager import *
 from TextInput import *
 from pokeman import pokeman
+import Battle_Window
 
 class Game:
     def __init__(self):
@@ -13,9 +14,6 @@ class Game:
         self.font64 = pygame.font.Font("PKMN RBYGSC.ttf", 64)
         self.font128 = pygame.font.Font("PKMN RBYGSC.ttf", 128)
         self.font256 = pygame.font.Font("PKMN RBYGSC.ttf", 256)
-        
-        
-
         self.gangster = pygame.image.load('criminal.png')
         self.child = pygame.image.load('delinq.png')
         self.hobo = pygame.image.load('hobo.png')
@@ -206,6 +204,7 @@ class Game:
                 The GameState should be in the state managements
                 '''
                 self.gameState = data[1]
+                self.window =Battle_Window(self)
                 
         self.networkManager.messageLock.release()
 
@@ -248,6 +247,9 @@ class Game:
             pass
 
         elif self.state == "Battle":
+            self.pokemans=self.gamestate[0]
+            self.activePoke= self.gamestate[1]
+            self.oppPoke = self.gamestate[2]
             '''
             Update the GameState here
             gameState.update()
