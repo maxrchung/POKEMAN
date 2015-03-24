@@ -102,7 +102,7 @@ class Battle_Window:
 
         #visible bools for inner windows
         self.moveVisible = False
-        self.pokeVisible = False
+        self.switchVisible = False
         self.switchVisible = False
         self.forfeitVisible = False
 
@@ -221,10 +221,10 @@ class Battle_Window:
             self.display.blit(self.move3, (123, 536))
             self.display.blit(self.move4, (246, 536))
         #if the gamestate is in switch
-        elif self.pokeVisible == True:
-            self.display.blit(self.poke1, (99, 516))
-            self.display.blit(self.poke2, (198, 516))
-            self.display.blit(self.poke3, (287, 516))
+        elif self.switchVisible == True:
+            self.display.blit(self.switch1, (99, 516))
+            self.display.blit(self.switch2, (198, 516))
+            self.display.blit(self.switch3, (287, 516))
         #if the gamestate is in quit
         elif self.forfeitVisible == True:
             self.display.blit(self.forfeit1, (165, 516))
@@ -277,7 +277,7 @@ class Battle_Window:
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(2)
                 self.theButtons.setCurrentbutton(0)
-                self.pokeVisible = True
+                self.switchVisible = True
                 
         elif self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 2:
                         # hovering forfeit
@@ -393,7 +393,7 @@ class Battle_Window:
                 self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
                 self.moveVisible =False
-                self.pokeVisible = False
+                self.switchVisible = False
                 self.forfeitVisible = False
 
 
