@@ -21,7 +21,7 @@ class Battle_Window:
         self.game = game
 
         #pokemon received from the server
-        self.receievedPokeList = game.pokemans#(40, 225)
+        self.receivedPokeList = game.pokemans#(40, 225)
         self.receivedPokeIndex = game.activePoke
         self.receivedEnemyPoke = game.oppPoke #(535, 65)
         
@@ -93,7 +93,6 @@ class Battle_Window:
         self.switch1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
         self.switch2 = self.myfont.render(self.theButtons.getPoke(1).upper(), 1, BLACK)
         self.switch3 = self.myfont.render(self.theButtons.getPoke(2).upper(), 1, BLACK)
-        self.switch4 = self.myfont.render(self.theButtons.getPoke(3).upper(), 1, BLACK)
 
         #initialize the forfeit Buttons
         self.forfeit1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
@@ -102,6 +101,7 @@ class Battle_Window:
 
         #visible bools for inner windows
         self.moveVisible = False
+        self.pokeVisible = False
         self.switchVisible = False
         self.forfeitVisible = False
 
