@@ -55,8 +55,8 @@ class Battle_Window:
 
         #variables for the player's health bar
         self.p1healthPercentage = 100
-        self.p1healthMax = game.pokemans[game.activepoke].stats[5]
-        self.p1currentHealth = game.pokemans[game.activepoke].current
+        self.p1healthMax = game.pokemans[game.activePoke].stats[5]
+        self.p1currentHealth = game.pokemans[game.activePoke].current
 
         #variables for the enemy's health bar
         self.p2healthPercentage = 100
