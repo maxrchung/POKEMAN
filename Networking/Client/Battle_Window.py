@@ -390,7 +390,6 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(0)
 
 
-        self.draw()
         
     def run(self):
         while True:
