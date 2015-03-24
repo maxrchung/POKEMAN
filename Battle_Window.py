@@ -21,9 +21,9 @@ class Battle_Window:
         self.game = game
 
         #pokemon received from the server
-        self.receievedPokeList = None #(40, 225)
-        self.receivedPokeIndex = 0 
-        self.receivedEnemyPoke = None #(535, 65)
+        self.receievedPokeList = game.pokemans#(40, 225)
+        self.receivedPokeIndex = game.activePoke
+        self.receivedEnemyPoke = game.oppPoke #(535, 65)
         
         #pokemon images
 
@@ -186,7 +186,7 @@ class Battle_Window:
             elif self.theButtons.getCurrentbutton() == 2:
                 self.display.blit (self.cursorimg, (103, 536))
             #button on move 4
-            elif sel.fheButtons.getCurrentbutton() == 3:
+            elif self.theButtons.getCurrentbutton() == 3:
                 self.display.blit (self.cursorimg, (226, 536))
 
 
@@ -251,21 +251,8 @@ class Battle_Window:
             self.display.blit(self.p2criminalimg, self.p2coord)
         elif self.receivedEnemyPoke.type == 4: #homeless
             self.display.blit(self.p2homelessimg, self.p2coord)
-
-"""
-    def damage(self, p, amount): #only used for testing the health bars
-        #damages players 
-        if p == 'p1':
-            self.p1currentHealth -= amount
-            self.p1healthPercentage = int(self.p1currentHealth/self.p1healthMax * 100) 
-        elif p == 'p2':
-            self.p2currentHealth -= amount
-            self.p2healthPercentage = int(self.p2currentHealth/self.p2healthMax * 100)
-        #redraws with the updated values
-"""
-
     def update(self):
-        
+        content = ["Battle"]
                         #state changes
         if self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 0:
                         # hovering moves
@@ -307,6 +294,10 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(2)
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends moves[0]
+                content.append(0)
+                content.append(0)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 1:
                         # hovering move 2
@@ -314,6 +305,10 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(2)
             elif self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(0)
+            elif self.game.eventManager.enter:#sends moves[1]
+                content.append(0)
+                content.append(1)
+                self.game.networkManager.sendPacket(content)
                         
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 2:
                         #hovering move 3
@@ -323,6 +318,10 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(1)
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(3)
+            elif self.game.eventManager.enter:#sends moves[2]
+                content.append(0)
+                content.append(2)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 3:
                         #hovering move 4
@@ -330,11 +329,20 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(1)
             elif self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(2)
+            elif self.game.eventManager.enter:#sends moves[3]
+                content.append(0)
+                content.append(3)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 0:
                         #hovering poke 1
             if self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends swap[0]
+                content.append(1)
+                content.append(0)
+                if(self.receivedPokeIndex!=0):#checking to see if it's current pokemon
+                    self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 1:
                         #hovering poke 2
@@ -342,20 +350,37 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(2)
+            elif self.game.eventManager.enter:#sends swap[1]
+                content.append(1)
+                content.append(1)
+                if(self.receivedPokeIndex!=1):#checking to see if it's current pokemon
+                    self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 2:
                         #hovering poke 3
             if self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends swap[2]
+                content.append(1)
+                content.append(2)
+                if(self.receivedPokeIndex!=2):#checking to see if it's current pokemon
+                    self.game.networkManager.sendPacket(content)
                 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 0:
                         #hovering yes
             if self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends ff
+                content.append(2)
+                content.append(0)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 1:
                         #hovering no
             if self.game.eventManager.left: #left button
+                self.theButtons.setCurrentbutton(0)
+            elif self.game.eventManager.enter:
+                self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
 
 
@@ -365,7 +390,7 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(0)
 
 
-        draw()
+        self.draw()
         
     def run(self):
         while True:
