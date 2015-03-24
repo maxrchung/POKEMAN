@@ -85,10 +85,10 @@ class Battle_Window:
 
 
         #initialize the Move Buttons
-        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0], 1, BLACK)
-        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1], 1, BLACK)
-        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2], 1, BLACK)
-        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3], 1, BLACK)
+        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
+        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
+        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
+        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
 
         #initialize the Switch Buttons
         self.switch1 = self.myfont.render(self.receivedPokeList[0].name.upper(), 1, BLACK)
