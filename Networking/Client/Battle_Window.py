@@ -21,9 +21,9 @@ class Battle_Window:
         self.game = game
 
         #pokemon received from the server
-        self.receievedPokeList = None #(40, 225)
-        self.receivedPokeIndex = 0 
-        self.receivedEnemyPoke = None #(535, 65)
+        self.receievedPokeList = game.pokemans#(40, 225)
+        self.receivedPokeIndex = game.activePoke
+        self.receivedEnemyPoke = game.oppPoke #(535, 65)
         
         #pokemon images
 
@@ -265,7 +265,7 @@ class Battle_Window:
 """
 
     def update(self):
-        
+        content = ["Battle"]
                         #state changes
         if self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 0:
                         # hovering moves
@@ -307,6 +307,10 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(2)
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends moves[0]
+                content.append(0)
+                content.append(0)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 1:
                         # hovering move 2
@@ -314,6 +318,10 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(2)
             elif self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(0)
+            elif self.game.eventManager.enter:#sends moves[1]
+                content.append(0)
+                content.append(1)
+                self.game.networkManager.sendPacket(content)
                         
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 2:
                         #hovering move 3
@@ -323,6 +331,10 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(1)
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(3)
+            elif self.game.eventManager.enter:#sends moves[2]
+                content.append(0)
+                content.append(2)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 3:
                         #hovering move 4
@@ -330,11 +342,20 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(1)
             elif self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(2)
+            elif self.game.eventManager.enter:#sends moves[3]
+                content.append(0)
+                content.append(3)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 0:
                         #hovering poke 1
             if self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends swap[0]
+                content.append(1)
+                content.append(0)
+                if(self.receivedPokeIndex!=0):#checking to see if it's current pokemon
+                   self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 1:
                         #hovering poke 2
@@ -342,20 +363,37 @@ class Battle_Window:
                 self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(2)
+            elif self.game.eventManager.enter:#sends swap[1]
+                content.append(1)
+                content.append(1)
+                if(self.receivedPokeIndex!=1):#checking to see if it's current pokemon
+                   self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 2:
                         #hovering poke 3
             if self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends swap[2]
+                content.append(1)
+                content.append(2)
+                if(self.receivedPokeIndex!=2):#checking to see if it's current pokemon
+                   self.game.networkManager.sendPacket(content)
                 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 0:
                         #hovering yes
             if self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.enter:#sends ff
+                content.append(2)
+                content.append(0)
+                self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 1:
                         #hovering no
             if self.game.eventManager.left: #left button
+                self.theButtons.setCurrentbutton(0)
+            elif self.game.eventManager.enter:
+                self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
 
 
