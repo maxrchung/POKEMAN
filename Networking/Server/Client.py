@@ -18,7 +18,8 @@ class Client:
         self.draft = []
         # Selected 3 pokemans
         self.pokemans = []
-
+        self.ready = False
+        self.waitingCommand = []
         self.messageQueue = deque()
         self.messageLock = threading.Lock()
         self.messageThread = threading.Thread(target=self.checkForMessages)
