@@ -115,4 +115,17 @@ class Server:
             '''
             Battle will contain the GameState that will be updated
             '''
+            if battle.over == True:
+                if battle.client1.lose==True:
+                    client = battle.client1
+                else:
+                    client = battle.client2
+                client.draft = [] # clear draft
+                for i in range(3):#new draft
+                    r=random.randint(0,4)#random class
+                    g=random.randint(0,1)#random gender
+                    client.draft.append(pokeman(r,g))
+                content = ["Draft", client.draft]
+                client.sendPacket(content)
+                self.battles.remove(battle)
             battle.update()

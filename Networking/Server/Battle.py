@@ -10,6 +10,7 @@ class Battle:
         self.pokeOne = self.playerOne[0]
         self.pokeTwo = self.playerTwo[0]
         self.buffsOne = [0,0,0,0,0]
+        self.over = False
         self.buffsTwo = [0,0,0,0,0]
         # So we don't send too many game updates at once
         # Only sends a game update after a certain updateTimer limit has passed
@@ -35,6 +36,7 @@ class Battle:
                 self.turn(self.client1.waitingCommand[0],self.client1.waitingCommand[1],self.client2.waitingCommand[0],self.client2.waitingCommand[1])
                 print("Just sent a command")
                 if(self.client1.win or self.client1.lose):
+                    self.over = True
                     return
                 pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
                 pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]
