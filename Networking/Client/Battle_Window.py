@@ -101,6 +101,7 @@ class Battle_Window:
 
         #visible bools for inner windows
         self.moveVisible = False
+        self.pokeVisible = False
         self.switchVisible = False
         self.forfeitVisible = False
 
