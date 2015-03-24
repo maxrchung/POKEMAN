@@ -273,10 +273,11 @@ class Game:
             if self.draft != []:
                 for i in range(3):
                     self.screen.blit(self.drawpokeman(self.draft[i].type),(150+ 250*i-self.nerdw*0.5 ,100))
+                    self.screen.blit(self.font16.render(self.draft[i].name,1,(0,0,0)),(150+ 250*i-self.font16.render(self.draft[i].name,1,(0,0,0)).get_rect().width*0.5,250))
                     for s in range(6):
-                        self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(0,0,0)),(150+ 250*i - 50,250+20*s))
+                        self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(0,0,0)),(150+ 250*i - 50,300+20*s))
                     for s in range(4):
-                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName).upper(),1,(0,0,0)),(150+ 250*i - 55,400+20*s))
+                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName).upper(),1,(0,0,0)),(150+ 250*i - 55,450+20*s))
             self.screen.blit(self.select,(150 + 250*self.sel-self.selectw*0.5,75))  
         if self.state == "Battle":
             self.battle_window.draw()
