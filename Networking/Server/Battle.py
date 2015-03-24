@@ -114,6 +114,6 @@ class Battle:
             stab=1
         print(ability, ability.power)
         if(ability.type==0):
-            return ability.power*attker.stats[0]/defender.stats[1]*stab*effectiveness(defender.type,ability.type)
+            return ability.power*attker.stats[0]/defender.stats[1]*stab*effectiveness(ability,defender)
         else:
-            return ability.power*attker.stats[2]/defender.stats[3]*stab*effectiveness(defender.type,ability.type)
+            return ability.power*attker.stats[2]/defender.stats[3]*stab*effectiveness(ability,defender)
