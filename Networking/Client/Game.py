@@ -175,9 +175,9 @@ class Game:
             pass
 
         elif self.state == "Battle":
-            self.pokemans=self.gamestate[0]
-            self.activePoke= self.gamestate[1]
-            self.oppPoke = self.gamestate[2]
+            self.pokemans=self.gameState[0]
+            self.activePoke= self.gameState[1]
+            self.oppPoke = self.gameState[2]
             '''
             Update the GameState here
             gameState.update()
