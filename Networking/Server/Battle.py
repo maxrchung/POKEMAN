@@ -34,6 +34,8 @@ class Battle:
                 print(self.client1.waitingCommand, self.client2.waitingCommand)
                 self.turn(self.client1.waitingCommand[0],self.client1.waitingCommand[1],self.client2.waitingCommand[0],self.client2.waitingCommand[1])
                 print("Just sent a command")
+                if(self.client1.win or self.client1.lose):
+                    return
                 pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
                 pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]
                 content1 = ["Battle", pState1]

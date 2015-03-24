@@ -306,7 +306,7 @@ class Battle_Window:
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.enter: #enter button
-                self.theButtons.setMenustate(2)
+                self.theButtons.setMenustate(3)
                 self.theButtons.setCurrentbutton(0)
                 self.forfeitVisible = True
 
