@@ -18,7 +18,7 @@ class Game:
         self.rapperw = self.rapper.get_rect().width
         self.gangster = pygame.image.load('NAKEDMAN3.png')
         self.gangsterw = self.gangster.get_rect().width
-        self.child = pygame.image.load('delinq.png')
+        self.child = pygame.image.load('NAKEDMAN4.png')
         self.childw = self.child.get_rect().width
         self.hobo = pygame.image.load('NAKEDMAN.png')
         self.hobow = self.hobo.get_rect().width
