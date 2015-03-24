@@ -388,6 +388,9 @@ class Battle_Window:
             if self.game.eventManager.escape: #escape button
                 self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
+                self.moveVisible =False
+                self.pokeVisible = False
+                self.forfeitVisible = False
 
 
         
