@@ -10,6 +10,11 @@ class Game:
         pygame.font.init()
         self.font16 = pygame.font.Font("PKMN RBYGSC.ttf", 16)
         self.font32 = pygame.font.Font("PKMN RBYGSC.ttf", 32)
+        self.font64 = pygame.font.Font("PKMN RBYGSC.ttf", 64)
+        self.font128 = pygame.font.Font("PKMN RBYGSC.ttf", 128)
+        self.font256 = pygame.font.Font("PKMN RBYGSC.ttf", 256)
+        
+        
 
         self.gangster = pygame.image.load('criminal.png')
         self.child = pygame.image.load('delinq.png')
@@ -34,24 +39,119 @@ class Game:
         self.gameState = [] # gameState in battle
 
         self.sel = 0
+        self.login = 0
+        self.timer1 = 0
+        self.flash1 = False
+#         self.networkManager = NetworkManager(self)
+        
+    def start(self):
         self.networkManager = NetworkManager(self)
+    
+    def prelogin(self):
+        self.eventManager.run()
+        enterf = pygame.time.get_ticks()
+        if self.eventManager.enter == True:
+            if self.login == 0:
+                self.login = 1
+            elif self.login == 1:
+                self.login = 2
+            elif self.login == 2:
+                self.login = 3
+        self.screen.fill((255,255,255))
+        if self.login == 0:
+            pokemon = self.font64.render('POKEMANS',1,(0,0,0))
+            pokemonwidth = pokemon.get_rect().width
+            self.screen.blit(pokemon,(400-pokemonwidth*0.5,236))
+            if enterf - self.timer1 > 1000:
+                self.timer1 = enterf
+                if self.flash1 == True:
+                    self.flash1 = False
+                else:
+                    self.flash1 = True
+            if self.flash1 == True:
+                pEnter = self.font16.render('PRESS ENTER TO CONTINUE',1,(0,0,0))
+                pEnterwidth = pEnter.get_rect().width
+                self.screen.blit(pEnter,(400-pEnterwidth*0.5,400))
+        elif self.login == 1:
+            text1 = self.font16.render('In the not so distant future, the upper class'.upper(),1,(0,0,0))
+            text2 = self.font16.render('has been gathered by the god emperor Kappa,'.upper(),1,(0,0,0))
+            text3 = self.font16.render('the lord of Kappa-talism.  In his infinite wisdom he'.upper(),1,(0,0,0))
+            text4 = self.font16.render('has decided that too many of his people are in'.upper(),1,(0,0,0))
+            text5 = self.font16.render('debt, and to free them he has decided to host'.upper(),1,(0,0,0))
+            text6 = self.font16.render('a tournament in which they can fight for'.upper(),1,(0,0,0))
+            text7 = self.font16.render('their freedom.'.upper(),1,(0,0,0))
+                    
+            text8 = self.font16.render('You are a member of the upper class,'.upper(),1,(0,0,0))
+            text9 = self.font16.render('your task is to select a team of three indebted'.upper(),1,(0,0,0))
+            text10 = self.font16.render('to enter the tournament and fight for'.upper(),1,(0,0,0))
+            text11 = self.font16.render('your entertainment.  Your only cost is to pay'.upper(),1,(0,0,0))
+            text12 = self.font16.render('their debts as an entry fee and on the'.upper(),1,(0,0,0))
+            text13 = self.font16.render('condition that they should the survive 7 matches,'.upper(),1,(0,0,0))
+            text14 = self.font16.render('they shall be absolved of all debt and set free.'.upper(),1,(0,0,0))
+            textarray = [text1,text2,text3,text4,text5,text6,text7]
+            textarray2 = [text8,text9,text10,text11,text12,text13,text14]
+            for i in range(0,7):
+                self.screen.blit(textarray[i],(64,50+32*i))
+            for i in range(0,7):
+                self.screen.blit(textarray2[i],(64,50+32*i + 32*7 + 50))
+            if enterf - self.timer1 > 700:
+                self.timer1 = enterf
+                if self.flash1 == True:
+                    self.flash1 = False
+                else:
+                    self.flash1 = True
+            if self.flash1 == True:
+                pEnter = self.font16.render('PRESS ENTER TO CONTINUE',1,(0,0,0))
+                pEnterwidth = pEnter.get_rect().width
+                self.screen.blit(pEnter,(400-pEnterwidth*0.5,560))
+        elif self.login == 2:
+            tips = self.font32.render('TIPS',1,(0,0,0))
+            tipsw = tips.get_rect().width
+            self.screen.blit(tips,(400-tipsw*0.5,32))
+            tips1 = self.font16.render('THERE ARE TWO TYPES OF DAMAGE, PHYSICAL AND SPECIAL.',1,(0,0,0))
+            tips1w = tips1.get_rect().width
+            self.screen.blit(tips1,(400-tips1w*0.5,96))
+            tips2 = self.font16.render('SOME TYPES OF ATTACKS ARE STRONGER OR WEAKER',1,(0,0,0))
+            tips2w = tips2.get_rect().width
+            self.screen.blit(tips2,(400-tips2w*0.5,96+64))
+            tips3 = self.font16.render('AGAINST VARIOUS POKEMANS',1,(0,0,0))
+            tips3w = tips3.get_rect().width
+            self.screen.blit(tips3,(400-tips3w*0.5,96+3*32))
+            tips4 = self.font16.render('EVERY POKEMANS FIRST TWO MOVES BELONG TO HIS TYPE,',1,(0,0,0))
+            tips4w = tips4.get_rect().width
+            self.screen.blit(tips4,(400-tips4w*0.5,96 + 5*32))
+            tips5 = self.font16.render('THE LAST TWO DO NOT BELONG TO HIS TYPE.',1,(0,0,0))
+            tips5w = tips5.get_rect().width
+            self.screen.blit(tips5,(400-tips5w*0.5,96+6*32))
+            if enterf - self.timer1 > 350:
+                self.timer1 = enterf
+                if self.flash1 == True:
+                    self.flash1 = False
+                else:
+                    self.flash1 = True
+            if self.flash1 == True:
+                pEnter = self.font16.render('PRESS ENTER TO CONTINUE',1,(0,0,0))
+                pEnterwidth = pEnter.get_rect().width
+                self.screen.blit(pEnter,(400-pEnterwidth*0.5,560))
+        pygame.display.flip()
+    
     def run(self):
         self.update()
         self.draw()
 
     def stattype(self,num):
         if num == 0:
-            return 'Atk'
+            return 'ATK'
         elif num == 1:
-            return 'Def'
+            return 'DEF'
         elif num == 2:
-            return 'Satk'
+            return 'SATK'
         elif num == 3:
-            return 'Sdef'
+            return 'SDEF'
         elif num == 4:
-            return 'Spd'
+            return 'SPD'
         elif num == 5:
-            return 'Hp'
+            return 'HP'
     
     def drawpokeman(self,num):
         if num == 0:
@@ -150,14 +250,14 @@ class Game:
         if self.state == "Login":
             self.textInput.draw()
         if self.state == "Draft":
-            self.screen.blit(self.font32.render('Draft',1,(0,0,0)),(350,50))
+            self.screen.blit(self.font32.render('DRAFT',1,(0,0,0)),(350,32))
             if self.draft != []:
                 for i in range(3):
                     self.screen.blit(self.drawpokeman(self.draft[i].type),(100+ 250*i,100))
                     for s in range(6):
                         self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),1,(0,0,0)),(125+ 250*i,250+20*s))
                     for s in range(4):
-                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName),1,(0,0,0)),(125+ 250*i,400+20*s))
+                        self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName).upper(),1,(0,0,0)),(125+ 250*i,400+20*s))
             self.screen.blit(self.select,(164 + 250*self.sel,75))            
 
         pygame.display.flip()
