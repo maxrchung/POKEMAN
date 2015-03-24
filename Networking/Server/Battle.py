@@ -9,8 +9,8 @@ class Battle:
         self.playerTwo = client2.pokemans
         self.pokeOne = self.playerOne[0]
         self.pokeTwo = self.playerTwo[0]
-        self.buffsOne[0,0,0,0,0]
-        self.buffsTwo[0,0,0,0,0]
+        self.buffsOne = [0,0,0,0,0]
+        self.buffsTwo = [0,0,0,0,0]
         # So we don't send too many game updates at once
         # Only sends a game update after a certain updateTimer limit has passed
         self.updateClock = pygame.time.Clock()
