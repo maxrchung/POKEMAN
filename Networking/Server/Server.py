@@ -64,6 +64,9 @@ class Server:
                     else:
                         client.draft = [] # Resets draft
                         self.waitingQueue.append(client)
+                elif command == "Battle":
+                    self.ready=True
+                    self.waitingCommand = [data[1],data[2]]
 
             client.messageLock.release()
         self.networkManager.connectionLock.release()
@@ -74,6 +77,7 @@ class Server:
             self.battles.append(Battle(client1, client2))
 
         for battle in self.battles:
+            
             '''
             Battle will contain the GameState that will be updated
             '''
