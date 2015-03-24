@@ -130,17 +130,17 @@ class Battle_Window:
 
         #filling in the health bars        
         if (self.p1healthPercentage <= 15):          #<----Health is below 15%
-            pygame.draw.rect(self.display, RED, (531*(self.p1healthPercentage / 100), 297, 239, 8)) #player 1 Health Bar
+            pygame.draw.rect(self.display, RED, (531 + 239*(self.p1healthPercentage / 100), 297, 239*(self.p1healthPercentage / 100), 8)) #player 1 Health Bar
         elif(self.p1healthPercentage <= 50):         #<----Health is below 50%
-            pygame.draw.rect(self.display, YELLOW, (531*(self.p1healthPercentage / 100), 297, 239, 8))
+            pygame.draw.rect(self.display, YELLOW, (531 + 239*(self.p1healthPercentage / 100), 297, 239*(self.p1healthPercentage / 100), 8))
         else:                                        #<----Health is above 50%
-            pygame.draw.rect(self.display, GREEN, (531*(self.p1healthPercentage / 100), 297, 239, 8))
+            pygame.draw.rect(self.display, GREEN, (531 + 239*(self.p1healthPercentage / 100), 297, 239*(self.p1healthPercentage / 100), 8))
         if (self.p2healthPercentage <= 15):
-            pygame.draw.rect(self.display, RED, (111*(self.p2healthPercentage / 100), 60, 239, 8)) #player 2 Health Bar
+            pygame.draw.rect(self.display, RED, (111 + 239*(self.p2healthPercentage / 100), 60, 239*(self.p1healthPercentage / 100), 8)) #player 2 Health Bar
         elif (self.p2healthPercentage <= 50):
-            pygame.draw.rect(self.display, YELLOW, (111*(self.p2healthPercentage / 100), 60, 239, 8))
+            pygame.draw.rect(self.display, YELLOW, (111 + 239*(self.p2healthPercentage / 100), 60, 239*(self.p1healthPercentage / 100), 8))
         else:
-            pygame.draw.rect(self.display, GREEN, (111*(self.p2healthPercentage / 100), 60, 239, 8))
+            pygame.draw.rect(self.display, GREEN, (111 + 239*(self.p2healthPercentage / 100), 60, 239*(self.p1healthPercentage / 100), 8))
 
         #draws the health number below the health bar
         self.healthtextRender = self.myfont.render(self.p1healthtext, 0, BLACK)
