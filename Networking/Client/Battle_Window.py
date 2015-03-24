@@ -45,6 +45,7 @@ class Battle_Window:
         
     
         self.myfont = pygame.font.Font("PKMN RBYGSC.ttf", 25) #creates a font from the pokemon ttf file
+        self.smallfont = pygame.font.Font("PKMN RBYGSC.ttf", 12)
         self.overlay = pygame.image.load("Main_Overlay.png") # loads the overlay with the health bars, and menu UI
         self.overlayRect = self.overlay.get_rect() #gets the dimensions 800x600 in a tuple(int,int)
 
@@ -70,8 +71,8 @@ class Battle_Window:
         self.display.fill(WHITE)
 
         #pokemon names
-        self.poke1Name = "Bulbasaur".upper()
-        self.poke2Name = "Charmander".upper()
+        self.poke1Name = self.receivedPokeList[self.receivedPokeIndex].name.upper()
+        self.poke2Name = self.receivedPokeList[self.receivedPokeIndex].name.upper()
 
         #initialize the Battle Buttons
         self.theButtons = Battle_Buttons()
@@ -84,19 +85,19 @@ class Battle_Window:
 
 
         #initialize the Move Buttons
-        self.move1 = self.myfont.render(self.theButtons.getMove(0).upper(), 1, BLACK)
-        self.move2 = self.myfont.render(self.theButtons.getMove(1).upper(), 1, BLACK)
-        self.move3 = self.myfont.render(self.theButtons.getMove(2).upper(), 1, BLACK)
-        self.move4 = self.myfont.render(self.theButtons.getMove(3).upper(), 1, BLACK)
+        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0], 1, BLACK)
+        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1], 1, BLACK)
+        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2], 1, BLACK)
+        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3], 1, BLACK)
 
         #initialize the Switch Buttons
-        self.switch1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
-        self.switch2 = self.myfont.render(self.theButtons.getPoke(1).upper(), 1, BLACK)
-        self.switch3 = self.myfont.render(self.theButtons.getPoke(2).upper(), 1, BLACK)
+        self.switch1 = self.myfont.render(self.receivedPokeList[0].name.upper(), 1, BLACK)
+        self.switch2 = self.myfont.render(self.receivedPokeList[1].name.upper(), 1, BLACK)
+        self.switch3 = self.myfont.render(self.receivedPokeList[2].name.upper(), 1, BLACK)
 
         #initialize the forfeit Buttons
-        self.forfeit1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
-        self.forfeit2 = self.myfont.render(self.theButtons.getPoke(1).upper(), 1, BLACK)
+        self.forfeit1 = self.myfont.render("YES", 1, BLACK)
+        self.forfeit2 = self.myfont.render("NO", 1, BLACK)
 
 
         #visible bools for inner windows
