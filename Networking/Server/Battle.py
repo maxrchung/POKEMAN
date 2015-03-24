@@ -26,7 +26,8 @@ class Battle:
             self.updateTimer = 0
             # After the battles are updated, send the gamestate out if
             # one person did not win/lose
-            
+            print(self.client1.ready)
+            print(self.client2.ready)
             if(self.client1.ready and self.client2.ready):#if they have both sent commands
                 self.turn(self.client1.waitingCommand[0],self.client1.waitingCommand[1],self.client2.waitingCommand[0],self.client2.waitingCommand[1])
                 print("Just sent a command")
@@ -36,14 +37,13 @@ class Battle:
                 content2 = ["Battle", pState2]
                 self.client1.ready = False
                 self.client2.ready = False
-            if(self.client1.ready or self.client2.ready):
-                return                  
-            pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
-            pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]
-            content1 = ["Battle", pState1]
-            content2 = ["Battle", pState2]
-            self.client1.sendPacket(content1)
-            self.client2.sendPacket(content2)
+            if not(self.client1.ready or self.client2.ready):
+                pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
+                pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]
+                content1 = ["Battle", pState1]
+                content2 = ["Battle", pState2]
+                self.client1.sendPacket(content1)
+                self.client2.sendPacket(content2)
     def turn(self, commandOne, indexOne, commandTwo, indexTwo):
         if commandOne == 2:
             self.client1.lose=True
