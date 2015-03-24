@@ -37,7 +37,7 @@ class pokeman(object):
         return self.name
         
     def setname(self):
-        self.name = self.nameList[random.randint(0,len(pokeman.nameList))]
+        self.name = self.nameList[random.randint(0,len(self.nameList)-1)]
     
     def setmoves(self):
         a=random.randint(0,3)
