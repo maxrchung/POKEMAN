@@ -74,6 +74,7 @@ class Server:
 
                     # Else put the client into the queue
                     else:
+                        client.sendPacket(content)
                         client.draft = [] # Resets draft
                         self.waitingQueue.append(client)
                 elif command == "Battle":
@@ -105,7 +106,10 @@ class Server:
             client1 = self.waitingQueue.popleft()
             client2 = self.waitingQueue.popleft()
             self.battles.append(Battle(client1, client2))
-
+            content = ["BattleStart", client2.pokemans[0]]
+            client1.sendPacket(content)
+            content = ["BattleStart", client1.pokemans[0]]
+            client2.sendPacket(content)
         for battle in self.battles:
             
             '''

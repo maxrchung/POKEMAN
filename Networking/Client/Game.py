@@ -115,6 +115,8 @@ class Game:
                 '''
                 self.gameState = data[1]
                 self.window = Battle_Window(self)
+            elif command == "BattleStart":
+                self.oppPoke = data[1]
                 
         self.networkManager.messageLock.release()
         
@@ -154,8 +156,10 @@ class Game:
                 # If we have drafted 3 pokemon, then jump to queue mode
                 if len(self.pokemans) >= 3:
                     print(self.pokemans)
+                    self.activePoke = 0
                     self.state = "Queue"
                     print(self.pokemans)
+                    
                     print()
                     print("Switched to Queue")
 
@@ -173,6 +177,7 @@ class Game:
             gameState.update()
             '''
             pass
+            
 
     def draw(self):
         self.screen.fill((255,255,255))
