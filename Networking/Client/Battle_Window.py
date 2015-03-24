@@ -385,7 +385,7 @@ class Battle_Window:
 
 
         if self.theButtons.getMenustate() == 1 or self.theButtons.getMenustate() == 2 or self.theButtons.getMenustate() == 3:
-            if self.game.eventManager.escape: #escape button
+            if self.game.eventManager.cancel: #escape button
                 self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
                 self.moveVisible =False
