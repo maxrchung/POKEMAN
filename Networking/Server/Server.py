@@ -74,7 +74,6 @@ class Server:
 
                     # Else put the client into the queue
                     else:
-                        client.sendPacket(content)
                         client.draft = [] # Resets draft
                         self.waitingQueue.append(client)
                 elif command == "Battle":
