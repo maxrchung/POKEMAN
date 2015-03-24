@@ -12,6 +12,7 @@ class Game:
         self.font16 = pygame.font.Font("PKMN RBYGSC.ttf", 16)
         self.font32 = pygame.font.Font("PKMN RBYGSC.ttf", 32)
         self.font64 = pygame.font.Font("PKMN RBYGSC.ttf", 64)
+        #must be something real troll to use anything bigger than 64
         self.font128 = pygame.font.Font("PKMN RBYGSC.ttf", 128)
         self.font256 = pygame.font.Font("PKMN RBYGSC.ttf", 256)
         self.gangster = pygame.image.load('criminal.png')
