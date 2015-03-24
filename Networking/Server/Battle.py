@@ -10,6 +10,7 @@ class Battle:
         self.pokeOne = self.playerOne[0]
         self.pokeTwo = self.playerTwo[0]
         self.buffsOne = [0,0,0,0,0]
+        self.over = False
         self.buffsTwo = [0,0,0,0,0]
         # So we don't send too many game updates at once
         # Only sends a game update after a certain updateTimer limit has passed
@@ -21,6 +22,8 @@ class Battle:
     def update(self):
         # Update gameState here
         # self.gameState.update()
+        self.pokeOne = self.playerOne[self.client1.active]
+        self.pokeTwo = self.playerTwo[self.client2.active]
         self.updateTimer += self.updateClock.tick()
         if self.updateTimer > 50:
             self.updateTimer = 0
@@ -32,6 +35,9 @@ class Battle:
                 print(self.client1.waitingCommand, self.client2.waitingCommand)
                 self.turn(self.client1.waitingCommand[0],self.client1.waitingCommand[1],self.client2.waitingCommand[0],self.client2.waitingCommand[1])
                 print("Just sent a command")
+                if(self.client1.win or self.client1.lose):
+                    self.over = True
+                    return
                 pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
                 pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]
                 content1 = ["Battle", pState1]
@@ -48,17 +54,25 @@ class Battle:
     def turn(self, commandOne, indexOne, commandTwo, indexTwo):
         if commandOne == 2:
             self.client1.lose=True
+            self.client1.sendPacket(["Result","Loss"])
+            self.client1.pokemans = []
             self.client2.win=True
+            self.client2.sendPacket(["Result","Win"])
             return
         if commandTwo == 2:
             self.client2.lose=True
+            self.client2.sendPacket(["Result","Loss"])
+            self.client2.pokemans = []
             self.client1.win =True
+            self.client1.sendPacket(["Result","Win"])
             return
         if commandOne == 1 or commandTwo == 1: 
             if commandOne == 1: #swap1
                 self.client1.active = indexOne
+                self.pokeOne = self.playerOne[indexOne]
             if commandTwo == 1: #swap2
                 self.client2.active = indexTwo
+                self.pokeTwo = self.playerTwo[indexTwo]
         if commandOne == 0 and commandTwo == 0:
             if self.pokeOne.stats[4] >= self.pokeTwo.stats[4]:
                 #issue command 1
@@ -100,11 +114,30 @@ class Battle:
                 self.pokeTwo.current-=self.damage(self.pokeOne,self.pokeTwo,ability)
                 if self.pokeTwo.current<0:
                     self.pokeTwo.current=0
+                    x = self.nextActive(self.playerTwo)
+                    if x != -1:
+                        self.client2.active = x
+                    else:
+                        self.client2.lose=True
+                        self.client2.sendPacket(["Result","Loss"])
+                        self.client2.pokemans = []
+                        self.client1.win =True
+                        self.client1.sendPacket(["Result","Win"])
                     #ded
             else:
                 self.pokeOne.current-=self.damage(self.pokeTwo,self.pokeOne,ability)
                 if self.pokeOne.current<0:
                     self.pokeOne.current=0
+                    self.client1.active = self.nextActive(self.playerOne)
+                    x = self.nextActive(self.playerTwo)
+                    if x != -1:
+                        self.client2.active = x
+                    else:
+                        self.client1.lose=True
+                        self.client1.sendPacket(["Result","Loss"])
+                        self.client1.pokemans = []
+                        self.client2.win =True
+                        self.client2.sendPacket(["Result","Win"])
                     #ded
 
     def damage(self,attker,defender,ability):
@@ -112,8 +145,13 @@ class Battle:
             stab=1.5
         else:
             stab=1
-        print(ability, ability.power)
         if(ability.type==0):
             return ability.power*attker.stats[0]/defender.stats[1]*stab*effectiveness(ability,defender)
         else:
             return ability.power*attker.stats[2]/defender.stats[3]*stab*effectiveness(ability,defender)
+    def nextActive(self,pokeList):
+        for i in range (3):
+            if pokeList[i].current !=0:
+                return i
+        return -1    
+        

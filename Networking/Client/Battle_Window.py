@@ -130,17 +130,17 @@ class Battle_Window:
 
         #filling in the health bars        
         if (self.p1healthPercentage <= 15):          #<----Health is below 15%
-            pygame.draw.rect(self.display, RED, (531, 297, 239*(self.p1healthPercentage / 100), 8)) #player 1 Health Bar
+            pygame.draw.rect(self.display, RED, (531 + 239*(self.p1healthPercentage / 100), 297, 239*(self.p1healthPercentage / 100), 8)) #player 1 Health Bar
         elif(self.p1healthPercentage <= 50):         #<----Health is below 50%
-            pygame.draw.rect(self.display, YELLOW, (531, 297, 239*(self.p1healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, YELLOW, (531 + 239*(self.p1healthPercentage / 100), 297, 239*(self.p1healthPercentage / 100), 8))
         else:                                        #<----Health is above 50%
-            pygame.draw.rect(self.display, GREEN, (531, 297, 239*(self.p1healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, GREEN, (531 + 239*(self.p1healthPercentage / 100), 297, 239*(self.p1healthPercentage / 100), 8))
         if (self.p2healthPercentage <= 15):
-            pygame.draw.rect(self.display, RED, (111, 60, 239*(self.p2healthPercentage / 100), 8)) #player 2 Health Bar
+            pygame.draw.rect(self.display, RED, (111 + 239*(self.p2healthPercentage / 100), 60, 239*(self.p1healthPercentage / 100), 8)) #player 2 Health Bar
         elif (self.p2healthPercentage <= 50):
-            pygame.draw.rect(self.display, YELLOW, (111, 60, 239*(self.p2healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, YELLOW, (111 + 239*(self.p2healthPercentage / 100), 60, 239*(self.p1healthPercentage / 100), 8))
         else:
-            pygame.draw.rect(self.display, GREEN, (111, 60, 239*(self.p2healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, GREEN, (111 + 239*(self.p2healthPercentage / 100), 60, 239*(self.p1healthPercentage / 100), 8))
 
         #draws the health number below the health bar
         self.healthtextRender = self.myfont.render(self.p1healthtext, 0, BLACK)
@@ -257,15 +257,20 @@ class Battle_Window:
         self.receivedPokeIndex = self.game.activePoke
         self.receivedEnemyPoke = self.game.oppPoke #(535, 65)
         
+        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
+        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
+        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
+        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
+
         #variables for the player's health bar
         self.p1healthMax = self.game.pokemans[self.game.activePoke].stats[5]
         self.p1currentHealth = self.game.pokemans[self.game.activePoke].current
-        self.p1healthPercentage = 100*self.p1healthMax/self.p1currentHealth
+        self.p1healthPercentage = 100*self.p1currentHealth/self.p1healthMax
 
         #variables for the enemy's health bar
         self.p2healthMax = self.game.oppPoke.stats[5]
         self.p2currentHealth = self.game.oppPoke.current
-        self.p2healthPercentage = 100*self.p2healthMax/self.p2currentHealth
+        self.p2healthPercentage = 100*self.p2currentHealth/self.p2healthMax
         content = ["Battle"]
                         #state changes
         if self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 0:
@@ -301,7 +306,7 @@ class Battle_Window:
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.enter: #enter button
-                self.theButtons.setMenustate(2)
+                self.theButtons.setMenustate(3)
                 self.theButtons.setCurrentbutton(0)
                 self.forfeitVisible = True
 

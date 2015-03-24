@@ -4,7 +4,7 @@ rapper,driveby,high,40,ph
 rapper,flaunt,buff,100,sdef
 nerd,consume,buff,100,hp
 nerd,cosplay,buff,100,def
-nerd,hack,medium,95,sp
+nerd,hack,med,95,sp
 nerd,troll,high,80,sp
 child,lick,low,100,ph
 child,hide,buff,100,def
