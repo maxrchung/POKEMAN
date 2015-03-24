@@ -93,7 +93,6 @@ class Battle_Window:
         self.switch1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
         self.switch2 = self.myfont.render(self.theButtons.getPoke(1).upper(), 1, BLACK)
         self.switch3 = self.myfont.render(self.theButtons.getPoke(2).upper(), 1, BLACK)
-        self.switch4 = self.myfont.render(self.theButtons.getPoke(3).upper(), 1, BLACK)
 
         #initialize the forfeit Buttons
         self.forfeit1 = self.myfont.render(self.theButtons.getPoke(0).upper(), 1, BLACK)
