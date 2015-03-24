@@ -6,7 +6,7 @@ from socket import *
 from Game import *
 
 # Change this value if you want another computer to host server
-TCP_IP = '192.168.42.106'
+TCP_IP = '192.168.42.125'
 
 class NetworkManager:
     def __init__(self, game):

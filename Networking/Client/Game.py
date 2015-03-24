@@ -3,8 +3,7 @@ import pygame
 from EventManager import *
 from TextInput import *
 from pokeman import pokeman
-import Battle_Window
-
+from Battle_Window import *
 class Game:
     def __init__(self):
         pygame.init()
@@ -115,7 +114,7 @@ class Game:
                 The GameState should be in the state managements
                 '''
                 self.gameState = data[1]
-                self.window =Battle_Window(self)
+                self.window = Battle_Window(self)
                 
         self.networkManager.messageLock.release()
         
