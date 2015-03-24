@@ -116,6 +116,7 @@ class Game:
                 self.gameState = data[1]
                 self.window = Battle_Window(self)
             elif command == "BattleStart":
+                self.activePoke = 0
                 self.oppPoke = data[1]
                 
         self.networkManager.messageLock.release()
