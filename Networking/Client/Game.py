@@ -24,7 +24,7 @@ class Game:
         self.nerdw = self.nerd.get_rect().width
         self.select = pygame.image.load('select.png')
         self.selectw = self.select.get_rect().width
-
+        self.wait = False
         # Processes events (essentially all inputs)
         self.eventManager = EventManager(self)
 
@@ -109,9 +109,6 @@ class Game:
                 self.draft = data[1] # Temporary placeholder
 
             elif command == "Battle":
-                self.state = "Battle"
-                print()
-                print("Switched to Battle")
                 '''
                 Replace the GameState object of the client with
                 the received gameState in data[1]
@@ -124,6 +121,11 @@ class Game:
                 self.activePoke = 0
                 self.oppPoke = data[1]
                 self.battle_window = Battle_Window(self)
+                self.state = "Battle"
+                print()
+                print("Switched to Battle")
+            elif command == "BattleWait":
+                self.wait = True
                 
         self.networkManager.messageLock.release()
         
@@ -180,6 +182,7 @@ class Game:
             self.activePoke= self.gameState[1]
             self.oppPoke = self.gameState[2]
             self.battle_window.update()
+            
             '''
             Update the GameState here
             gameState.update()
