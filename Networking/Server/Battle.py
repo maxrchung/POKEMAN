@@ -7,6 +7,10 @@ class Battle:
         self.client2 = client2
         self.playerOne = client1.pokemans
         self.playerTwo = client2.pokemans
+        self.client1.win = False
+        self.client1.lose = False
+        self.client2.win = False
+        self.client2.lose = False
         self.pokeOne = self.playerOne[0] #active pokeman 1
         self.pokeTwo = self.playerTwo[0] #active pokeman 2
         self.buffsOne = [0,0,0,0,0] #buffs array for p1
