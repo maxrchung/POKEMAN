@@ -4,6 +4,7 @@ from EventManager import *
 from TextInput import *
 from pokeman import pokeman
 from Battle_Window import *
+from random import randint
 class Game:
     def __init__(self):
         pygame.init()
@@ -53,7 +54,24 @@ class Game:
         self.flash1 = False
         self.networkManager = NetworkManager(self)
         
+        colorPicker = randint(0, 5)
+        backgroundColor = None
+        if colorPicker == 0:
+            backgroundColor = (255, 0, 0)
+        elif colorPicker == 1:
+            backgroundColor = (0, 255, 0)
+        elif colorPicker == 2:
+            backgroundColor = (0, 0, 255)
+        elif colorPicker == 3:
+            backgroundColor = (255, 255, 0)
+        elif colorPicker == 4:
+            backgroundColor = (0, 255, 255)
+        elif colorPicker == 5:
+            backgroundColor = (255, 0, 255)
 
+        self.background = pygame.Surface((800, 600))
+        self.background.set_alpha(20)
+        self.background.fill(backgroundColor)
     
     def run(self):
         self.update()
@@ -207,7 +225,7 @@ class Game:
             if self.login == 0:
                 pokemon = self.font64.render('POKEMANS',0,(0,0,0))
                 pokemonwidth = pokemon.get_rect().width
-                self.screen.blit(pokemon,(400-pokemonwidth*0.5,236))
+                self.screen.blit(pokemon,(400-pokemonwidth*0.5,300-pokemon.get_rect().height/2 - 10))
                 if enterf - self.timer1 > 500:
                     self.timer1 = enterf
                     if self.flash1 == True:
@@ -217,7 +235,7 @@ class Game:
                 if self.flash1 == True:
                     pEnter = self.font16.render('PRESS ENTER TO CONTINUE',0,(0,0,0))
                     pEnterwidth = pEnter.get_rect().width
-                    self.screen.blit(pEnter,(400-pEnterwidth*0.5,400))
+                    self.screen.blit(pEnter,(400-pEnterwidth*0.5,350 - 10))
             elif self.login == 1:
                 text1 = self.font16.render('In the not so distant future, the upper class'.upper(),0,(0,0,0))
                 text2 = self.font16.render('has been gathered by the god emperor Kappa,'.upper(),0,(0,0,0))
@@ -254,16 +272,16 @@ class Game:
                 tips = self.font32.render('TIPS',0,(0,0,0))
                 tipsw = tips.get_rect().width
                 self.screen.blit(tips,(400-tipsw*0.5,32))
-                tips1 = self.font16.render('THERE ARE TWO TYPES OF DAMAGE, PHYSICAL AND SPECIAL.',0,(0,0,0))
+                tips1 = self.font16.render('THERE ARE TWO TYPES OF DAMAGE: PHYSICAL AND SPECIAL.',0,(0,0,0))
                 tips1w = tips1.get_rect().width
                 self.screen.blit(tips1,(400-tips1w*0.5,96))
                 tips2 = self.font16.render('SOME TYPES OF ATTACKS ARE STRONGER OR WEAKER',0,(0,0,0))
                 tips2w = tips2.get_rect().width
                 self.screen.blit(tips2,(400-tips2w*0.5,96+64))
-                tips3 = self.font16.render('AGAINST VARIOUS POKEMANS',0,(0,0,0))
+                tips3 = self.font16.render('AGAINST VARIOUS POKEMANS.',0,(0,0,0))
                 tips3w = tips3.get_rect().width
                 self.screen.blit(tips3,(400-tips3w*0.5,96+3*32))
-                tips4 = self.font16.render('EVERY POKEMANS FIRST TWO MOVES BELONG TO HIS TYPE,',0,(0,0,0))
+                tips4 = self.font16.render("EVERY POKEMAN'S FIRST TWO MOVES BELONG TO HIS TYPE,",0,(0,0,0))
                 tips4w = tips4.get_rect().width
                 self.screen.blit(tips4,(400-tips4w*0.5,96 + 5*32))
                 tips5 = self.font16.render('THE LAST TWO DO NOT BELONG TO HIS TYPE.',0,(0,0,0))
@@ -282,12 +300,19 @@ class Game:
         if self.state == "Login":
             self.textInput.draw()
         if self.state == "Draft":
-            
+            enterf = pygame.time.get_ticks()            
+            if enterf - self.timer1 > 500:
+                self.timer1 = enterf
+                if self.flash1 == True:
+                    self.flash1 = False
+                else:
+                    self.flash1 = True
+
             pokestring = ''
             for p in self.pokemans:
                 pokestring += (str(p)) + ' the ' + p.typeName + ', '
             pokestring = pokestring[0:-2]
-            self.screen.blit(self.font16.render('Roster:' + pokestring,0,(0,0,0)),(400 - self.font16.render('Roster:' + pokestring,0,(0,0,0)).get_rect().width*0.5,550))
+            self.screen.blit(self.font16.render('ROSTER: ' + pokestring,0,(0,0,0)),(400 - self.font16.render('ROSTER: ' + pokestring,0,(0,0,0)).get_rect().width*0.5,550))
             
             self.screen.blit(self.font32.render('DRAFT',0,(0,0,0)),(350,32))
             if self.draft != []:
@@ -299,10 +324,14 @@ class Game:
                         self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.draft[i].stats[s]),0,(0,0,0)),(150+ 250*i - 50,300+20*s))
                     for s in range(4):
                         self.screen.blit(self.font16.render(str(self.draft[i].moveset[s].moveName).upper(),0,(0,0,0)),(150+ 250*i - 55,450+20*s))
-            self.screen.blit(self.select,(150 + 250*self.sel-self.selectw*0.5,75))
+            if self.flash1:
+                self.screen.blit(self.select,(150 + 250*self.sel-self.selectw*0.5,60
+))
+            rect = pygame.Rect(150 + 250*self.sel - 100, 90, 200, 450)
+            pygame.draw.rect(self.screen, (0, 0, 0), rect, 5)
         
         if self.state == "Queue":
-            self.screen.blit(self.font32.render('YOUR ROSTER:',0,(0,0,0)),(240,16))
+            self.screen.blit(self.font32.render('YOUR ROSTER: ',0,(0,0,0)),(240,16))
             self.screen.blit(self.font16.render('(CURRENTLY IN QUEUE)',0,(0,0,0)),(280,64))
             for i in range(3):
                 self.screen.blit(self.drawpokeman(self.pokemans[i].type),(150+ 250*i-self.nerdw*0.5 ,100))
@@ -315,6 +344,8 @@ class Game:
         
         if self.state == "Battle":
             self.battle_window.draw()
+
+        self.screen.blit(self.background, (0,0))
 
         pygame.display.flip()
         

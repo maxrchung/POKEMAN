@@ -72,7 +72,7 @@ class TextInput:
         self.letterSelector.update()
 
     def draw(self):
-        self.game.screen.blit(self.choose, (400 - self.choose.get_rect().width/2, 32 - self.choose.get_rect().height/2))
+        self.game.screen.blit(self.choose, (400 - self.choose.get_rect().width/2, 32))
 
         name = self.game.font32.render(self.input, 0, (0,0,0))
         self.game.screen.blit(name, (400 - name.get_rect().width/2, 140))
