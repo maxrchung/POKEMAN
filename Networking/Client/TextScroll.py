@@ -32,14 +32,21 @@ class TextScroll:
 
     def load(self, text):
         textWrapped = self.textWrap(text)
-        print("Loaded into store:",textWrapped)
-        print('TextScroll Load running!')
+        #print("Loaded into store:",textWrapped)
+        #print('TextScroll Load running!')
         while len(textWrapped) > 3:
-            self.store.append(textWrapped)
+            self.store.append(textWrapped[:3])
             textWrapped = textWrapped[3:]
+        self.store.append(textWrapped)
+        
+        self.game.eventManager.textScrollActive = True
+
+        #print('Store:',self.store)
 
         self.display = True
         self.texts = self.store.popleft()
+        
+        #print(self.texts)
 
     def textWrap(self, text):
         test = text
@@ -55,7 +62,7 @@ class TextScroll:
                     j = i
                     while j != 0:
                         if text[j] == " ":
-                            print(text[:j])
+                            #print(text[:j])
                             textWrapped.append(text[:j])
                             text = text[j+1:]
                             i = 0
@@ -63,7 +70,7 @@ class TextScroll:
                         j -= 1
                 i += 1
             textWrapped.append(text)
-            print(text)
+            #print(text)
         return textWrapped
 
     def update(self):
@@ -82,6 +89,7 @@ class TextScroll:
                     tempScroll = self.scroll
                     for index in range(len(self.texts)):
                         if tempScroll < len(self.texts[index]):
+                            #print(index, tempScroll)
                             self.displayTexts[index] = self.texts[index][:tempScroll]
                             break
                         else:
@@ -105,19 +113,21 @@ class TextScroll:
                     self.blink = True
             if self.game.eventManager.enter:
                 if self.store: # If there are more messages
-                    print('Going to next store...')
+                    #print('Going to next store...')
                     self.texts = self.store.popleft()
                     self.displayTexts = ['','','']
-                    print(self.texts)
+                    #print(self.texts)
                     self.scroll = 0
                     self.displayBlink = False
                 else:
-                    print('TextScroll finished displaying')
+                    #print('TextScroll finished displaying')
                     self.scroll = 0
+                    self.store = deque()
                     self.displayBlink = False
                     self.texts = []
                     self.displayTexts = ['','','']
                     self.display = False
+                    self.game.eventManager.textScrollActive = False
 
     def draw(self):
         if self.display:
@@ -127,3 +137,13 @@ class TextScroll:
 
             if self.blink:
                 self.game.screen.blit(self.cursor, (486 - 30, 582 - 30))
+                
+    def clear(self):
+        #REMEMBER TO REMOVE BUTTONS
+        self.scroll = 0
+        self.store = deque()
+        self.displayBlink = False
+        self.texts = []
+        self.displayTexts = ['','','']
+        self.display = False
+        self.game.eventManager.textScrollActive = False

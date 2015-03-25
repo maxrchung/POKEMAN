@@ -166,7 +166,9 @@ class Game:
             elif command == "BattleWait":
                 self.wait = True
             elif command == "Battletext":
-                self.battlestr = battletext(self,data)
+                if data[2] != 'FF':
+                    self.battlestr = battletext(self,data)
+                    self.battlestr += '  ' + battletext(self,data[3:len(data)])
                 self.textScroll.load(self.battlestr)
                 print("Battletext:",self.battlestr)
             elif command == "Result":
@@ -192,6 +194,7 @@ class Game:
             self.textInput.update()
             
         elif self.state == "Draft":
+            self.textScroll.clear()
             # Temporary placeholder
             if len(self.draft) > 0:
 #                 print("self.draft:", self.draft)
@@ -224,6 +227,8 @@ class Game:
                     print("Switched to Queue")
 
         elif self.state == "Queue":
+            self.eventManager.textScrollActive = False
+            self.textScroll.clear()
             # For now, we don't do anything, but we could update a waiting
             # animation here or something along the likes
             pass

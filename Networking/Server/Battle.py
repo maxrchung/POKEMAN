@@ -78,17 +78,17 @@ class Battle:
             return
         if commandOne == 1 or commandTwo == 1: #someone is swapping out 
             if commandOne == 1: #swap1
-                self.sA3(content1,0,"Swap",str(self.pokeOne))
-                self.sA3(content2,1,"Swap",str(self.pokeOne))
 #                 self.sP(content1, content2)
                 self.client1.active = indexOne
                 self.pokeOne = self.playerOne[indexOne]
+                self.sA3(content1,0,"Swap",str(self.pokeOne))
+                self.sA3(content2,1,"Swap",str(self.pokeOne))
             if commandTwo == 1: #swap2
-                self.sA3(content1,0,"Swap",str(self.pokeTwo))
-                self.sA3(content2,1,"Swap",str(self.pokeTwo))
 #                 self.sP(content1, content2)
                 self.client2.active = indexTwo
                 self.pokeTwo = self.playerTwo[indexTwo]
+                self.sA3(content1,1,"Swap",str(self.pokeTwo))
+                self.sA3(content2,0,"Swap",str(self.pokeTwo))
         if commandOne == 0 and commandTwo == 0: #no one is swapping out
             if self.pokeOne.stats[4] >= self.pokeTwo.stats[4]: #based on speed
                 #issue command 1

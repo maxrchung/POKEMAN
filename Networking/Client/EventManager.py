@@ -11,6 +11,8 @@ class EventManager:
         self.down = False
         self.cancel = False # Basically the B button
         self.enter = False # Basically the A button
+        
+        self.textScrollActive = False
 
     def run(self):
         self.update()

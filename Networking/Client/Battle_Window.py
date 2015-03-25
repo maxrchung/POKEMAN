@@ -172,10 +172,11 @@ class Battle_Window:
             self.display.blit(text,(100,600))
             return
         #draws the menu buttons
-        self.display.blit(self.fightButton, (575+13-self.fightButton.get_rect().width/2, 483+13-self.fightButton.get_rect().height/2))
-        self.display.blit(self.switchButton, (725-13-self.switchButton.get_rect().width/2, 483+13-self.switchButton.get_rect().height/2))
-        self.display.blit(self.forfeitButton, (725-13-self .forfeitButton.get_rect().width/2, 565-13-self.forfeitButton.get_rect().height/2))
-
+        if self.game.eventManager.textScrollActive == False:
+            self.display.blit(self.fightButton, (575+13-self.fightButton.get_rect().width/2, 483+13-self.fightButton.get_rect().height/2))
+            self.display.blit(self.switchButton, (725-13-self.switchButton.get_rect().width/2, 483+13-self.switchButton.get_rect().height/2))
+            self.display.blit(self.forfeitButton, (725-13-self .forfeitButton.get_rect().width/2, 565-13-self.forfeitButton.get_rect().height/2))  
+                
         self.blinkTimer += self.blinkClock.tick()
         if self.blinkTimer > 500:
             self.blinkTimer = 0
@@ -187,7 +188,10 @@ class Battle_Window:
         if self.blink:
             self.cursorimg = pygame.image.load("Menu_Cursor.png")
         else:
-            self.cursorimg = pygame.image.load("blank.png")            
+            self.cursorimg = pygame.image.load("blank.png")
+            
+        if self.game.eventManager.textScrollActive:
+            self.cursorimg = pygame.image.load("blank.png")
             
         self.cursorimgrect = self.cursorimg.get_rect()
 
@@ -245,23 +249,27 @@ class Battle_Window:
 
 
         #if the gamestate is in the moves
-        if self.moveVisible == True:
+        if self.moveVisible == True and self.game.eventManager.textScrollActive == False:
             self.display.blit(self.move1, (134-self.move1.get_rect().width/2, 496-self.move1.get_rect().height/2))
             self.display.blit(self.move2, (368-self.move2.get_rect().width/2, 496-self.move2.get_rect().height/2))
             self.display.blit(self.move3, (134-self.move3.get_rect().width/2, 552-self.move3.get_rect().height/2))
             self.display.blit(self.move4, (368-self.move4.get_rect().width/2, 552-self.move4.get_rect().height/2))
         #if the gamestate is in switch
-        elif self.switchVisible == True:
+        elif self.switchVisible == True and self.game.eventManager.textScrollActive == False:
             self.display.blit(self.switch1, (134-self.switch1.get_rect().width/2, 496-self.switch1.get_rect().height/2))
             self.display.blit(self.switch2, (368-self.switch2.get_rect().width/2, 496-self.switch2.get_rect().height/2))
             self.display.blit(self.switch3, (134-self.switch3.get_rect().width/2, 552-self.switch3.get_rect().height/2))
         #if the gamestate is in quit
-        elif self.forfeitVisible == True:
+        elif self.forfeitVisible == True and self.game.eventManager.textScrollActive == False:
             self.display.blit(self.forfeit1, (170-self.forfeit1.get_rect().width/2, 522-self.forfeit1.get_rect().height/2))
             self.display.blit(self.forfeit2, (330-self.forfeit2.get_rect().width/2, 522-self.forfeit2.get_rect().height/2))
 
         #draw the pokemon for the player
     def update(self):
+        if self.game.eventManager.textScrollActive:
+            return
+        
+        
         self.poke1Name = self.receivedPokeList[self.receivedPokeIndex].name.upper()
         self.poke2Name = self.receivedEnemyPoke.name.upper()
         
