@@ -98,14 +98,27 @@ class Server:
                 pass
 
             battleToRemove = None
+            winner = None
             for battle in self.battles:
-                if client == battle.client1 or client == battle.client2:
+                if client == battle.client1:
+                    winner = battle.client2
+                    battleToRemove = battle
+                    break
+                elif client == battle.client2:
+                    winner = battle.client1
                     battleToRemove = battle
                     break
 
             if battleToRemove:
                 # Also send the other player a packet that the game has been disconnected
                 self.battles.remove(battleToRemove)
+                
+                winner.waitingCommand = []
+                winner.ready = False
+                winner.win = False
+                winner.lose = False
+                winner.sendPacket(["Result","Win"])
+                self.waitingQueue.append(winner)
 
         self.networkManager.connectionLock.release()
 
@@ -130,8 +143,12 @@ class Server:
                 else:
                     client = battle.client2
                     winner = battle.client1
+                client.waitingCommand = []
+                client.ready = False
                 client.lose = False
                 client.win = False
+                winner.waitingCommand = []
+                winner.ready = False
                 winner.win = False
                 winner.lose = False
                 winner.sendPacket(["Result","Win"])

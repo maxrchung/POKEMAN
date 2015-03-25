@@ -77,7 +77,7 @@ class Game:
             backgroundColor = (255, 0, 255)
 
         self.background = pygame.Surface((800, 600))
-        self.background.set_alpha(20)
+        self.background.set_alpha(50)
         self.background.fill(backgroundColor)
     
     def run(self):
