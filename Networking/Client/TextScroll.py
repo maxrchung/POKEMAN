@@ -1,5 +1,6 @@
 import pygame
 from Game import *
+from collections import deque
 
 class TextScroll:
     def __init__(self, game):
@@ -27,14 +28,18 @@ class TextScroll:
         self.cursor = pygame.image.load('select.png')
         self.display = False
 
+        self.store = deque()
+
     def load(self, text):
-        self.texts = self.textWrap(text)
-        self.displayTexts = ['','','']
+        textWrapped = self.textWrap(text)
+        print("Loaded into store:",textWrapped)
         print('TextScroll Load running!')
-        print(self.texts)
-        self.scroll = 0
-        self.displayBlink = False
+        while len(textWrapped) > 3:
+            self.store.append(textWrapped)
+            textWrapped = textWrapped[3:]
+
         self.display = True
+        self.texts = self.store.popleft()
 
     def textWrap(self, text):
         test = text
@@ -99,13 +104,20 @@ class TextScroll:
                 elif not self.blink:
                     self.blink = True
             if self.game.eventManager.enter:
-                content = ['Battletext']
-                self.game.networkManager.sendPacket(content)
-                self.scroll = 0
-                self.displayBlink = False
-                self.texts = []
-                self.displayTexts = ['','','']
-                self.display = False
+                if self.store: # If there are more messages
+                    print('Going to next store...')
+                    self.texts = self.store.popleft()
+                    self.displayTexts = ['','','']
+                    print(self.texts)
+                    self.scroll = 0
+                    self.displayBlink = False
+                else:
+                    print('TextScroll finished displaying')
+                    self.scroll = 0
+                    self.displayBlink = False
+                    self.texts = []
+                    self.displayTexts = ['','','']
+                    self.display = False
 
     def draw(self):
         if self.display:
