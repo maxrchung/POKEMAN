@@ -253,6 +253,9 @@ class Battle_Window:
         if(self.game.wait==True):
             self.draw()
             return
+        self.poke1Name = self.receivedPokeList[self.receivedPokeIndex].name.upper()
+        self.poke2Name = self.receivedEnemyPoke.name.upper()
+        
         self.receivedPokeList = self.game.pokemans#(40, 225)
         self.receivedPokeIndex = self.game.activePoke
         self.receivedEnemyPoke = self.game.oppPoke #(535, 65)

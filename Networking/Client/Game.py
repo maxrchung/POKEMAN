@@ -208,7 +208,7 @@ class Game:
                 pokemon = self.font64.render('POKEMANS',0,(0,0,0))
                 pokemonwidth = pokemon.get_rect().width
                 self.screen.blit(pokemon,(400-pokemonwidth*0.5,236))
-                if enterf - self.timer1 > 1000:
+                if enterf - self.timer1 > 500:
                     self.timer1 = enterf
                     if self.flash1 == True:
                         self.flash1 = False
@@ -240,7 +240,7 @@ class Game:
                     self.screen.blit(textarray[i],(64,50+32*i))
                 for i in range(0,7):
                     self.screen.blit(textarray2[i],(64,50+32*i + 32*7 + 50))
-                if enterf - self.timer1 > 700:
+                if enterf - self.timer1 > 500:
                     self.timer1 = enterf
                     if self.flash1 == True:
                         self.flash1 = False
@@ -269,7 +269,7 @@ class Game:
                 tips5 = self.font16.render('THE LAST TWO DO NOT BELONG TO HIS TYPE.',0,(0,0,0))
                 tips5w = tips5.get_rect().width
                 self.screen.blit(tips5,(400-tips5w*0.5,96+6*32))
-                if enterf - self.timer1 > 350:
+                if enterf - self.timer1 > 500:
                     self.timer1 = enterf
                     if self.flash1 == True:
                         self.flash1 = False

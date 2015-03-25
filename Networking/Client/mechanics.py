@@ -20,7 +20,7 @@ class move():
             self.type = 3
         elif moveline[0] == 'hobo':
             self.type = 4
-        self.moveName = moveline[1]
+        self.moveName = moveline[1].upper()
         if moveline[2] != 'buff':
             if moveline[2] == 'very low':
                 self.power = 0
