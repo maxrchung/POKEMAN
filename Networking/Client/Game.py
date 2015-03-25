@@ -6,6 +6,7 @@ from pokeman import pokeman
 from Battle_Window import *
 from random import randint
 from Battletext import battletext
+from TextScroll import *
 class Game:
     def __init__(self):
         pygame.init()
@@ -79,6 +80,8 @@ class Game:
         self.background = pygame.Surface((800, 600))
         self.background.set_alpha(50)
         self.background.fill(backgroundColor)
+
+        self.textScroll = TextScroll(self)
     
     def run(self):
         self.update()
@@ -164,7 +167,8 @@ class Game:
                 self.wait = True
             elif command == "Battletext":
                 self.battlestr = battletext(self,data)
-                print(self.battlestr)
+                self.textScroll.load(self.battlestr)
+                print("Battletext:",self.battlestr)
             elif command == "Result":
                 if data[1] == "Win":
                     self.streak+=1
@@ -230,14 +234,7 @@ class Game:
                 self.activePoke= self.gameState[1]
                 self.oppPoke = self.gameState[2]
                 self.battle_window.update()
-            
-            '''
-            Update the GameState here
-            gameState.update()
-            '''
-            pass
-            
-
+            self.textScroll.update()
     def draw(self):
         self.screen.fill((255,255,255))
         if self.state == "Pre-Login":
@@ -334,7 +331,7 @@ class Game:
             pokestring = pokestring[0:-2]
             self.screen.blit(self.font16.render('ROSTER: ' + pokestring,0,(0,0,0)),(400 - self.font16.render('ROSTER: ' + pokestring,0,(0,0,0)).get_rect().width*0.5,550))
             
-            self.screen.blit(self.font32.render('DRAFT',0,(0,0,0)),(350,32))
+            self.screen.blit(self.font32.render('DRAFT',0,(0,0,0)),(400-self.font32.render('DRAFT',0,(0,0,0)).get_rect().width/2,32))
             if self.draft != []:
                 for i in range(3):
                     self.screen.blit(self.drawpokeman(self.draft[i].type),(150+ 250*i-self.nerdw*0.5 ,100))
@@ -367,12 +364,13 @@ class Game:
                 self.screen.blit(self.font32.render(self.p1name,0,(0,0,0)),(150 - self.font32.render(self.p1name,0,(0,0,0)).get_rect().width*0.5,284))
                 self.screen.blit(self.font32.render(self.p2name,0,(0,0,0)),(650 - self.font32.render(self.p2name,0,(0,0,0)).get_rect().width*0.5,284))
                 self.screen.blit(self.font64.render("BATTLE FOUND!",0,(0,0,0)),(400 - self.font64.render("BATTLE FOUND!",0,(0,0,0)).get_rect().width*0.5,64))
-                self.screen.blit(self.font64.render("VS",0,(0,0,0)),(400 - self.font64.render("VS",0,(0,0,0)).get_rect().width*0.5,268))
+                self.screen.blit(self.font64.render("VS",0,(0,0,0)),(400 - self.font64.render("VS",0,(0,0,0)).get_rect().width*0.5,300-self.font64.render("VS",0,(0,0,0)).get_rect().height*0.5))
                 self.screen.blit(self.font64.render(str(int(6 - ((pygame.time.get_ticks() - self.preb_timer) /1000))),0,(0,0,0)),(400 - self.font64.render(str(int(5 - ((pygame.time.get_ticks() - self.preb_timer) /1000))),0,(0,0,0)).get_rect().width*0.5,450))
                 if pygame.time.get_ticks() - self.preb_timer > 5000:
                     self.preb = False
             else:
                 self.battle_window.draw()
+                self.textScroll.draw()
 
         self.screen.blit(self.background, (0,0))
 
