@@ -6,6 +6,7 @@ from pokeman import pokeman
 from Battle_Window import *
 from random import randint
 from Battletext import battletext
+from TextScroll import *
 class Game:
     def __init__(self):
         pygame.init()
@@ -79,6 +80,8 @@ class Game:
         self.background = pygame.Surface((800, 600))
         self.background.set_alpha(50)
         self.background.fill(backgroundColor)
+
+        self.textScroll = TextScroll(self)
     
     def run(self):
         self.update()
@@ -164,7 +167,8 @@ class Game:
                 self.wait = True
             elif command == "Battletext":
                 self.battlestr = battletext(self,data)
-                print(self.battlestr)
+                self.textScroll.load(self.battlestr)
+                print("Battletext:",self.battlestr)
             elif command == "Result":
                 if data[1] == "Win":
                     self.streak+=1
@@ -230,14 +234,7 @@ class Game:
                 self.activePoke= self.gameState[1]
                 self.oppPoke = self.gameState[2]
                 self.battle_window.update()
-            
-            '''
-            Update the GameState here
-            gameState.update()
-            '''
-            pass
-            
-
+            self.textScroll.update()
     def draw(self):
         self.screen.fill((255,255,255))
         if self.state == "Pre-Login":
@@ -373,6 +370,7 @@ class Game:
                     self.preb = False
             else:
                 self.battle_window.draw()
+                self.textScroll.draw()
 
         self.screen.blit(self.background, (0,0))
 

@@ -22,13 +22,19 @@ class TextScroll:
         self.scroll = 0 # index for where to scroll
 
         self.displayTexts = ['','','']
+        self.texts = []
 
         self.cursor = pygame.image.load('select.png')
+        self.display = False
 
     def load(self, text):
         self.texts = self.textWrap(text)
+        self.displayTexts = ['','','']
+        print('TextScroll Load running!')
+        print(self.texts)
         self.scroll = 0
         self.displayBlink = False
+        self.display = True
 
     def textWrap(self, text):
         test = text
@@ -52,13 +58,17 @@ class TextScroll:
                         j -= 1
                 i += 1
             textWrapped.append(text)
+            print(text)
         return textWrapped
 
     def update(self):
+        if not self.display:
+            return
+
         if not self.displayBlink:
             self.scrollTimer += self.scrollClock.tick()
             if self.scrollTimer > 30:
-                if game.eventManager.enter:
+                if self.game.eventManager.enter:
                     for index in range(len(self.texts)):
                         self.displayTexts[index] = self.texts[index]
                         self.displayBlink = True
@@ -88,14 +98,20 @@ class TextScroll:
                     self.blink = False
                 elif not self.blink:
                     self.blink = True
-            if game.eventManager.enter:
-                content = ['BattleTextUpdate??????']
-                game.networkManager.sendPacket(content)
+            if self.game.eventManager.enter:
+                content = ['Battletext']
+                self.game.networkManager.sendPacket(content)
+                self.scroll = 0
+                self.displayBlink = False
+                self.texts = []
+                self.displayTexts = ['','','']
+                self.display = False
 
     def draw(self):
-        for i in range(len(self.displayTexts)):
-            render = self.font25.render(self.displayTexts[i], 0, (0,0,0))
-            self.screen.blit(render, (18+10, 483-render.get_rect().height/2 + 40*i))
+        if self.display:
+            for i in range(len(self.displayTexts)):
+                render = self.font25.render(self.displayTexts[i], 0, (0,0,0))
+                self.game.screen.blit(render, (18+10, 483-render.get_rect().height/2 + 40*i))
 
-        if self.blink:
-            self.screen.blit(self.cursor, (486 - 30, 582 - 30))
+            if self.blink:
+                self.game.screen.blit(self.cursor, (486 - 30, 582 - 30))

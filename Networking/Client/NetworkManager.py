@@ -7,9 +7,9 @@ from Game import *
 
 # Change this value if you want another computer to host server
 # Winston:
-TCP_IP = '192.168.42.125'
+# TCP_IP = '192.168.42.125'
 # Max:
-# TCP_IP = '192.168.42.106'
+TCP_IP = '192.168.42.106'
 
 
 class NetworkManager:
