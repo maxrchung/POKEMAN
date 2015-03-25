@@ -55,8 +55,11 @@ class Client:
                 pass
 
     def sendPacket(self, content):
-        packet = pickle.dumps(content)
-        self.socket.send(bytes(packet))
+        try:
+            packet = pickle.dumps(content)
+            self.socket.send(bytes(packet))
+        except:
+            pass
 
     def disconnect(self):
         self.running = False

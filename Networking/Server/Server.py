@@ -97,9 +97,15 @@ class Server:
             except:
                 pass
 
+            battleToRemove = None
             for battle in self.battles:
                 if client == battle.client1 or client == battle.client2:
-                    pass
+                    battleToRemove = battle
+                    break
+
+            if battleToRemove:
+                # Also send the other player a packet that the game has been disconnected
+                self.battles.remove(battleToRemove)
 
         self.networkManager.connectionLock.release()
 
