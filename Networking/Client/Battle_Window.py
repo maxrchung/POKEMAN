@@ -101,7 +101,6 @@ class Battle_Window:
         #visible bools for inner windows
         self.moveVisible = False
         self.switchVisible = False
-        self.switchVisible = False
         self.forfeitVisible = False
 
 
@@ -250,9 +249,6 @@ class Battle_Window:
 
         #draw the pokemon for the player
     def update(self):
-        if(self.game.wait==True):
-            self.draw()
-            return
         self.poke1Name = self.receivedPokeList[self.receivedPokeIndex].name.upper()
         self.poke2Name = self.receivedEnemyPoke.name.upper()
         
@@ -321,6 +317,7 @@ class Battle_Window:
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
+                self.game.wait = True
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 1:
                         # hovering move 2
@@ -337,6 +334,7 @@ class Battle_Window:
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
+                self.game.wait = True
                         
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 2:
                         #hovering move 3
@@ -353,6 +351,7 @@ class Battle_Window:
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
+                self.game.wait = True
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 3:
                         #hovering move 4
@@ -369,6 +368,7 @@ class Battle_Window:
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
+                self.game.wait = True
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 0:
                         #hovering poke 1
@@ -386,6 +386,7 @@ class Battle_Window:
                     self.moveVisible =False
                     self.switchVisible = False
                     self.forfeitVisible = False
+                    self.game.wait = True
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 1:
                         #hovering poke 2
@@ -401,6 +402,7 @@ class Battle_Window:
                     self.moveVisible =False
                     self.switchVisible = False
                     self.forfeitVisible = False
+                    self.game.wait = True
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 2:
                         #hovering poke 3
@@ -416,6 +418,7 @@ class Battle_Window:
                     self.moveVisible =False
                     self.switchVisible = False
                     self.forfeitVisible = False
+                    self.game.wait = True
                 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 0:
                         #hovering yes
@@ -430,6 +433,7 @@ class Battle_Window:
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
+                self.game.wait = True
 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 1:
                         #hovering no
@@ -443,6 +447,7 @@ class Battle_Window:
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
+                self.game.wait = True
 
         if self.theButtons.getMenustate() == 1:
             if self.game.eventManager.cancel:
@@ -465,6 +470,10 @@ class Battle_Window:
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
+
+        if(self.game.wait==True):
+            self.draw()
+            return
         
     def run(self):
         while True:
