@@ -22,7 +22,7 @@ class Game:
         self.childw = self.child.get_rect().width
         self.hobo = pygame.image.load('NAKEDMAN.png')
         self.hobow = self.hobo.get_rect().width
-        self.nerd = pygame.image.load('nerd.png')
+        self.nerd = pygame.image.load('NAKEDMAN5.png')
         self.nerdw = self.nerd.get_rect().width
         self.select = pygame.image.load('select.png')
         self.selectw = self.select.get_rect().width

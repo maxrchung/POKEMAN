@@ -31,7 +31,7 @@ class Battle_Window:
         self.p1coord       = (40, 185)
         self.p1rapperimg   = pygame.image.load("NAKEDMAN2BACK.png")
         self.p1delinqimg   = pygame.image.load("NAKEDMAN4BACK.png")
-        self.p1nerdimg     = pygame.image.load("nerd.png")
+        self.p1nerdimg     = pygame.image.load("NAKEDMAN5BACK.png")
         self.p1criminalimg = pygame.image.load("NAKEDMAN3BACK.png")
         self.p1homelessimg = pygame.image.load("NAKEDMANBACK.png")
     
@@ -39,7 +39,7 @@ class Battle_Window:
         self.p2coord       = (535, 60)
         self.p2rapperimg   = pygame.image.load("NAKEDMAN2.png")
         self.p2delinqimg   = pygame.image.load("NAKEDMAN4.png")
-        self.p2nerdimg     = pygame.image.load("nerd.png")
+        self.p2nerdimg     = pygame.image.load("NAKEDMAN5.png")
         self.p2criminalimg = pygame.image.load("NAKEDMAN3.png")
         self.p2homelessimg = pygame.image.load("NAKEDMAN.png")
         
@@ -130,17 +130,17 @@ class Battle_Window:
 
         #filling in the health bars        
         if (self.p1healthPercentage <= 15):          #<----Health is below 15%
-            pygame.draw.rect(self.display, RED, (531 + 239*((100 - self.p1healthPercentage) / 100), 297, 239*(self.p1healthPercentage / 100), 8)) #player 1 Health Bar
+            pygame.draw.rect(self.display, RED, (522 + 235*((100 - self.p1healthPercentage) / 100), 298, 235*(self.p1healthPercentage / 100), 9)) #player 1 Health Bar
         elif(self.p1healthPercentage <= 50):         #<----Health is below 50%
-            pygame.draw.rect(self.display, YELLOW, (531 + 239*((100 - self.p1healthPercentage) / 100), 297, 239*(self.p1healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, YELLOW, (522 + 235*((100 - self.p1healthPercentage) / 100), 298, 235*(self.p1healthPercentage / 100), 9))
         else:                                        #<----Health is above 50%
-            pygame.draw.rect(self.display, GREEN, (531 + 239*((100 - self.p1healthPercentage) / 100), 297, 239*(self.p1healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, GREEN, (522 + 235*((100 - self.p1healthPercentage) / 100), 298, 235*(self.p1healthPercentage / 100), 9))
         if (self.p2healthPercentage <= 15):
-            pygame.draw.rect(self.display, RED, (111, 60, 239*(self.p2healthPercentage / 100), 8)) #player 2 Health Bar
+            pygame.draw.rect(self.display, RED, (114, 59, 235*(self.p2healthPercentage / 100), 9)) #player 2 Health Bar
         elif (self.p2healthPercentage <= 50):
-            pygame.draw.rect(self.display, YELLOW, (111, 60, 239*(self.p2healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, YELLOW, (114, 59, 235*(self.p2healthPercentage / 100), 9))
         else:
-            pygame.draw.rect(self.display, GREEN, (111, 60, 239*(self.p2healthPercentage / 100), 8))
+            pygame.draw.rect(self.display, GREEN, (114, 59, 235*(self.p2healthPercentage / 100), 9))
 
         #draws the health number below the health bar
         self.healthtextRender = self.myfont.render(self.p1healthtext, 0, BLACK)
