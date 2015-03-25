@@ -65,16 +65,16 @@ class Battle:
         if commandOne == 2: #if p1 flees
             self.sA2(content1,0,"FF")
             self.sA2(content2,1,"FF")
+            self.sP(content1,content2)
             self.client1.lose=True
             self.client2.win=True
-            self.sP(content1,content2)
             return
         if commandTwo == 2: #p2 flees
             self.sA2(content1,1,"FF")
             self.sA2(content2,0,"FF")
+            self.sP(content1,content2)
             self.client2.lose=True
             self.client1.win =True
-            self.sP(content1,content2)
             return
         if commandOne == 1 or commandTwo == 1: #someone is swapping out 
             if commandOne == 1: #swap1

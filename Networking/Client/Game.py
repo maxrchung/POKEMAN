@@ -363,6 +363,7 @@ class Game:
                     self.screen.blit(self.font16.render(self.stattype(s) + ': ' +str(self.pokemans[i].stats[s]),0,(0,0,0)),(150+ 250*i - 50,300+20*s))
                 for s in range(4):
                     self.screen.blit(self.font16.render(str(self.pokemans[i].moveset[s].moveName).upper(),0,(0,0,0)),(150+ 250*i - 55,450+20*s))
+            self.screen.blit(self.font32.render('WINSTREAK: ' + str(self.streak),0,(0,0,0)),(400 - self.font32.render('WINSTREAK: ' + str(self.streak),0,(0,0,0)).get_rect().width*0.5,550))
         
         if self.state == "Battle":
             if self.preb == True:
