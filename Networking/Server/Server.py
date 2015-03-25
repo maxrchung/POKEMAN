@@ -128,6 +128,8 @@ class Server:
                 else:
                     client = battle.client2
                     winner = battle.client1
+                winner.sendPacket(["Result","Win"])
+                client.sendPacket(["Result","Loss"])
                 client.draft = [] # clear draft
                 client.pokemans =[] #clears pokeman
                 for i in range(3):#new draft
