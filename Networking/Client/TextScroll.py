@@ -30,6 +30,8 @@ class TextScroll:
 
         self.store = deque()
 
+        self.waitForFlee = False
+
     def load(self, text):
         textWrapped = self.textWrap(text)
         #print("Loaded into store:",textWrapped)
@@ -119,7 +121,11 @@ class TextScroll:
                     #print(self.texts)
                     self.scroll = 0
                     self.displayBlink = False
+                        
                 else:
+                    if self.waitForFlee:
+                       self.waitForFlee = False
+                       self.game.state = "Queue"
                     #print('TextScroll finished displaying')
                     self.scroll = 0
                     self.store = deque()
@@ -147,3 +153,4 @@ class TextScroll:
         self.displayTexts = ['','','']
         self.display = False
         self.game.eventManager.textScrollActive = False
+        self.waitForFlee = False

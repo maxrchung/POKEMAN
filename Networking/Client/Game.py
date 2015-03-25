@@ -169,12 +169,16 @@ class Game:
                 if data[2] != 'FF':
                     self.battlestr = battletext(self,data)
                     self.battlestr += '  ' + battletext(self,data[3:len(data)])
+                else:
+                    if data[1] == 1:
+                        self.textScroll.waitForFlee = True
                 self.textScroll.load(self.battlestr)
                 print("Battletext:",self.battlestr)
             elif command == "Result":
                 if data[1] == "Win":
                     self.streak+=1
-                    self.state = "Queue"
+                    if not self.textScroll.waitForFlee:
+                        self.state = "Queue"
                 if data[1] == "Loss":
                     self.streak = 0
                     self.pokemans = []
