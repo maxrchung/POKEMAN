@@ -151,7 +151,6 @@ class Game:
                 self.p2name = data[2]
                 self.oppPoke = data[1]
                 self.battle_window = Battle_Window(self)
-                print()
                 print("Switched to Battle")
             elif command == "BattleWait":
                 self.wait = True

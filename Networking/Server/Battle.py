@@ -28,13 +28,14 @@ class Battle:
         if self.updateTimer > 50:
             self.updateTimer = 0
             # After the battles are updated, send the gamestate out if
+            if(self.client1.win or self.client1.lose): #if there is a loser
+                self.over = True #quit
+                return
             if(self.client1.ready and self.client2.ready):#if they have both sent commands
                 print(self.client1.waitingCommand, self.client2.waitingCommand) #what command they sent
                 self.turn(self.client1.waitingCommand[0],self.client1.waitingCommand[1],self.client2.waitingCommand[0],self.client2.waitingCommand[1])
                 print("Just sent a command")
-                if(self.client1.win or self.client1.lose): #if there is a loser
-                    self.over = True #quit
-                    return
+
                 #sends a packet to each client with the relevant information
                 pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
                 pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]

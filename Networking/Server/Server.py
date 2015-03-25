@@ -127,13 +127,13 @@ class Server:
                 if battle.client1.lose==True:
                     client = battle.client1
                     winner = battle.client2
-                    client.lose = False
-                    winner.win = False
                 else:
                     client = battle.client2
                     winner = battle.client1
                 client.lose = False
+                client.win = False
                 winner.win = False
+                winner.lose = False
                 winner.sendPacket(["Result","Win"])
                 client.sendPacket(["Result","Loss"])
                 client.draft = [] # clear draft
