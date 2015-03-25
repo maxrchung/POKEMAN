@@ -7,6 +7,10 @@ class Battle:
         self.client2 = client2
         self.playerOne = client1.pokemans
         self.playerTwo = client2.pokemans
+        self.client1.win = False
+        self.client1.lose = False
+        self.client2.win = False
+        self.client2.lose = False
         self.pokeOne = self.playerOne[0] #active pokeman 1
         self.pokeTwo = self.playerTwo[0] #active pokeman 2
         self.buffsOne = [0,0,0,0,0] #buffs array for p1
@@ -16,6 +20,8 @@ class Battle:
         # Only sends a game update after a certain updateTimer limit has passed
         self.updateClock = pygame.time.Clock()
         self.updateTimer = 0
+        
+        self.lastTurn = []
 
         # self.gameState = GameState()
 
@@ -43,14 +49,17 @@ class Battle:
                 content2 = ["Battle", pState2]
                 self.client1.ready = False #resets to a command isn't sent
                 self.client2.ready = False
+                self.client1.sendPacket(content1)
+                self.client2.sendPacket(content2)
             if not(self.client1.ready or self.client2.ready): #if someone didn't send a command update
                 pState1 = [self.client1.pokemans,self.client1.active,self.client2.pokemans[self.client2.active]]
                 pState2 = [self.client2.pokemans,self.client2.active,self.client1.pokemans[self.client1.active]]
                 content1 = ["Battle", pState1]
                 content2 = ["Battle", pState2]
-                self.client1.sendPacket(content1)
-                self.client2.sendPacket(content2)
+#                 self.client1.sendPacket(content1)
+#                 self.client2.sendPacket(content2)
     def turn(self, commandOne, indexOne, commandTwo, indexTwo):
+        self.lastTurn = [commandOne, indexOne, commandTwo, indexTwo]
         if commandOne == 2: #if p1 flees
             self.client1.lose=True
             self.client2.win=True

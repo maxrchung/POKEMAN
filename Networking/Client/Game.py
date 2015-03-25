@@ -74,7 +74,7 @@ class Game:
             backgroundColor = (255, 0, 255)
 
         self.background = pygame.Surface((800, 600))
-        self.background.set_alpha(20)
+        self.background.set_alpha(50)
         self.background.fill(backgroundColor)
     
     def run(self):
@@ -143,7 +143,7 @@ class Game:
                 The GameState should be in the state managements
                 '''
                 self.gameState = data[1]
-                self.window = Battle_Window(self)
+#                 self.window = Battle_Window(self)
             elif command == "BattleStart":
                 self.preb = True
                 self.preb_timer = pygame.time.get_ticks()
