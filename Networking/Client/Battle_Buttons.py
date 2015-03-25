@@ -32,7 +32,3 @@ class Battle_Buttons:
     def setMenustate(self, i): self.menustate = i
     #sets the current button state
     def setCurrentbutton(self, i): self.currentButton = i
-    
-        
-
-        

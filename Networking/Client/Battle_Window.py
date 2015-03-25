@@ -74,28 +74,28 @@ class Battle_Window:
 
         #initialize the Battle Buttons
         self.theButtons = Battle_Buttons()
-        self.fightButton = self.myfont.render(self.theButtons.getMenu(0).upper(), 1, BLACK)
-        self.switchButton = self.myfont.render(self.theButtons.getMenu(1).upper(), 1, BLACK)
-        self.forfeitButton = self.myfont.render(self.theButtons.getMenu(2).upper(), 1, BLACK)
+        self.fightButton = self.myfont.render(self.theButtons.getMenu(0).upper(), 0, BLACK)
+        self.switchButton = self.myfont.render(self.theButtons.getMenu(1).upper(), 0, BLACK)
+        self.forfeitButton = self.myfont.render(self.theButtons.getMenu(2).upper(), 0, BLACK)
         #"Fight" Button:          (515, 482, 122, 43)
         #"Switch" Button:         (667, 482, 122, 43)
         #"Forfeit" Button:        (595, 542, 122, 43)
 
 
         #initialize the Move Buttons
-        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
-        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
-        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
-        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
+        self.move1 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 0, BLACK)
+        self.move2 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 0, BLACK)
+        self.move3 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 0, BLACK)
+        self.move4 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 0, BLACK)
 
         #initialize the Switch Buttons
-        self.switch1 = self.smallfont.render(self.receivedPokeList[0].name.upper(), 1, BLACK)
-        self.switch2 = self.smallfont.render(self.receivedPokeList[1].name.upper(), 1, BLACK)
-        self.switch3 = self.smallfont.render(self.receivedPokeList[2].name.upper(), 1, BLACK)
+        self.switch1 = self.myfont.render(self.receivedPokeList[0].name.upper(), 0, BLACK)
+        self.switch2 = self.myfont.render(self.receivedPokeList[1].name.upper(), 0, BLACK)
+        self.switch3 = self.myfont.render(self.receivedPokeList[2].name.upper(), 0, BLACK)
 
         #initialize the forfeit Buttons
-        self.forfeit1 = self.myfont.render("YES", 1, BLACK)
-        self.forfeit2 = self.myfont.render("NO", 1, BLACK)
+        self.forfeit1 = self.myfont.render("YES", 0, BLACK)
+        self.forfeit2 = self.myfont.render("NO", 0, BLACK)
 
 
         #visible bools for inner windows
@@ -130,11 +130,11 @@ class Battle_Window:
 
         #filling in the health bars        
         if (self.p1healthPercentage <= 15):          #<----Health is below 15%
-            pygame.draw.rect(self.display, RED, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 240*(self.p1healthPercentage / 100), 9)) #player 1 Health Bar
+            pygame.draw.rect(self.display, RED, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 241*(self.p1healthPercentage / 100), 9)) #player 1 Health Bar
         elif(self.p1healthPercentage <= 50):         #<----Health is below 50%
-            pygame.draw.rect(self.display, YELLOW, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 240*(self.p1healthPercentage / 100), 9))
+            pygame.draw.rect(self.display, YELLOW, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 241*(self.p1healthPercentage / 100), 9))
         else:                                        #<----Health is above 50%
-            pygame.draw.rect(self.display, GREEN, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 240*(self.p1healthPercentage / 100), 9))
+            pygame.draw.rect(self.display, GREEN, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 241*(self.p1healthPercentage / 100), 9))
         if (self.p2healthPercentage <= 15):
             pygame.draw.rect(self.display, RED, (116, 59, 240*(self.p2healthPercentage / 100), 9)) #player 2 Health Bar
         elif (self.p2healthPercentage <= 50):
@@ -173,7 +173,7 @@ class Battle_Window:
         #draws the menu buttons
         self.display.blit(self.fightButton, (575+13-self.fightButton.get_rect().width/2, 483+13-self.fightButton.get_rect().height/2))
         self.display.blit(self.switchButton, (725-13-self.switchButton.get_rect().width/2, 483+13-self.switchButton.get_rect().height/2))
-        self.display.blit(self.forfeitButton, (725-13-self.forfeitButton.get_rect().width/2, 565-13-self.forfeitButton.get_rect().height/2))
+        self.display.blit(self.forfeitButton, (725-13-self .forfeitButton.get_rect().width/2, 565-13-self.forfeitButton.get_rect().height/2))
 
         #load in the cursor
         self.cursorimg = pygame.image.load("Menu_Cursor.png")
@@ -197,56 +197,56 @@ class Battle_Window:
         if self.theButtons.getMenustate() == 1:
             #button on move 1
             if self.theButtons.getCurrentbutton() == 0:
-                self.display.blit (self.cursorimg, (103, 504))
+                self.display.blit (self.cursorimg, (134-self.move1.get_rect().width/2-28, 496-self.move1.get_rect().height/2))
             #button on move 2
             elif self.theButtons.getCurrentbutton() == 1:
-                self.display.blit (self.cursorimg, (226, 504))
+                self.display.blit (self.cursorimg, (368-self.move2.get_rect().width/2-28, 496-self.move2.get_rect().height/2))
             #button on move 3
             elif self.theButtons.getCurrentbutton() == 2:
-                self.display.blit (self.cursorimg, (103, 536))
+                self.display.blit (self.cursorimg, (134-self.move3.get_rect().width/2-28, 552-self.move3.get_rect().height/2))
             #button on move 4
             elif self.theButtons.getCurrentbutton() == 3:
-                self.display.blit (self.cursorimg, (226, 536))
+                self.display.blit (self.cursorimg, (368-self.move4.get_rect().width/2-28, 552-self.move4.get_rect().height/2))
 
 
         #if the menustate is on switch
         if self.theButtons.getMenustate() ==2:
             #button on pokemon 1
             if self.theButtons.getCurrentbutton() == 0:
-                self.display.blit (self.cursorimg, (79, 516))
+                self.display.blit (self.cursorimg, (134-self.switch1.get_rect().width/2-28, 496-self.switch1.get_rect().height/2))
             #button on pokemon 2
             elif self.theButtons.getCurrentbutton() == 1:
-                self.display.blit (self.cursorimg, (178, 516))
+                self.display.blit (self.cursorimg, (368-self.switch2.get_rect().width/2-28, 496-self.switch2.get_rect().height/2))
             #button on pokemon 3
             elif self.theButtons.getCurrentbutton() == 2:
-                self.display.blit (self.cursorimg, (267, 516))
+                self.display.blit (self.cursorimg, (134-self.switch3.get_rect().width/2-28, 552-self.switch3.get_rect().height/2))
 
         #if the menustate is on forfeit
         if self.theButtons.getMenustate() == 3:
             #button on yes
             if self.theButtons.getCurrentbutton() == 0:
-                self.display.blit (self.cursorimg, (145, 516))
+                self.display.blit (self.cursorimg, (170-self.forfeit1.get_rect().width/2-28, 522-self.forfeit1.get_rect().height/2))
             #button on no
             elif self.theButtons.getCurrentbutton() == 1:
-                self.display.blit (self.cursorimg, (310, 516))
+                self.display.blit (self.cursorimg, (330-self.forfeit2.get_rect().width/2-28, 522-self.forfeit2.get_rect().height/2))
 
 
 
         #if the gamestate is in the moves
         if self.moveVisible == True:
-            self.display.blit(self.move1, (123, 504))
-            self.display.blit(self.move2, (246, 504))
-            self.display.blit(self.move3, (123, 536))
-            self.display.blit(self.move4, (246, 536))
+            self.display.blit(self.move1, (134-self.move1.get_rect().width/2, 496-self.move1.get_rect().height/2))
+            self.display.blit(self.move2, (368-self.move2.get_rect().width/2, 496-self.move2.get_rect().height/2))
+            self.display.blit(self.move3, (134-self.move3.get_rect().width/2, 552-self.move3.get_rect().height/2))
+            self.display.blit(self.move4, (368-self.move4.get_rect().width/2, 552-self.move4.get_rect().height/2))
         #if the gamestate is in switch
         elif self.switchVisible == True:
-            self.display.blit(self.switch1, (99, 516))
-            self.display.blit(self.switch2, (198, 516))
-            self.display.blit(self.switch3, (287, 516))
+            self.display.blit(self.switch1, (134-self.switch1.get_rect().width/2, 496-self.switch1.get_rect().height/2))
+            self.display.blit(self.switch2, (368-self.switch2.get_rect().width/2, 496-self.switch2.get_rect().height/2))
+            self.display.blit(self.switch3, (134-self.switch3.get_rect().width/2, 552-self.switch3.get_rect().height/2))
         #if the gamestate is in quit
         elif self.forfeitVisible == True:
-            self.display.blit(self.forfeit1, (165, 516))
-            self.display.blit(self.forfeit2, (330, 516))
+            self.display.blit(self.forfeit1, (170-self.forfeit1.get_rect().width/2, 522-self.forfeit1.get_rect().height/2))
+            self.display.blit(self.forfeit2, (330-self.forfeit2.get_rect().width/2, 522-self.forfeit2.get_rect().height/2))
 
         #draw the pokemon for the player
     def update(self):
@@ -260,10 +260,10 @@ class Battle_Window:
         self.receivedPokeIndex = self.game.activePoke
         self.receivedEnemyPoke = self.game.oppPoke #(535, 65)
         
-        self.move1 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
-        self.move2 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
-        self.move3 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
-        self.move4 = self.smallfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
+        self.move1 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[0].moveName, 1, BLACK)
+        self.move2 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[1].moveName, 1, BLACK)
+        self.move3 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[2].moveName, 1, BLACK)
+        self.move4 = self.myfont.render(self.receivedPokeList[self.receivedPokeIndex].moveset[3].moveName, 1, BLACK)
 
         #variables for the player's health bar
         self.p1healthMax = self.game.pokemans[self.game.activePoke].stats[5]
@@ -333,8 +333,6 @@ class Battle_Window:
                         #hovering move 3
             if self.game.eventManager.up: #up button
                 self.theButtons.setCurrentbutton(0)
-            elif self.game.eventManager.left: #left button
-                self.theButtons.setCurrentbutton(1)
             elif self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(3)
             elif self.game.eventManager.enter:#sends moves[2]
@@ -357,32 +355,32 @@ class Battle_Window:
                         #hovering poke 1
             if self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
+            elif self.game.eventManager.down: #down button
+                self.theButtons.setCurrentbutton(2)
             elif self.game.eventManager.enter:#sends swap[0]
                 content.append(1)
                 content.append(0)
-                if(self.receivedPokeIndex!=0):#checking to see if it's current pokemon
+                if(self.receivedPokeIndex!=0 and self.receivedPokeList[0].current != 0):#checking to see if it's current pokemon
                     self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 1:
                         #hovering poke 2
             if self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(0)
-            elif self.game.eventManager.right: #right button
-                self.theButtons.setCurrentbutton(2)
             elif self.game.eventManager.enter:#sends swap[1]
                 content.append(1)
                 content.append(1)
-                if(self.receivedPokeIndex!=1):#checking to see if it's current pokemon
+                if(self.receivedPokeIndex!=1 and self.receivedPokeList[1].current != 0):#checking to see if it's current pokemon
                     self.game.networkManager.sendPacket(content)
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 2:
                         #hovering poke 3
-            if self.game.eventManager.left: #left button
-                self.theButtons.setCurrentbutton(1)
+            if self.game.eventManager.up: #up button
+                self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.enter:#sends swap[2]
                 content.append(1)
                 content.append(2)
-                if(self.receivedPokeIndex!=2):#checking to see if it's current pokemon
+                if(self.receivedPokeIndex!=2 and self.receivedPokeList[2].current != 0):#checking to see if it's current pokemon
                     self.game.networkManager.sendPacket(content)
                 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 0:
