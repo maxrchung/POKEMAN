@@ -285,7 +285,6 @@ class Battle_Window:
                 self.theButtons.setMenustate(1)
                 self.theButtons.setCurrentbutton(0)
                 self.moveVisible = True
-                        
 
         elif self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 1:
                         # hovering switch
@@ -317,6 +316,11 @@ class Battle_Window:
                 content.append(0)
                 content.append(0)
                 self.game.networkManager.sendPacket(content)
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(0)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 1:
                         # hovering move 2
@@ -328,6 +332,11 @@ class Battle_Window:
                 content.append(0)
                 content.append(1)
                 self.game.networkManager.sendPacket(content)
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(0)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
                         
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 2:
                         #hovering move 3
@@ -339,6 +348,11 @@ class Battle_Window:
                 content.append(0)
                 content.append(2)
                 self.game.networkManager.sendPacket(content)
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(0)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
 
         elif self.theButtons.getMenustate() == 1 and self.theButtons.getCurrentbutton() == 3:
                         #hovering move 4
@@ -350,6 +364,11 @@ class Battle_Window:
                 content.append(0)
                 content.append(3)
                 self.game.networkManager.sendPacket(content)
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(0)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 0:
                         #hovering poke 1
@@ -362,6 +381,11 @@ class Battle_Window:
                 content.append(0)
                 if(self.receivedPokeIndex!=0 and self.receivedPokeList[0].current != 0):#checking to see if it's current pokemon
                     self.game.networkManager.sendPacket(content)
+                    self.theButtons.setMenustate(0)
+                    self.theButtons.setCurrentbutton(1)
+                    self.moveVisible =False
+                    self.switchVisible = False
+                    self.forfeitVisible = False
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 1:
                         #hovering poke 2
@@ -372,6 +396,11 @@ class Battle_Window:
                 content.append(1)
                 if(self.receivedPokeIndex!=1 and self.receivedPokeList[1].current != 0):#checking to see if it's current pokemon
                     self.game.networkManager.sendPacket(content)
+                    self.theButtons.setMenustate(0)
+                    self.theButtons.setCurrentbutton(1)
+                    self.moveVisible =False
+                    self.switchVisible = False
+                    self.forfeitVisible = False
 
         elif self.theButtons.getMenustate() == 2 and self.theButtons.getCurrentbutton() == 2:
                         #hovering poke 3
@@ -382,6 +411,11 @@ class Battle_Window:
                 content.append(2)
                 if(self.receivedPokeIndex!=2 and self.receivedPokeList[2].current != 0):#checking to see if it's current pokemon
                     self.game.networkManager.sendPacket(content)
+                    self.theButtons.setMenustate(0)
+                    self.theButtons.setCurrentbutton(1)
+                    self.moveVisible =False
+                    self.switchVisible = False
+                    self.forfeitVisible = False
                 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 0:
                         #hovering yes
@@ -391,6 +425,11 @@ class Battle_Window:
                 content.append(2)
                 content.append(0)
                 self.game.networkManager.sendPacket(content)
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(2)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
 
         elif self.theButtons.getMenustate() == 3 and self.theButtons.getCurrentbutton() == 1:
                         #hovering no
@@ -399,17 +438,33 @@ class Battle_Window:
             elif self.game.eventManager.enter:
                 self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(2)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
 
-
-        if self.theButtons.getMenustate() == 1 or self.theButtons.getMenustate() == 2 or self.theButtons.getMenustate() == 3:
-            if self.game.eventManager.cancel: #escape button
+        if self.theButtons.getMenustate() == 1:
+            if self.game.eventManager.cancel:
                 self.theButtons.setMenustate(0)
                 self.theButtons.setCurrentbutton(0)
                 self.moveVisible =False
                 self.switchVisible = False
                 self.forfeitVisible = False
-
-
+        elif self.theButtons.getMenustate() == 2:
+            if self.game.eventManager.cancel:
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(1)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
+        elif self.theButtons.getMenustate() == 3:
+            if self.game.eventManager.cancel:
+                self.theButtons.setMenustate(0)
+                self.theButtons.setCurrentbutton(2)
+                self.moveVisible =False
+                self.switchVisible = False
+                self.forfeitVisible = False
         
     def run(self):
         while True:
