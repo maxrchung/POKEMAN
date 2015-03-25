@@ -152,6 +152,8 @@ class Game:
 #                 self.window = Battle_Window(self)
             elif command == "BattleStart":
                 self.textScroll.clear()
+                self.eventManager.textScrollActive = False
+                self.textScroll.waitForFlee = False
                 self.state = "Battle"
                 self.preb = True
                 self.preb_timer = pygame.time.get_ticks()
