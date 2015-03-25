@@ -35,9 +35,6 @@ while True:
     screen.blit(text1, (18+offset, 562-midHeight))
     '''
 
-    render = font25.render(textScroll.text, 0, (0, 0, 0))
-    screen.blit(render, (18+offset, 483-midHeight))
-
     textScroll.update()
     textScroll.draw()
 

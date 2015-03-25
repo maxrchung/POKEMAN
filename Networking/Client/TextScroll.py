@@ -1,10 +1,10 @@
 import pygame
+from Game import *
 
 class TextScroll:
-    def __init__(self, game=None, screen=None):
+    def __init__(self, game):
         self.text = ""
         self.game = game
-        self.screen = screen
 
         # Take this eventually from game
         self.font25 = pygame.font.Font("PKMN RBYGSC.ttf", 25)
@@ -58,22 +58,27 @@ class TextScroll:
         if not self.displayBlink:
             self.scrollTimer += self.scrollClock.tick()
             if self.scrollTimer > 30:
-                self.scrollTimer = 0
-                tempScroll = self.scroll
-                for index in range(len(self.texts)):
-                    if tempScroll < len(self.texts[index]):
-                        self.displayTexts[index] = self.texts[index][:tempScroll]
-                        break
-                    else:
+                if game.eventManager.enter:
+                    for index in range(len(self.texts)):
                         self.displayTexts[index] = self.texts[index]
-                        tempScroll -= len(self.texts[index])
+                        self.displayBlink = True
+                else:
+                    self.scrollTimer = 0
+                    tempScroll = self.scroll
+                    for index in range(len(self.texts)):
+                        if tempScroll < len(self.texts[index]):
+                            self.displayTexts[index] = self.texts[index][:tempScroll]
+                            break
+                        else:
+                            self.displayTexts[index] = self.texts[index]
+                            tempScroll -= len(self.texts[index])
 
-                self.scroll += 1
-                maxLength = 0
-                for text in self.texts:
-                    maxLength += len(text)
-                if self.scroll > maxLength:
-                    self.displayBlink = True
+                    self.scroll += 1
+                    maxLength = 0
+                    for text in self.texts:
+                        maxLength += len(text)
+                    if self.scroll > maxLength:
+                        self.displayBlink = True
 
         elif self.displayBlink:
             self.blinkTimer += self.blinkClock.tick()
@@ -83,7 +88,9 @@ class TextScroll:
                     self.blink = False
                 elif not self.blink:
                     self.blink = True
-
+            if game.eventManager.enter:
+                content = ['BattleTextUpdate??????']
+                game.networkManager.sendPacket(content)
 
     def draw(self):
         for i in range(len(self.displayTexts)):

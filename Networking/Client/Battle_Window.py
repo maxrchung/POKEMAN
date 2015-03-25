@@ -104,6 +104,9 @@ class Battle_Window:
 
         self.battling = False
 
+        self.blinkClock = pygame.time.Clock()
+        self.blinkTimer = 0
+        self.blink = True
 
         #draws the initial window
         self.draw()
@@ -173,8 +176,19 @@ class Battle_Window:
         self.display.blit(self.switchButton, (725-13-self.switchButton.get_rect().width/2, 483+13-self.switchButton.get_rect().height/2))
         self.display.blit(self.forfeitButton, (725-13-self .forfeitButton.get_rect().width/2, 565-13-self.forfeitButton.get_rect().height/2))
 
-        #load in the cursor
-        self.cursorimg = pygame.image.load("Menu_Cursor.png")
+        self.blinkTimer += self.blinkClock.tick()
+        if self.blinkTimer > 500:
+            self.blinkTimer = 0
+            if self.blink:
+                self.blink = False
+            else:
+                self.blink = True
+
+        if self.blink:
+            self.cursorimg = pygame.image.load("Menu_Cursor.png")
+        else:
+            self.cursorimg = pygame.image.load("blank.png")            
+            
         self.cursorimgrect = self.cursorimg.get_rect()
 
         #if the gamestate is in menu
