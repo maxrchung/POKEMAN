@@ -53,7 +53,7 @@ class TextScroll:
 
     def textWrap(self, text):
         test = text
-        textWrapped = [text]
+        textWrapped = []
         testRender = self.font25.render(test, 0, (0,0,0))
         if testRender.get_rect().width > 448:
             check = ""
@@ -74,6 +74,8 @@ class TextScroll:
                 i += 1
             textWrapped.append(text)
             #print(text)
+        else:
+            textWrapped = [text]
         return textWrapped
 
     def update(self):
