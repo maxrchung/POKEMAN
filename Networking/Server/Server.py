@@ -121,13 +121,19 @@ class Server:
             '''
             Battle will contain the GameState that will be updated
             '''
+            battle.update()
             if battle.over == True:
+                battle.over = False
                 if battle.client1.lose==True:
                     client = battle.client1
                     winner = battle.client2
                 else:
                     client = battle.client2
                     winner = battle.client1
+                client.lose = False
+                client.win = False
+                winner.win = False
+                winner.lose = False
                 winner.sendPacket(["Result","Win"])
                 client.sendPacket(["Result","Loss"])
                 client.draft = [] # clear draft
@@ -140,4 +146,3 @@ class Server:
                 client.sendPacket(content)
                 self.waitingQueue.append(winner)
                 self.battles.remove(battle)
-            battle.update()

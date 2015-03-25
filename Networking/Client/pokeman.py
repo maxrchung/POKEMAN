@@ -28,7 +28,8 @@ class pokeman(object):
                 'WONKTER','DOOSBY','HYU','DOGER','GIET','BLUEBY','TEMPNAME','KIRKLE','BLOPY','???','KINGU',
                 'HALP','BOOTHSE','KOKMAW','PYTH','HONT','FLAOW','JONK','BRO','MANG','KARLVE','DOSKEY','RICHARD',
                 'POPSTER','WONN','SWAGSON','CH0L0','GOG','H4CKER','DOMEN','GENRAY','CANCER, THE WORST KIND',
-                'DAYTUCKER','NIGHTHUKKR','T00MIR','DIBSTA','BLOBOI','BLEHKSTA','YUUSUUPU','KOUME','CYL']
+                'DAYTUCKER','NIGHTHUKKR','T00MIR','DIBSTA','BLOBOI','BLEHKSTA','YUUSUUPU','KOUME','CYL','CHARKLEY',
+                'JLAM SAM','BARKLES','DOGESWORTH','SWOOGITYLORD','MUH','PACE KAM','ACE NAM','GASE WAM','CHASE PAM']
     statBase =[40,50,60,70,80,85]
     def __init__(self, type,gender):
         '''
