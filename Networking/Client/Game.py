@@ -170,6 +170,7 @@ class Game:
                     self.battlestr = battletext(self,data)
                     self.battlestr += '  ' + battletext(self,data[3:len(data)])
                 else:
+                    self.battlestr = battletext(self,data)
                     if data[1] == 1:
                         self.textScroll.waitForFlee = True
                 self.textScroll.load(self.battlestr)
