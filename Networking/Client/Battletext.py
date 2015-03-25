@@ -33,9 +33,9 @@ def battletext (game,packet):
                 battlestr += ', he healed!'
         else:
             if packet[1] == 0:
-                if effectiveness(packet[3],game.pokemans[game.activePoke]) == 0.5:
+                if effectiveness(packet[3],game.oppPoke) == 0.5:
                     battlestr += ', it was not very effective...'
-                elif effectiveness(packet[3],game.pokemans[game.activePoke]) == 2:
+                elif effectiveness(packet[3],game.oppPoke) == 2:
                     battlestr += ', it was super effective!'
                 else:
                     battlestr += '!'
