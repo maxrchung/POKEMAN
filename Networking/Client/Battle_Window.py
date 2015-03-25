@@ -171,9 +171,9 @@ class Battle_Window:
             self.display.blit(text,(100,600))
             return
         #draws the menu buttons
-        self.display.blit(self.fightButton, (520, 502))
-        self.display.blit(self.switchButton, (657, 502))
-        self.display.blit(self.forfeitButton, (565, 562))
+        self.display.blit(self.fightButton, (575+13-self.fightButton.get_rect().width/2, 483+13-self.fightButton.get_rect().height/2))
+        self.display.blit(self.switchButton, (725-13-self.switchButton.get_rect().width/2, 483+13-self.switchButton.get_rect().height/2))
+        self.display.blit(self.forfeitButton, (725-13-self.forfeitButton.get_rect().width/2, 565-13-self.forfeitButton.get_rect().height/2))
 
         #load in the cursor
         self.cursorimg = pygame.image.load("Menu_Cursor.png")
@@ -184,13 +184,13 @@ class Battle_Window:
         #then match the blit to the current button
             #button on FIGHT
             if self.theButtons.getCurrentbutton() == 0:
-                self.display.blit(self.cursorimg, (500, 502))
+                self.display.blit(self.cursorimg, (575+13-self.fightButton.get_rect().width/2-28, 483+13-self.fightButton.get_rect().height/2))
             #button on SWITCH
             elif self.theButtons.getCurrentbutton() == 1:
-                self.display.blit(self.cursorimg, (637, 502))
+                self.display.blit(self.cursorimg, (725-13-self.switchButton.get_rect().width/2-28, 483+13-self.switchButton.get_rect().height/2))
             #button on FORFEIT
             elif self.theButtons.getCurrentbutton() == 2:
-                self.display.blit(self.cursorimg, (545, 562))
+                self.display.blit(self.cursorimg, (725-13-self.forfeitButton.get_rect().width/2-28, 565-13-self.forfeitButton.get_rect().height/2))
 
 
         #if the menustate is on moves
