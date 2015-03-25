@@ -33,9 +33,10 @@ class TextScroll:
         self.waitForFlee = False
 
     def load(self, text):
+        print(text)
         textWrapped = self.textWrap(text)
-        #print("Loaded into store:",textWrapped)
-        #print('TextScroll Load running!')
+        print("Loaded into store:",textWrapped)
+        print('TextScroll Load running!')
         while len(textWrapped) > 3:
             self.store.append(textWrapped[:3])
             textWrapped = textWrapped[3:]
@@ -43,16 +44,16 @@ class TextScroll:
         
         self.game.eventManager.textScrollActive = True
 
-        #print('Store:',self.store)
+        print('Store:',self.store)
 
         self.display = True
         self.texts = self.store.popleft()
         
-        #print(self.texts)
+        print(self.texts)
 
     def textWrap(self, text):
         test = text
-        textWrapped = []
+        textWrapped = [text]
         testRender = self.font25.render(test, 0, (0,0,0))
         if testRender.get_rect().width > 448:
             check = ""
@@ -115,10 +116,10 @@ class TextScroll:
                     self.blink = True
             if self.game.eventManager.enter:
                 if self.store: # If there are more messages
-                    #print('Going to next store...')
+                    print('Going to next store...')
                     self.texts = self.store.popleft()
                     self.displayTexts = ['','','']
-                    #print(self.texts)
+                    print(self.texts)
                     self.scroll = 0
                     self.displayBlink = False
                         
@@ -126,7 +127,7 @@ class TextScroll:
                     if self.waitForFlee:
                        self.waitForFlee = False
                        self.game.state = "Queue"
-                    #print('TextScroll finished displaying')
+                    print('TextScroll finished displaying')
                     self.scroll = 0
                     self.store = deque()
                     self.displayBlink = False

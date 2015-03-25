@@ -151,6 +151,7 @@ class Game:
                 self.gameState = data[1]
 #                 self.window = Battle_Window(self)
             elif command == "BattleStart":
+                self.textScroll.clear()
                 self.state = "Battle"
                 self.preb = True
                 self.preb_timer = pygame.time.get_ticks()
@@ -173,8 +174,8 @@ class Game:
                     self.battlestr = battletext(self,data)
                     if data[1] == 1:
                         self.textScroll.waitForFlee = True
-                self.textScroll.load(self.battlestr)
                 print("Battletext:",self.battlestr)
+                self.textScroll.load(self.battlestr)
             elif command == "Result":
                 if data[1] == "Win":
                     self.streak+=1
