@@ -143,7 +143,7 @@ class Game:
                 The GameState should be in the state managements
                 '''
                 self.gameState = data[1]
-                self.window = Battle_Window(self)
+#                 self.window = Battle_Window(self)
             elif command == "BattleStart":
                 self.preb = True
                 self.preb_timer = pygame.time.get_ticks()

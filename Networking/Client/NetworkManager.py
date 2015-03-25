@@ -9,7 +9,7 @@ from Game import *
 # Winston:
 #TCP_IP = '192.168.42.125'
 # Max:
-TCP_IP = '192.168.42.106'
+TCP_IP = '192.168.42.125'
 
 
 class NetworkManager:
