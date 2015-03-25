@@ -5,7 +5,7 @@ class Battle_Buttons:
     #Buttons for Battle 
     def __init__(self):
         self.keys = [False, False, False, False, False, False]
-        self.menuButtons = ['Fight', 'Switch', 'forfeit']
+        self.menuButtons = ['ATTK', 'SWAP', 'FLEE']
         self.pokeButtons = ['Poke 1', 'Poke 2','Poke 3']
         self.moveButtons = ['Move 1', 'Move 2', 'Move 3', 'Move 4']
         self.forfeitButtons = ['Yes','No']

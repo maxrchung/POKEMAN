@@ -28,7 +28,7 @@ class Battle_Window:
         #pokemon images
 
         #player 1
-        self.p1coord       = (40, 185)
+        self.p1coord       = (72, 189)
         self.p1rapperimg   = pygame.image.load("NAKEDMAN2BACK.png")
         self.p1delinqimg   = pygame.image.load("NAKEDMAN4BACK.png")
         self.p1nerdimg     = pygame.image.load("NAKEDMAN5BACK.png")
@@ -36,7 +36,7 @@ class Battle_Window:
         self.p1homelessimg = pygame.image.load("NAKEDMANBACK.png")
     
         #player 2
-        self.p2coord       = (535, 60)
+        self.p2coord       = (536, 86)
         self.p2rapperimg   = pygame.image.load("NAKEDMAN2.png")
         self.p2delinqimg   = pygame.image.load("NAKEDMAN4.png")
         self.p2nerdimg     = pygame.image.load("NAKEDMAN5.png")
@@ -122,29 +122,29 @@ class Battle_Window:
         #draws the elements onto the screen
         self.display.blit(self.overlay, self.overlayRect)
         self.poke1 = self.myfont.render(self.poke1Name, 1, BLACK)
-        self.display.blit(self.poke1, (530, 260))                         
+        self.display.blit(self.poke1, (511  , 259))                         
         self.poke2 = self.myfont.render(self.poke2Name, 1, BLACK)
-        self.display.blit(self.poke2, (padx + 80, pady))
-
+        self.display.blit(self.poke2, (112, 20))
+ 
         #conditionals to check the color of the hp bars
 
         #filling in the health bars        
         if (self.p1healthPercentage <= 15):          #<----Health is below 15%
-            pygame.draw.rect(self.display, RED, (522 + 235*((100 - self.p1healthPercentage) / 100), 298, 235*(self.p1healthPercentage / 100), 9)) #player 1 Health Bar
+            pygame.draw.rect(self.display, RED, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 240*(self.p1healthPercentage / 100), 9)) #player 1 Health Bar
         elif(self.p1healthPercentage <= 50):         #<----Health is below 50%
-            pygame.draw.rect(self.display, YELLOW, (522 + 235*((100 - self.p1healthPercentage) / 100), 298, 235*(self.p1healthPercentage / 100), 9))
+            pygame.draw.rect(self.display, YELLOW, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 240*(self.p1healthPercentage / 100), 9))
         else:                                        #<----Health is above 50%
-            pygame.draw.rect(self.display, GREEN, (522 + 235*((100 - self.p1healthPercentage) / 100), 298, 235*(self.p1healthPercentage / 100), 9))
+            pygame.draw.rect(self.display, GREEN, (515 + 240*((100 - self.p1healthPercentage) / 100), 298, 240*(self.p1healthPercentage / 100), 9))
         if (self.p2healthPercentage <= 15):
-            pygame.draw.rect(self.display, RED, (114, 59, 235*(self.p2healthPercentage / 100), 9)) #player 2 Health Bar
+            pygame.draw.rect(self.display, RED, (116, 59, 240*(self.p2healthPercentage / 100), 9)) #player 2 Health Bar
         elif (self.p2healthPercentage <= 50):
-            pygame.draw.rect(self.display, YELLOW, (114, 59, 235*(self.p2healthPercentage / 100), 9))
+            pygame.draw.rect(self.display, YELLOW, (116, 59, 240*(self.p2healthPercentage / 100), 9))
         else:
-            pygame.draw.rect(self.display, GREEN, (114, 59, 235*(self.p2healthPercentage / 100), 9))
+            pygame.draw.rect(self.display, GREEN, (116, 59, 240 *(self.p2healthPercentage / 100), 9))
 
         #draws the health number below the health bar
         self.healthtextRender = self.myfont.render(self.p1healthtext, 0, BLACK)
-        self.display.blit(self.healthtextRender, (550, 320))
+        self.display.blit(self.healthtextRender, (550, 317))
         if self.receivedPokeList[self.receivedPokeIndex].type == 0:  #rapper
             self.display.blit(self.p1rapperimg, self.p1coord)
         elif self.receivedPokeList[self.receivedPokeIndex].type == 1: #delinquent child
@@ -279,9 +279,7 @@ class Battle_Window:
         if self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 0:
                         # hovering moves
 
-            if self.game.eventManager.down: #down button
-                self.theButtons.setCurrentbutton(2)
-            elif self.game.eventManager.right: #right button
+            if self.game.eventManager.right: #right button
                 self.theButtons.setCurrentbutton(1)
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(1)
@@ -303,11 +301,7 @@ class Battle_Window:
         elif self.theButtons.getMenustate() == 0 and self.theButtons.getCurrentbutton() == 2:
                         # hovering forfeit
             if self.game.eventManager.up: #up button
-                self.theButtons.setCurrentbutton(0)
-            elif self.game.eventManager.left: #left button
                 self.theButtons.setCurrentbutton(1)
-            elif self.game.eventManager.right: #right button
-                self.theButtons.setCurrentbutton(0)
             elif self.game.eventManager.enter: #enter button
                 self.theButtons.setMenustate(3)
                 self.theButtons.setCurrentbutton(0)
