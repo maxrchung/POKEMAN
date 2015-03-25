@@ -130,6 +130,7 @@ class TextScroll:
                        self.waitForFlee = False
                        self.game.state = "Queue"
                     print('TextScroll finished displaying')
+                    self.game.wait = False
                     self.scroll = 0
                     self.store = deque()
                     self.displayBlink = False
