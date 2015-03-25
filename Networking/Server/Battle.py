@@ -59,38 +59,70 @@ class Battle:
 #                 self.client1.sendPacket(content1)
 #                 self.client2.sendPacket(content2)
     def turn(self, commandOne, indexOne, commandTwo, indexTwo):
+        content1 = ["Battletext"]
+        content2 = ["Battletext"]
         self.lastTurn = [commandOne, indexOne, commandTwo, indexTwo]
         if commandOne == 2: #if p1 flees
+            self.sA2(content1,0,"FF")
+            self.sA2(content2,1,"FF")
             self.client1.lose=True
             self.client2.win=True
+            self.sp(content1,content2)
             return
         if commandTwo == 2: #p2 flees
+            self.sA2(content1,1,"FF")
+            self.sA2(content2,0,"FF")
             self.client2.lose=True
             self.client1.win =True
+            self.sp(content1,content2)
             return
         if commandOne == 1 or commandTwo == 1: #someone is swapping out 
             if commandOne == 1: #swap1
+                self.sA3(content1,0,"Swap",str(self.pokeOne))
+                self.sA3(content2,1,"Swap",str(self.pokeOne))
+                self.sP(content1, content2)
                 self.client1.active = indexOne
                 self.pokeOne = self.playerOne[indexOne]
             if commandTwo == 1: #swap2
+                self.sA3(content1,0,"Swap",str(self.pokeTwo))
+                self.sA3(content2,1,"Swap",str(self.pokeTwo))
+                self.sP(content1, content2)
                 self.client2.active = indexTwo
                 self.pokeTwo = self.playerTwo[indexTwo]
         if commandOne == 0 and commandTwo == 0: #no one is swapping out
             if self.pokeOne.stats[4] >= self.pokeTwo.stats[4]: #based on speed
                 #issue command 1
+                self.sA3(content1,0,"Move",self.pokeOne.moveset[indexOne])
+                self.sA3(content2,1,"Move",self.pokeOne.moveset[indexOne])
+                self.sP(content1, content2)
                 self.command(1,self.pokeOne.moveset[indexOne])
                 #issue command 2
+                self.sA3(content1,1,"Move",self.pokeTwo.moveset[indexTwo])
+                self.sA3(content2,0,"Move",self.pokeTwo.moveset[indexTwo])
+                self.sP(content1, content2)
                 self.command(2,self.pokeTwo.moveset[indexTwo])
             else:
                 # command 2
+                self.sA3(content1,1,"Move",self.pokeTwo.moveset[indexTwo])
+                self.sA3(content2,0,"Move",self.pokeTwo.moveset[indexTwo])
+                self.sP(content1, content2)
                 self.command(2,self.pokeTwo.moveset[indexTwo])
                 # command 1
+                self.sA3(content1,0,"Move",self.pokeOne.moveset[indexOne])
+                self.sA3(content2,1,"Move",self.pokeOne.moveset[indexOne])
+                self.sP(content1, content2)
                 self.command(1,self.pokeOne.moveset[indexOne])
         elif commandOne == 0: #happens after swap
             # command 1
+            self.sA3(content1,0,"Move",self.pokeOne.moveset[indexOne])
+            self.sA3(content2,1,"Move",self.pokeOne.moveset[indexOne])
+            self.sP(content1, content2)
             self.command(1,self.pokeOne.moveset[indexOne])
         elif commandTwo == 0:
             # command 2
+            self.sA3(content1,1,"Move",self.pokeTwo.moveset[indexTwo])
+            self.sA3(content2,0,"Move",self.pokeTwo.moveset[indexTwo])
+            self.sP(content1, content2)
             self.command(2,self.pokeTwo.moveset[indexTwo])
     '''
     0 is move
@@ -150,4 +182,20 @@ class Battle:
             if pokeList[i].current !=0:
                 return i
         return -1    
-        
+    def sA2(self,li,obj1,obj2):
+        li.append(obj1)
+        li.append(obj2)
+    def sA3(self,li,obj1,obj2,obj3):
+        li.append(obj1)
+        li.append(obj2)
+        li.append(obj3)
+    def sA4(self,li,obj1,obj2,obj3,obj4):
+        li.append(obj1)
+        li.append(obj2)
+        li.append(obj3)
+        li.append(obj4)
+    def sP(self,content1,content2):
+        self.client1.sendPacket(content1)
+        self.client2.sendPacket(content2)
+        content1 = ["Battletext"]
+        content2 = ["Battletext"]
