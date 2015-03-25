@@ -151,8 +151,9 @@ class Game:
                 if data[1] == "Win":
                     self.streak+=1
                     self.state = "Queue"
-                if data[1] == "Lose":
+                if data[1] == "Loss":
                     self.streak = 0
+                    self.pokemans = []
                     self.state = "Draft"
                 
         self.networkManager.messageLock.release()
