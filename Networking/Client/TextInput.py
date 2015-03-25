@@ -55,6 +55,7 @@ class TextInput:
             elif self.letters[self.index] == 'CLR':
                 self.input = ''
             elif self.letters[self.index] == 'ENT':
+                self.game.p1name = self.input
                 content = ['Login', self.input]
                 self.game.networkManager.sendPacket(content)
                 self.state = "Draft" # Switch to draft state after

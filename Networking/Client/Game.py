@@ -33,6 +33,8 @@ class Game:
 
         # Brings up a TextInput that'll be used to enter in text
         self.textInput = TextInput(self)
+        self.p1name = ''
+        self.p2name = ''
 
         pygame.display.set_caption("POKEMANS")
         self.screen = pygame.display.set_mode((800, 600))
@@ -51,6 +53,8 @@ class Game:
         self.sel = 0
         self.login = 0
         self.timer1 = 0
+        self.preb_timer = 0
+        self.preb = True
         self.flash1 = False
         self.networkManager = NetworkManager(self)
         
@@ -129,6 +133,7 @@ class Game:
                 self.draft = data[1] # Temporary placeholder
 
             elif command == "Battle":
+#                 self.state = "Pre-Battle"
                 self.state = "Battle"
                 self.wait = False
                 '''
@@ -140,7 +145,10 @@ class Game:
                 self.gameState = data[1]
                 self.window = Battle_Window(self)
             elif command == "BattleStart":
+                self.preb = True
+                self.preb_timer = pygame.time.get_ticks()
                 self.activePoke = 0
+                self.p2name = data[2]
                 self.oppPoke = data[1]
                 self.battle_window = Battle_Window(self)
                 print()
@@ -207,10 +215,11 @@ class Game:
             pass
 
         elif self.state == "Battle":
-            self.pokemans=self.gameState[0]
-            self.activePoke= self.gameState[1]
-            self.oppPoke = self.gameState[2]
-            self.battle_window.update()
+            if self.preb != True:
+                self.pokemans=self.gameState[0]
+                self.activePoke= self.gameState[1]
+                self.oppPoke = self.gameState[2]
+                self.battle_window.update()
             
             '''
             Update the GameState here
@@ -344,7 +353,16 @@ class Game:
                     self.screen.blit(self.font16.render(str(self.pokemans[i].moveset[s].moveName).upper(),0,(0,0,0)),(150+ 250*i - 55,450+20*s))
         
         if self.state == "Battle":
-            self.battle_window.draw()
+            if self.preb == True:
+                self.screen.blit(self.font32.render(self.p1name,0,(0,0,0)),(150 - self.font32.render(self.p1name,0,(0,0,0)).get_rect().width*0.5,284))
+                self.screen.blit(self.font32.render(self.p2name,0,(0,0,0)),(650 - self.font32.render(self.p2name,0,(0,0,0)).get_rect().width*0.5,284))
+                self.screen.blit(self.font64.render("BATTLE FOUND!",0,(0,0,0)),(400 - self.font64.render("BATTLE FOUND!",0,(0,0,0)).get_rect().width*0.5,64))
+                self.screen.blit(self.font64.render("VS",0,(0,0,0)),(400 - self.font64.render("VS",0,(0,0,0)).get_rect().width*0.5,268))
+                self.screen.blit(self.font64.render(str(int(6 - ((pygame.time.get_ticks() - self.preb_timer) /1000))),0,(0,0,0)),(400 - self.font64.render(str(int(5 - ((pygame.time.get_ticks() - self.preb_timer) /1000))),0,(0,0,0)).get_rect().width*0.5,450))
+                if pygame.time.get_ticks() - self.preb_timer > 5000:
+                    self.preb = False
+            else:
+                self.battle_window.draw()
 
         self.screen.blit(self.background, (0,0))
 
