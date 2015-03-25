@@ -17,7 +17,7 @@ def battletext (game,packet):
             battlestr += game.pokemans[game.activePoke].name + ' used '
         elif packet[1] == 1:
             battlestr += game.oppPoke.name + ' used '
-            battlestr += packet[3].moveName
+        battlestr += packet[3].moveName
         if packet[3].buff == True:
             if packet[3].buffstat == 0:
                 battlestr += ', atk has risen!'
@@ -32,12 +32,20 @@ def battletext (game,packet):
             elif packet[3].buffstat == 5:
                 battlestr += ', he healed!'
         else:
-            if effectiveness(packet[3],game.oppPoke) == 0.5:
-                battlestr += ', it was not very effective...'
-            elif effectiveness(packet[3],game.oppPoke) == 2:
-                battlestr += ', it was super effective!'
-            else:
-                battlestr += '!'
+            if packet[1] == 0:
+                if effectiveness(packet[3],game.pokemans[game.activePoke]) == 0.5:
+                    battlestr += ', it was not very effective...'
+                elif effectiveness(packet[3],game.pokemans[game.activePoke]) == 2:
+                    battlestr += ', it was super effective!'
+                else:
+                    battlestr += '!'
+            if packet[1] == 1:
+                if effectiveness(packet[3],game.pokemans[game.activePoke]) == 0.5:
+                    battlestr += ', it was not very effective...'
+                elif effectiveness(packet[3],game.pokemans[game.activePoke]) == 2:
+                    battlestr += ', it was super effective!'
+                else:
+                    battlestr += '!'
     else:
         raise TypeError('???')
     return battlestr.upper()

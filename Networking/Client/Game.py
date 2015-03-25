@@ -5,6 +5,7 @@ from TextInput import *
 from pokeman import pokeman
 from Battle_Window import *
 from random import randint
+from Battletext import battletext
 class Game:
     def __init__(self):
         pygame.init()
@@ -41,6 +42,8 @@ class Game:
         self.streak = 0
         self.running = True
         self.state = "Pre-Login"
+        
+        self.battlestr = ''
         
         self.draft = [pokeman(1,0),pokeman(2,0),pokeman(3,0)] # The pokemans in the draft
         self.pokemans = [] # The pokemans selected
@@ -145,15 +148,23 @@ class Game:
                 self.gameState = data[1]
 #                 self.window = Battle_Window(self)
             elif command == "BattleStart":
+                self.state = "Battle"
                 self.preb = True
                 self.preb_timer = pygame.time.get_ticks()
                 self.activePoke = 0
-                self.p2name = data[2]
                 self.oppPoke = data[1]
+                self.p2name = data[2]
+                self.gameState = []
+                self.gameState.append(self.pokemans)
+                self.gameState.append(self.activePoke)
+                self.gameState.append(self.oppPoke)
                 self.battle_window = Battle_Window(self)
                 print("Switched to Battle")
             elif command == "BattleWait":
                 self.wait = True
+            elif command == "Battletext":
+                self.battlestr = battletext(self,data)
+                print(self.battlestr)
             elif command == "Result":
                 if data[1] == "Win":
                     self.streak+=1
