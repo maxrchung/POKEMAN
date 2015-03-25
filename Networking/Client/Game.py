@@ -234,7 +234,7 @@ class Game:
                 self.activePoke= self.gameState[1]
                 self.oppPoke = self.gameState[2]
                 self.battle_window.update()
-            self.textScroll.update()
+                self.textScroll.update()
     def draw(self):
         self.screen.fill((255,255,255))
         if self.state == "Pre-Login":
