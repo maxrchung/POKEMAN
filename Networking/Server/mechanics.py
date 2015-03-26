@@ -23,17 +23,17 @@ class move():
         self.moveName = moveline[1].upper()
         if moveline[2] != 'buff':
             if moveline[2] == 'very low':
-                self.power = 0
+                self.power = 7
             elif moveline[2] == 'low':
-                self.power = 1
+                self.power = 7.5
             elif moveline[2] == 'med':
-                self.power = 2
+                self.power = 8
             elif moveline[2] == 'high':
-                self.power = 3
+                self.power = 9
             elif moveline[2] == 'very high':
-                self.power = 4
+                self.power = 9.5
             elif moveline[2] == 'vv high':
-                self.power = 5
+                self.power = 10
             self.hitchance = int(moveline[3])
             if moveline[4] == 'ph':
                 self.atk = 0

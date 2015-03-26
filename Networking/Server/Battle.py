@@ -1,6 +1,6 @@
 import pygame
 from mechanics import effectiveness
-
+from random import random
 class Battle:
     def __init__(self, client1, client2):
         self.client1 = client1 
@@ -147,7 +147,7 @@ class Battle:
         else: #it's an attack
             if(player == 1): #p1
                 self.pokeTwo.current-=self.damage(self.pokeOne,self.pokeTwo,ability)
-                if self.pokeTwo.current<0: #if p2 is dead
+                if self.pokeTwo.current<1: #if p2 is dead
                     self.pokeTwo.current=0 
                     x = self.nextActive(self.playerTwo)
                     if x != -1: #they have another alive pokeman
@@ -158,7 +158,7 @@ class Battle:
                     #ded
             else: #p2
                 self.pokeOne.current-=self.damage(self.pokeTwo,self.pokeOne,ability)
-                if self.pokeOne.current<0:
+                if self.pokeOne.current<1:
                     self.pokeOne.current=0
                     self.client1.active = self.nextActive(self.playerOne)
                     x = self.nextActive(self.playerTwo)
@@ -174,10 +174,12 @@ class Battle:
             stab=1.5
         else:
             stab=1
+        dmgMod = 1
+        r = random()*.15+.85
         if(ability.type==0): #physical
-            return ability.power*attker.stats[0]/defender.stats[1]*stab*effectiveness(ability,defender)
+            return (dmgMod*ability.power*attker.stats[0]/defender.stats[1]+2)*r*stab*effectiveness(ability,defender)
         else: #special
-            return ability.power*attker.stats[2]/defender.stats[3]*stab*effectiveness(ability,defender)
+            return (dmgMod*ability.power*attker.stats[2]/defender.stats[3]+2)*r*stab*effectiveness(ability,defender)
     def nextActive(self,pokeList): #returns the next alive pokemon in the list
         for i in range (3):
             if pokeList[i].current !=0:
