@@ -181,6 +181,8 @@ class Game:
             elif command == "Result":
                 if data[1] == "Win":
                     self.streak+=1
+                    for pokeman in self.pokemans:
+                        pokeman.current = pokeman.stats[5]
                     if not self.textScroll.waitForFlee:
                         self.state = "Queue"
                 if data[1] == "Loss":

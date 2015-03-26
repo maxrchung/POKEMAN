@@ -152,6 +152,8 @@ class Server:
                 winner.win = False
                 winner.lose = False
                 winner.sendPacket(["Result","Win"])
+                for pokeman in winner.pokemans:
+                    pokeman.current = pokeman.stats[5]
                 client.sendPacket(["Result","Loss"])
                 client.draft = [] # clear draft
                 client.pokemans =[] #clears pokeman
