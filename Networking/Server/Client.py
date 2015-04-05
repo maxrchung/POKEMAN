@@ -60,12 +60,12 @@ class Client:
             pass
 
     def disconnect(self):
-        self.running = False
-        print('1')
-        self.socket.shutdown(SHUT_RDWR)
-        print('2')
-        self.socket.close()
+        try:
+            self.running = False
+            print('disconnected client')
+            self.socket.shutdown(SHUT_RDWR)
+            self.socket.close()
 
-        print('4')
-        self.messageThread.join()
-        print('5')
+            self.messageThread.join()
+        except:
+            pass
