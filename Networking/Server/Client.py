@@ -1,6 +1,5 @@
 import threading
 import pickle
-import _thread
 from NetworkManager import *
 from collections import deque
 from socket import *
@@ -39,7 +38,6 @@ class Client:
         while self.running:
             try:
                 pickledData = self.socket.recv(4096)
-
                 data = pickle.loads(pickledData)
             
                 print(data)

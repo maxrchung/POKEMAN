@@ -1,15 +1,16 @@
 import threading
 import pickle
-import _thread
 from collections import deque
 from socket import *
 from Game import *
 
 # Change this value if you want another computer to host server
 # Winston:
-TCP_IP = '192.168.42.125'
+# TCP_IP = '192.168.42.125'
 # Max:
 # TCP_IP = '192.168.42.106'
+# Max's server:
+TCP_IP = '162.243.152.58'
 
 
 class NetworkManager:

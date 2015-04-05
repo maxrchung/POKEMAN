@@ -1,6 +1,5 @@
 import threading
 import pickle
-import _thread
 from Client import *
 from collections import deque
 from socket import *
@@ -25,7 +24,7 @@ class NetworkManager:
         self.socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 
         # Port 6969
-        self.socket.bind((self.ip, 6969))
+        self.socket.bind(('162.243.152.58', 6969))
         self.socket.listen(1)
 
         self.connectionLock = threading.Lock()
