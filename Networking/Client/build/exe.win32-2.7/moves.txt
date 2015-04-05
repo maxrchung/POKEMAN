@@ -1,0 +1,20 @@
+rapper,rhyme,low,100,sp
+rapper,blaze,buff,100,sdef
+rapper,driveby,high,40,ph
+rapper,flaunt,buff,100,sdef
+nerd,consume,buff,100,hp
+nerd,cosplay,buff,100,def
+nerd,hack,med,95,sp
+nerd,troll,high,80,sp
+child,lick,low,100,ph
+child,hide,buff,100,def
+child,rest,buff,100,hp
+child,tantrum,high,70,sp
+gangster,smuggle,buff,100,sdef
+gangster,steal,buff,100,spd
+gangster,mug,med,90,ph
+gangster,shank,high,80,ph
+hobo,vandalize,med,90,ph
+hobo,urinate,low,80,ph
+hobo,defecate,very high,100,ph
+hobo,endure,buff,100,def
